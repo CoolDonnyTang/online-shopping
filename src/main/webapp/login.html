@@ -1,20 +1,70 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    
-    <title>请登录</title>
-
-    <!-- Bootstrap -->
-    <link href="resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <h1>你好，世界！</h1>
-
-    <script src="resources/plugins/jquery-2.2.4.min.js"></script>
-    <script src="resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-  </body>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+		
+		<title>请登录</title>
+		
+		<!-- Bootstrap -->
+		<link href="resources/plugins/bootstrap/css/bootstrap.min.css"
+			rel="stylesheet">
+		<link href="resources/my-css/login.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="login-logo">
+				<img src="resources/images/logo.png" class="login-logo-image">
+			</div>
+			<div class="loin-page-body">
+				<div class="login-container">
+					<div class="login-kind">
+						<h5>
+							<strong>账户登录</strong>
+						</h5>
+					</div>
+					<div class="input-group user-message">
+						<span class="input-group-addon" id="basic-addon1"><span
+							class="glyphicon glyphicon-user"></span></span> <input type="text"
+							class="form-control" placeholder="用户名"
+							aria-describedby="basic-addon1">
+					</div>
+					<div class="input-group user-message">
+						<span class="input-group-addon" id="basic-addon2"><span
+							class="glyphicon glyphicon-lock"></span></span> <input type="password"
+							class="form-control" placeholder="密码"
+							aria-describedby="basic-addon2">
+					</div>
+					<button type="button" class="btn btn-danger btn-login">登录</button>
+					<div class="login-error">
+						<span class="error-icon"></span> 用户名或密码错误
+					</div>
+					<div class="find-pwd-or-register">
+						<ul class="operation-list">
+							<li><a>忘记密码</a></li>
+							<li><a>免费注册</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<hr />
+			<div class="page-footer-body text-center">
+				<ul class="footer-list">
+					<li>关于我们</li>
+					<li>联系我们</li>
+					<li>亲情加盟</li>
+					<li>商城社区</li>
+					<li>我在中国</li>
+					<li>友情链接</li>
+				</ul>
+			</div>
+			<div class="page-copyright text-center">
+				Copyright &copy; 2017 <strong>爱购商城i-go.shop</strong> 版权所有
+			</div>
+		</div>
+		<script src="resources/plugins/jquery-2.2.4.min.js"></script>
+		<script src="resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+	</body>
 </html>

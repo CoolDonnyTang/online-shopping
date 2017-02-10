@@ -1,0 +1,81 @@
+div {
+	/* border:1px red solid; */
+}
+.login-logo {
+	 padding:10px 0 10px 80px;
+}
+.login-logo-image {
+	display: inline-block;
+	width: 108px;
+	height:48px;
+}
+.loin-page-body {
+	overflow: auto;
+	height:500px;
+	background-image: url("../images/login-background.jpg");
+	background-position: center;
+}
+.login-container {
+	width:300px;
+	height:300px;
+	float:right;
+	margin:100px 160px 0 0;
+	padding:30px 20px;
+	background-color: #fff;
+}
+.page-footer {
+	font-size: 12px;
+}
+.login-kind {
+	margin-bottom: 30px;
+}
+.user-message {
+	margin-bottom: 16px;
+}
+.btn-login {
+	width:100%;
+}
+.login-error {
+	font-size: 14px;
+	color:#ff4400;
+	margin:10px 0;
+}
+.error-icon {
+	display: inline-block;
+	width:14px;
+	height:14px;
+	background-image: url("../images/error-14px.png");
+}
+.find-pwd-or-register a {
+	font-size: 12px;
+	color:#6c6c6c;
+}
+.operation-list {
+	overflow:auto;
+	list-style: none;
+	padding:0;
+	margin:0;
+}
+.operation-list li {
+	float:right;
+	margin-right: 20px;
+}
+.operation-list li a:HOVER,.footer-list li:HOVER {
+	color:#ff4400;
+	cursor: pointer;
+}
+.footer-list {
+	font-size:12px;
+	overflow:auto;
+	list-style: none;
+	padding:0;
+	display: inline-block;
+	margin:0 auto;
+}
+.footer-list li {
+	float:left;
+	margin:0 10px;
+}
+.page-copyright {
+	font-size:12px;
+}
