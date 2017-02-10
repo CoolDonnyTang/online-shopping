@@ -1,0 +1,52 @@
+div {
+	/* border:1px solid red; */
+}
+.register-page-header {
+	height:36px;
+	line-height:30px;
+	color:#fff;
+	font-size: 18px;
+	background-image: url("../images/register-header.png");
+	margin-bottom: 20px;
+}
+.register-body {
+	overflow: auto;
+}
+.email-message {
+	display: inline-block;
+}
+.register-image {
+	display: inline-block;
+	height: 28px;
+	width:28px;
+	margin-right: 10px;
+}
+.input-user-info table {
+	width:100%;
+}
+.input-user-info td {
+	width:50%;
+}
+.input-user-info td:nth-child(even)
+{
+	padding-left: 10px;
+}
+.message {
+	display: inline-block;
+}
+.btn-register-submit {
+	width:100%
+}
+.register-right {
+	margin-bottom: 50px;
+}
+.register-right-display {
+	margin:50px 0;
+	font-size: 26px;
+	color:#1296db;
+}
+.register-right-display img {
+	display: inline-block;
+	width:38px;
+	height:38px;
+}

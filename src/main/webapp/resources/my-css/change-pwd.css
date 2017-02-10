@@ -1,0 +1,19 @@
+div {
+	/* border:1px solid red; */
+}
+.register-page-header {
+	height:36px;
+	line-height:30px;
+	color:#fff;
+	font-size: 18px;
+	background-image: url("../images/register-header.png");
+}
+.register-body {
+	overflow: auto;
+}
+.register-image {
+	display: inline-block;
+	height: 28px;
+	width:28px;
+	margin-right: 10px;
+}

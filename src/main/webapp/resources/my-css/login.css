@@ -1,14 +1,7 @@
 div {
 	/* border:1px red solid; */
 }
-.login-logo {
-	 padding:10px 0 10px 80px;
-}
-.login-logo-image {
-	display: inline-block;
-	width: 108px;
-	height:48px;
-}
+
 .loin-page-body {
 	overflow: auto;
 	height:500px;
@@ -16,16 +9,11 @@ div {
 	background-position: center;
 }
 .login-container {
-	width:300px;
-	height:300px;
-	float:right;
-	margin:100px 160px 0 0;
+	margin-top:80px;
 	padding:30px 20px;
 	background-color: #fff;
 }
-.page-footer {
-	font-size: 12px;
-}
+
 .login-kind {
 	margin-bottom: 30px;
 }
@@ -60,22 +48,7 @@ div {
 	float:right;
 	margin-right: 20px;
 }
-.operation-list li a:HOVER,.footer-list li:HOVER {
+.operation-list li a:HOVER {
 	color:#ff4400;
 	cursor: pointer;
-}
-.footer-list {
-	font-size:12px;
-	overflow:auto;
-	list-style: none;
-	padding:0;
-	display: inline-block;
-	margin:0 auto;
-}
-.footer-list li {
-	float:left;
-	margin:0 10px;
-}
-.page-copyright {
-	font-size:12px;
 }
