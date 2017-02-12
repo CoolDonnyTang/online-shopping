@@ -21,6 +21,9 @@ div {
 	width:28px;
 	margin-right: 10px;
 }
+.input-user-info, .register-right {
+	display: none;
+}
 .input-user-info table {
 	width:100%;
 }

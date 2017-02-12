@@ -10,6 +10,7 @@
   <properties>
     <spring-version>4.0.4.RELEASE</spring-version>
     <hibernate-version>4.3.5.Final</hibernate-version>
+    <jackson-version>2.7.3</jackson-version>
   </properties>
   
   <dependencies>
@@ -70,6 +71,11 @@
 	    <artifactId>spring-expression</artifactId>
 	    <version>${spring-version}</version>
 	</dependency>
+	<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-orm</artifactId>
+    <version>${spring-version}</version>
+</dependency>
 	
 	<!-- Hibernate相关jar包 -->
 	<dependency>
@@ -88,7 +94,31 @@
 	    <groupId>mysql</groupId>
 	    <artifactId>mysql-connector-java</artifactId>
 	    <version>5.1.6</version>
-	</dependency>	
+	</dependency>
+	
+	<!-- jackson包 -->
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-databind</artifactId>
+	    <version>${jackson-version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-core</artifactId>
+	    <version>${jackson-version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.fasterxml.jackson.core</groupId>
+	    <artifactId>jackson-annotations</artifactId>
+	    <version>${jackson-version}</version>
+	</dependency>
+	
+	<!-- java邮件服务包 -->	
+	<dependency>
+	    <groupId>javax.mail</groupId>
+	    <artifactId>mail</artifactId>
+	    <version>1.4.7</version>
+	</dependency>
   </dependencies>
   
   <build>
