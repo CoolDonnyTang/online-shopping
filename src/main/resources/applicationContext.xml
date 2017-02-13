@@ -68,11 +68,33 @@
 				<!-- 格式化输出的sql -->
 				<prop key="hibernate.format_sql">true</prop>
 				<!-- 绑定到当前线程获取session spring管理时不需要 <prop key="Hibernate.current_session_context_class">thread</prop> -->
-				<prop key="Hibernate.current_session_context_class">thread</prop>
 			</props>
 		</property>
 	</bean>
-	
+	<!-- 事务配置 -->
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="get*" propagation="SUPPORTS" />
+			<tx:method name="query*" propagation="SUPPORTS" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="write*" propagation="REQUIRED" />
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="SUPPORTS" />
+			
+		</tx:attributes>
+	</tx:advice>
+	<!-- 事务切入点 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* com.cduestc.tyr.online_shopping.service.*.*(..))"
+			id="aopPointcut" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="aopPointcut" />
+	</aop:config>
 	<mvc:annotation-driven/>
 
 </beans>

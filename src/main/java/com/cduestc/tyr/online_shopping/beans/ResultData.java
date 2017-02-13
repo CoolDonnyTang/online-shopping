@@ -23,4 +23,10 @@ public class ResultData {
 	public void setData(Object data) {
 		this.data = data;
 	}
+	@Override
+	public String toString() {
+		return "ResultData [status=" + status + ", info=" + info + ", data="
+				+ data + "]";
+	}
+	
 }

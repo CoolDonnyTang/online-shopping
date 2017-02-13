@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 import com.cduestc.tyr.online_shopping.beans.UserBean;
 
 public interface IUserService {
-	public UserBean findUser(UserBean user);
+	public UserBean findUser(UserBean user) throws Exception;
 	/**
 	 * 
 	 * @author tangyanrentyr
@@ -16,7 +16,7 @@ public interface IUserService {
 	 * 		1:成功
 	 * 		other：失败
 	 */
-	public int sendEmailCode(String email, HttpSession session);
+	public int sendEmailCode(String email, HttpSession session) throws Exception;
 	/**
 	 * 
 	 * @author tangyanrentyr
@@ -30,7 +30,16 @@ public interface IUserService {
 	 * 		1：正确
 	 * 		-1：验证码出错
 	 */
-	public int checkEmailCode(String email, String checkCode, HttpSession session);
-	public Boolean addUser(UserBean user);
-	public Boolean updateUser(UserBean user);
+	public int checkEmailCode(String email, String checkCode, HttpSession session) throws Exception;
+	/**
+	 * @param user
+	 * @param session 用于取出验证通过的邮箱
+	 * @return
+	 * 		1:添加用户成功
+	 * 		0:用户已存在
+	 * 		-1:邮箱验证失效
+	 * @throws Exception 其它原因导致失败
+	 */
+	public int addUser(UserBean user,HttpSession session) throws Exception;
+	public Boolean updateUser(UserBean user) throws Exception;
 }
