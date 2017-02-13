@@ -100,7 +100,7 @@
 					<div class="register-right-display">
 						<img src="resources/images/register-right.png">&nbsp;&nbsp;注册成功
 					</div>
-					<a class="btn btn-danger" href="#" role="button" style="width:100%">立即登录</a>
+					<a class="btn btn-danger" href="login.html" role="button" style="width:100%">立即登录</a>
 				</div>
 			</div>
 		</div>
@@ -292,7 +292,7 @@
 						if(result.status === 1) {
 							$("#input-info").hide();
 							$("#register-result").show();
-							$("#progress").width("100%").text("完成注册 2/3");
+							$("#progress").width("100%").text("完成注册 3/3");
 						} else if (result.status === 0) {
 							$("#nicknameError").text(result.info);
 							$("#nicknameError").parent().removeClass("has-error");

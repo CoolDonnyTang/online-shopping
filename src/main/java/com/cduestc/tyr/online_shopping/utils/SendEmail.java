@@ -106,8 +106,7 @@ public class SendEmail {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-////////////////////////////////////////////////////////////////////
-			return 1; //实际使用此处应返回-1
+			return -1; 
 		}
 		return 1;
 	}
@@ -175,10 +174,10 @@ public class SendEmail {
 			// msg.setContent("Hello, 我是debug!!!", );//纯文本
 			msg.setContent(emailContent, "text/html;charset=utf-8");// 发html格式的文本
 			// 发送动作
-//Transport.send(msg);
+			Transport.send(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return -1; //实际使用此处应返回-1
+			return -1; 
 		}
 		return 1;
 	}

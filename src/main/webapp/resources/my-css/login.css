@@ -4,7 +4,7 @@ div {
 
 .loin-page-body {
 	overflow: auto;
-	height:500px;
+	min-height:500px;
 	background-image: url("../images/login-background.jpg");
 	background-position: center;
 }
@@ -50,5 +50,12 @@ div {
 }
 .operation-list li a:HOVER {
 	color:#ff4400;
+	cursor: pointer;
+}
+.code-image {
+	height: 30px;
+	width:80px;
+}
+.code-image:HOVER {
 	cursor: pointer;
 }
