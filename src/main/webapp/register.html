@@ -133,7 +133,7 @@
 				}
 				//清除验证码提示信息
 				$("#checkCodeMessage").text("");
-				var email = $("#inputEmail").val().trim();
+				var email = $("#inputEmail").val().trim().toLowerCase();
 				$("#checkMailMessage").text("");
 				//使”下一步“按钮不可点击
 				$("#checkMailAndCode").attr("disabled", "disabled");
@@ -187,9 +187,9 @@
 			});
 			//点击下一步时
 			$("#checkMailAndCode").click(function(){
-				var email = $("#inputEmail").val().trim();
+				var email = $("#inputEmail").val().trim().toLowerCase();
 				//验证码值
-				var checkCode = $("#inputCheckCode").val().trim();
+				var checkCode = $("#inputCheckCode").val().trim().toLowerCase();
 				//检查按钮是否可点击且验证码是否为5位
 				if($("#checkMailAndCode").attr("disabled")==="disabled") {
 					return;
@@ -250,7 +250,7 @@
 			//点击提交按钮提交
 			$("#submit-info").click(function(){
 				var nickname = $("#inputNickname").val();
-				var idNumber = $("#inputIdNumber").val().trim();
+				var idNumber = $("#inputIdNumber").val().trim().toLowerCase();
 				var pwd = $("#inputPwd").val();
 				var pwd2 = $("#inputPwd2").val(); 
 				//标识验证是否通过

@@ -22,11 +22,16 @@ div {
 }
 .btn-login {
 	width:100%;
+	margin-top: 10px;
+}
+.error-container {
+	margin:10px 0;
+	min-height: 20px;
 }
 .login-error {
+	display:none;
 	font-size: 14px;
 	color:#ff4400;
-	margin:10px 0;
 }
 .error-icon {
 	display: inline-block;

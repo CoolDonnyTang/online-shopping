@@ -1,9 +1,17 @@
 package com.cduestc.tyr.online_shopping.service.impl;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
@@ -22,16 +30,37 @@ public class UserService implements IUserService {
 	IUserDao dao;
 	
 	@Override
-	public UserBean findUser(UserBean user) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public int findUserToLogin(String userName, String password, String checkCode, HttpSession session) throws Exception {
+		String s_checkCode = (String) session.getAttribute("checkCode");
+		//清除session中的验证码
+		session.removeAttribute("checkCode");
+		if(!checkCode.equalsIgnoreCase(s_checkCode)) {
+			return -2;
+		}
+		UserBean user = dao.getUserByUserName(userName);
+		if(null == user) {
+			return 0;
+		}
+		if(!(user.getPassword().equals(MD5.toMD5(password)))) {
+			return -1;
+		}
+		//将用户名存入session
+		session.setAttribute("userName", userName);
+		//登录成功设置session时间为30分钟
+		session.setMaxInactiveInterval(30*60);
+		return 1;
 	}
 
 	@Override
-	public int sendEmailCode(String email, HttpSession session) throws Exception {
+	public int findUserOrsendEmailCode(String email, HttpSession session) throws Exception {
+		int status;
+		UserBean user = dao.getUserByEmail(email);
+		if(null != user) {
+			return 0;
+		}
 		String code = CheckCode.getChckCode();
 System.out.println(code);
-		int status = SendEmail.send(email, "用户注册", "您此次操作的验证码为<b>"+code+"</b> 有效期10分钟");
+		status = SendEmail.send(email, "用户注册", "您此次操作的验证码为<b>"+code+"</b> 有效期10分钟");
 		if(status == 1) {
 			Map map = new HashMap();
 			map.put("checkCode", code);
@@ -89,6 +118,50 @@ System.out.println(code);
 	public Boolean updateUser(UserBean user) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void checkImage(HttpServletResponse response, HttpSession session) throws Exception {
+		/*
+		 * 绘制图片
+		 */
+		//创建内存画板对象
+		BufferedImage image = new BufferedImage(80, 30, BufferedImage.TYPE_INT_RGB);
+		//获取画笔
+		Graphics g = image.getGraphics();
+		//设置画笔颜色
+		g.setColor(new Color(255,255,255));
+		//为画板设置背景颜色
+		g.fillRect(0, 0, 80, 30);
+		//获取5位0-9、a-z的组成字符串
+		String number = CheckCode.getChckCode();
+		//将验证码绑订到session,用来验证。
+		session.setAttribute("checkCode", number);
+		//设置画笔颜色位随机
+		Random r = new Random();
+		g.setColor(new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256)));
+		//设置字体大小和格式
+		g.setFont(new Font(null,Font.ITALIC,24));
+		//绘制字符串(可以每次只画一个字符，画5次，每个字符的位置和大小不同)
+		g.drawString(number, 2, 24);
+		//绘制一些干扰线
+		for(int i=0;i<(r.nextInt(10)+10);i++) {
+			//设置画笔颜色
+			g.setColor(new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256)));
+			g.drawLine(r.nextInt(80), r.nextInt(30), r.nextInt(80), r.nextInt(80));
+		}
+		/*
+		 * 压缩图片
+		 */
+		//设置服务器返回数据类型
+		response.setContentType("image/jpeg");
+		//获得字节输出流
+		OutputStream os = response.getOutputStream();
+		//压缩图片并输出
+		ImageIO.write(image, "jpeg", os);
+		//关闭输出流
+		os.close();
+		
 	}
 	
 }

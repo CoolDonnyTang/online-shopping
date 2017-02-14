@@ -25,9 +25,11 @@ public class RegisterController {
 		ResultData result = new ResultData();
 		int status;
 		try {
-			status = service.sendEmailCode(email, session);
+			status = service.findUserOrsendEmailCode(email, session);
 			if(status == 1) {
 				result.setInfo("发送成功");
+			} else if(status == 0) {
+				result.setInfo("您已注册过，请直接登录");
 			} else {
 				result.setInfo("发送失败,请检查邮箱是否存在");
 			}
@@ -35,8 +37,8 @@ public class RegisterController {
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
-			result.setStatus(-1);
-			result.setInfo("发送失败");
+			result.setStatus(-2);
+			result.setInfo("发送失败，请稍后重试");
 			return result;
 		}
 		
@@ -60,7 +62,7 @@ public class RegisterController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			result.setStatus(-1);
-			result.setInfo("验证失败");
+			result.setInfo("验证失败，请稍后重试");
 			return result;
 		}
 		

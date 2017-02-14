@@ -33,5 +33,24 @@ public class UserDao implements IUserDao {
 		session.save(user);
 		return false;
 	}
+
+	@Override
+	public UserBean getUserByUserName(String userName) throws Exception {
+		String hql = "from UserBean where nickname = ? or email = ?";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setString(0, userName);
+		query.setString(1, userName);
+		return (UserBean) query.uniqueResult();
+	}
+
+	@Override
+	public UserBean getUserByEmail(String email) throws Exception {
+		String hql = "from UserBean where  email = ?";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setString(0, email);
+		return (UserBean) query.uniqueResult();
+	}
 	
 }

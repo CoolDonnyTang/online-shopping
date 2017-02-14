@@ -26,3 +26,10 @@ function checkPassword(pwd) {
 	var reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/;
 	return reg.test(pwd);
 }
+function checkCheckCode(checkCode) {
+	if(checkCode===null || checkCode===undefined) {
+		return false
+	}
+	var reg = /[a-zA-Z0-9]{5}/;
+	return reg.test(checkCode);
+}

@@ -1,11 +1,25 @@
 package com.cduestc.tyr.online_shopping.service;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.cduestc.tyr.online_shopping.beans.UserBean;
 
 public interface IUserService {
-	public UserBean findUser(UserBean user) throws Exception;
+	/**
+	 * 
+	 * @param userName 用户名：可能是邮箱或昵称
+	 * @param password 
+	 * @param checkCode 验证码
+	 * @param session 
+	 * @return 
+	 * 		1:登录成功
+	 * 		0:用户不存在
+	 * 		-1：用户名或密码错误（实际为密码错误）
+	 * 		-2：验证码错误
+	 * @throws Exception
+	 */
+	public int findUserToLogin(String userName, String password, String checkCode, HttpSession session) throws Exception;
 	/**
 	 * 
 	 * @author tangyanrentyr
@@ -14,9 +28,10 @@ public interface IUserService {
 	 * @param session
 	 * @return
 	 * 		1:成功
+	 * 		0:您已注册过，请直接登录
 	 * 		other：失败
 	 */
-	public int sendEmailCode(String email, HttpSession session) throws Exception;
+	public int findUserOrsendEmailCode(String email, HttpSession session) throws Exception;
 	/**
 	 * 
 	 * @author tangyanrentyr
@@ -41,5 +56,10 @@ public interface IUserService {
 	 * @throws Exception 其它原因导致失败
 	 */
 	public int addUser(UserBean user,HttpSession session) throws Exception;
+	/**
+	 * 用于获取五位验证码图片
+	 * @throws Exception
+	 */
+	public void checkImage(HttpServletResponse response, HttpSession session) throws Exception;
 	public Boolean updateUser(UserBean user) throws Exception;
 }
