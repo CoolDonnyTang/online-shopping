@@ -21,15 +21,17 @@ public class RegisterController {
 	
 	@RequestMapping("/checkMail.action")
 	@ResponseBody
-	public ResultData checkedEmail(String email,HttpSession session) {
+	public ResultData checkedEmail(String email,Boolean exist, HttpSession session) {
 		ResultData result = new ResultData();
 		int status;
 		try {
-			status = service.findUserOrsendEmailCode(email, session);
+			status = service.findUserOrsendEmailCode(email, exist, session);
 			if(status == 1) {
 				result.setInfo("发送成功");
-			} else if(status == 0) {
+			} else if((status==0) && (exist == null)) {
 				result.setInfo("您已注册过，请直接登录");
+			} else if((status==0) && (exist != null)) {
+				result.setInfo("您还未注册过，请先注册");
 			} else {
 				result.setInfo("发送失败,请检查邮箱是否存在");
 			}
@@ -91,5 +93,10 @@ public class RegisterController {
 			result.setInfo("注册失败，请稍后重试");
 			return result;
 		}
+	}
+	@RequestMapping("/updateUser")
+	@ResponseBody
+	public ResultData updateUser(UserBean user, HttpSession session) {
+		
 	}
 }

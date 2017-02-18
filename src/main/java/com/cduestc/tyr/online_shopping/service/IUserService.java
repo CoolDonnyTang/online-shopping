@@ -31,7 +31,7 @@ public interface IUserService {
 	 * 		0:您已注册过，请直接登录
 	 * 		other：失败
 	 */
-	public int findUserOrsendEmailCode(String email, HttpSession session) throws Exception;
+	public int findUserOrsendEmailCode(String email, Boolean exist, HttpSession session) throws Exception;
 	/**
 	 * 
 	 * @author tangyanrentyr
@@ -61,5 +61,11 @@ public interface IUserService {
 	 * @throws Exception
 	 */
 	public void checkImage(HttpServletResponse response, HttpSession session) throws Exception;
-	public Boolean updateUser(UserBean user) throws Exception;
+	/**
+	 * 更新用户信息
+	 * @param user 传入对象
+	 * @return 1:成功 	-1:修改失败，刷新页面重试
+	 * @throws Exception
+	 */
+	public int updateUser(UserBean user, HttpSession session) throws Exception;
 }

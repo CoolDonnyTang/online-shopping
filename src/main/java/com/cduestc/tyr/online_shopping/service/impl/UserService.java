@@ -45,17 +45,20 @@ public class UserService implements IUserService {
 			return -1;
 		}
 		//将用户名存入session
-		session.setAttribute("userName", userName);
+		session.setAttribute("user", user);
 		//登录成功设置session时间为30分钟
 		session.setMaxInactiveInterval(30*60);
 		return 1;
 	}
 
 	@Override
-	public int findUserOrsendEmailCode(String email, HttpSession session) throws Exception {
+	public int findUserOrsendEmailCode(String email, Boolean exist, HttpSession session) throws Exception {
 		int status;
 		UserBean user = dao.getUserByEmail(email);
-		if(null != user) {
+		if((null != user) && (exist==null)) {
+			return 0;
+		}
+		if((null==user) && (exist!=null)) {
 			return 0;
 		}
 		String code = CheckCode.getChckCode();
@@ -75,6 +78,7 @@ System.out.println(code);
 	@Override
 	public int checkEmailCode(String email, String checkCode, HttpSession session) throws Exception {
 		Map message = (Map) session.getAttribute("checkCodeMessage");
+		session.removeAttribute("checkCodeMessage");
 		if(null == message) {
 			return 0;
 		}
@@ -83,14 +87,11 @@ System.out.println(code);
 		Long startTime = (Long) message.get("start");
 		Long now = System.currentTimeMillis();
 		if(!email.equals(s_email) || (now-startTime > 10*60*100)) {
-			session.removeAttribute("checkCodeMessage");
 			return 0;
 		}
 		if(!checkCode.equals(s_checkCode)) {
-			session.removeAttribute("checkCodeMessage");
 			return -1;
 		}
-		session.removeAttribute("checkCodeMessage");
 		session.setAttribute("registerEmail", s_email);
 		return 1;
 	}
@@ -115,7 +116,7 @@ System.out.println(code);
 	}
 
 	@Override
-	public Boolean updateUser(UserBean user) throws Exception {
+	public int updateUser(UserBean user, HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
