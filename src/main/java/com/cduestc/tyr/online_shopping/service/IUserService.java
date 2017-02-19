@@ -64,8 +64,11 @@ public interface IUserService {
 	/**
 	 * 更新用户信息
 	 * @param user 传入对象
-	 * @return 1:成功 	-1:修改失败，刷新页面重试
+	 * @return 	1:成功
+	 *  		0：登录失效	
+	 *  		-1:两次密码相同
 	 * @throws Exception
 	 */
 	public int updateUser(UserBean user, HttpSession session) throws Exception;
+	
 }

@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -97,6 +96,23 @@ public class RegisterController {
 	@RequestMapping("/updateUser")
 	@ResponseBody
 	public ResultData updateUser(UserBean user, HttpSession session) {
-		
+		int status;
+		ResultData result = new ResultData();
+		try {
+			status = service.updateUser(user, session);
+			if(status == -1) {
+				result.setInfo("不能使用近期使用过的密码");
+			} else if(status == 0) {
+				result.setInfo("登录失效");
+			} else {
+				result.setInfo("操作成功");
+			}
+			result.setStatus(status);
+		} catch (Exception e) {
+			result.setStatus(-2);
+			result.setInfo("服务器偷懒啦，请稍后再试");
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

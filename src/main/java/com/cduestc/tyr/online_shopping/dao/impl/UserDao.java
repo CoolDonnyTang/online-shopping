@@ -5,9 +5,6 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
 import com.cduestc.tyr.online_shopping.beans.UserBean;
@@ -28,10 +25,9 @@ public class UserDao implements IUserDao {
 	}
 
 	@Override
-	public boolean addUser(UserBean user) throws Exception {
+	public void addUser(UserBean user) throws Exception {
 		Session session = sf.getCurrentSession();
 		session.save(user);
-		return false;
 	}
 
 	@Override
@@ -51,6 +47,19 @@ public class UserDao implements IUserDao {
 		Query query = session.createQuery(hql);
 		query.setString(0, email);
 		return (UserBean) query.uniqueResult();
+	}
+
+	@Override
+	public int updateUser(UserBean user) throws Exception {
+		UserBean oldUser = this.getUserByEmail(user.getEmail());
+		//是更改密码则需要判断两次密码是否相同
+		if((null!=user.getPassword()) && (user.getPassword().equals(oldUser.getPassword()))) {
+			return -1;
+		}
+		user.setId(oldUser.getId());
+		Session session = sf.getCurrentSession();
+		session.merge(user);
+		return 1;
 	}
 	
 }

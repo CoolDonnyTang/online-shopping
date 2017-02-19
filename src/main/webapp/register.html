@@ -181,16 +181,21 @@
 			});
 			
 			
-			//鼠标切入验证码框时清除提示信息
-			$("#inputCheckCode").focusin(function() {
+			//“发送验证码”输入框值改变事件
+			$("#inputCheckCode").change(function() {
 				$("#checkCodeMessage").text("");
+				//下一步不可点则使能发送验证码按钮
+				if($("#checkMailAndCode").attr("disabled")==="disabled") {
+					//使发送验证码按钮可点击
+					$("#checkMail").removeAttr("disabled");
+				}
 			});
 			//点击下一步时
 			$("#checkMailAndCode").click(function(){
 				var email = $("#inputEmail").val().trim().toLowerCase();
 				//验证码值
 				var checkCode = $("#inputCheckCode").val().trim().toLowerCase();
-				//检查按钮是否可点击且验证码是否为5位
+				//检查"下一步"按钮是否可点击且验证码是否为5位
 				if($("#checkMailAndCode").attr("disabled")==="disabled") {
 					return;
 				}
@@ -213,6 +218,12 @@
 								$("#input-info").show();
 								$("#verify").hide();
 								$("#progress").width("66%").text("填写基本信息 2/3");
+							} else if(result.status === 0) {
+								//发送验证码按钮不可点击
+								$("#checkMail").attr("disabled", "disabled");
+								//使”下一步“按钮不可点击
+								$("#checkMailAndCode").attr("disabled", "disabled");
+								$("#checkCodeMessage").text(result.info);
 							} else {
 								//使”下一步“按钮不可点击
 								$("#checkMailAndCode").attr("disabled", "disabled");

@@ -22,7 +22,7 @@ div {
 	margin-right: 10px;
 }
 .input-user-info, .register-right {
-	/* display: none; */
+	display: none;
 }
 .input-user-info table {
 	width:100%;

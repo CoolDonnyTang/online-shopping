@@ -1,0 +1,109 @@
+div {
+	/* border:1px solid red; */
+}
+.page-header {
+	margin:0;
+	padding:3px 0;
+	background-color: #e3e4e5;
+}
+.heaer-menu {
+	padding-right: 0;
+}
+.header-link {
+	color:black;
+}
+.header-link:HOVER {
+	color:red;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.page-search {
+	margin-top: 12px;
+	margin-bottom: 5px;
+}
+.serch-icon {
+	background-color: #d81e06;
+	border:0;
+	color:#fff;
+	font-size: 20px;
+}
+.goods-category {
+	min-height: 380px;
+	padding: 20px 0;
+	background-color: #d81e06;
+}
+.goods-category ul {
+	color:#fff;
+	list-style: none;
+	padding:0;
+}
+.goods-category li{
+	padding:2px 15px;
+}
+.goods-category li:HOVER {
+	cursor: pointer;
+	background-color: #ff4400;
+}
+.store-activity {
+	height: 380px;
+	padding: 0 0;
+	background-color: #c0c0c0;
+}
+.activity-link {
+	margin:0;
+	border:0;
+}
+.goods-recommend {
+	margin-top: 20px;
+}
+.goods-recommend h3 {
+	margin:5px 0;
+	color:#d81e06;
+}
+.recommend-image {
+	display: inline-block;
+}
+.recommend-header {
+	padding:2px 0;
+	background-color: #6e6568;
+	overflow: auto;
+}
+.commodities-list {
+	padding: 2px;
+}
+.commodity-title {
+	display:inline-block;
+	height:40px;
+	overflow:hidden;
+	color:#999999;
+}
+.commodity-dec {
+	padding:0 !important;
+}
+.price-now {
+	margin-right:10px;
+	margin-left:5px;
+	font-size:20px;
+	display:inline-block;
+	color:red;
+}
+.brand-recommend {
+	margin:10px 0;
+}
+.brand-header {
+	padding:2px 0;
+	background-color: #994576;
+}
+.food-header {
+	padding:2px 0;
+	background-color: #5d5467;
+}
+.rankings-header {
+	padding:2px 0;
+	background-color: #498c95;
+}
+.top-goods h3 {
+	margin:0;
+	padding-top:5px;
+}

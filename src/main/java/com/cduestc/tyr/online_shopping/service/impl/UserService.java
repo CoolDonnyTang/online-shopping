@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import com.cduestc.tyr.online_shopping.beans.ResultData;
 import com.cduestc.tyr.online_shopping.beans.UserBean;
 import com.cduestc.tyr.online_shopping.dao.IUserDao;
 import com.cduestc.tyr.online_shopping.service.IUserService;
@@ -55,15 +56,17 @@ public class UserService implements IUserService {
 	public int findUserOrsendEmailCode(String email, Boolean exist, HttpSession session) throws Exception {
 		int status;
 		UserBean user = dao.getUserByEmail(email);
+		//用户注册
 		if((null != user) && (exist==null)) {
 			return 0;
 		}
+		//修改密码
 		if((null==user) && (exist!=null)) {
 			return 0;
 		}
 		String code = CheckCode.getChckCode();
 System.out.println(code);
-		status = SendEmail.send(email, "用户注册", "您此次操作的验证码为<b>"+code+"</b> 有效期10分钟");
+		status = SendEmail.send(email, "安全验证", "您此次操作的验证码为<b>"+code+"</b> 有效期10分钟");
 		if(status == 1) {
 			Map map = new HashMap();
 			map.put("checkCode", code);
@@ -117,8 +120,17 @@ System.out.println(code);
 
 	@Override
 	public int updateUser(UserBean user, HttpSession session) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		//获取email,可从session中取registerEmail或user
+		String email = (String) ((session.getAttribute("registerEmail")!=null)?session.getAttribute("registerEmail") : ((UserBean)session.getAttribute("user")).getEmail());
+		if(null == email) {
+			return 0;
+		}
+		//判断是否是更改密码
+		if(null != user.getPassword()) {
+			user.setPassword(MD5.toMD5(user.getPassword()));
+		}
+		user.setEmail(email);
+		return dao.updateUser(user);
 	}
 
 	@Override

@@ -23,8 +23,8 @@ public class MyTest {
 	}
 	
 	public void Test3() {
-		IUserDao dao = new UserDao();
-		UserBean user = dao.getUserByNickname("");
+		//IUserDao dao = new UserDao();
+		//UserBean user = dao.getUserByNickname("");
 	}
 	
 }
