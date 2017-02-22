@@ -1,0 +1,82 @@
+.detail-header {
+	background-color: #d81e06;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border-bottom: 2px solid #d81e06;
+}
+.navigator {
+	padding:20px 0 0 0;
+}
+.header-content {
+	font-size:18px;
+	color:#fff;
+}
+.detail-header-link {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	text-align: center;
+	font-size: 15px;
+	color:#333;
+}
+.main-commodity-image{
+	padding:8px;
+	min-height: 360px;
+}
+.main-header {
+	border-top: 2px solid #d81e06;
+	height:30px;
+	background-color: #f2f2f2;
+}
+.commodify-title {
+	font: 700 16px Arial,"microsoft yahei";
+	color: #666;
+	padding-top: 10px;
+	line-height: 28px;
+	margin-bottom: 5px;
+	margin:0;
+}
+.commodify-price {
+	height:100px;
+	background-image: url("../images/price.png");
+	padding-top: 12px;
+}
+.price_ {
+	padding-left: 0;
+}
+.price-content {
+	overflow:auto;
+	padding-top: 4px;
+}
+.my-price-name {
+	height:26px;
+	line-height: 26px;
+}
+.my-price {
+	color:red;
+	font-size: 18px;
+}
+.commodify-attribute {
+	padding-top:20px;
+	margin-top: 20px;
+	border-top: 1px ridge;
+}
+.amount-input {
+	padding:2px 3px;
+}
+.amount-btn:HOVER {
+	cursor: pointer;
+}
+.message-navigator:HOVER {
+	cursor: pointer;
+}
+.message-navigator li {
+	padding:0;
+	display: inline-block;
+	font-size: 14px;
+	padding:10px 25px;
+}
+.message-header {
+	margin:20px 0 0 0;
+	padding:0;
+	background-color: #f2f2f2;
+}

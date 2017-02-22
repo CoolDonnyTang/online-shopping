@@ -1,5 +1,5 @@
 div {
-	/* border:1px solid red; */
+	border:1px solid red;
 }
 .page-header {
 	margin:0;
@@ -84,12 +84,15 @@ div {
 .price-now {
 	margin-right:10px;
 	margin-left:5px;
-	font-size:20px;
+	font-size:16px;
 	display:inline-block;
 	color:red;
 }
 .brand-recommend {
 	margin:10px 0;
+}
+.brand-full {
+	margin-top: 20px;
 }
 .brand-header {
 	padding:2px 0;
