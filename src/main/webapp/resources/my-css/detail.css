@@ -61,13 +61,14 @@
 	border-top: 1px ridge;
 }
 .amount-input {
-	padding:2px 3px;
+	padding:2px 8px;
 }
 .amount-btn:HOVER {
 	cursor: pointer;
 }
-.message-navigator:HOVER {
+.message-navigator li:HOVER {
 	cursor: pointer;
+	background-color: #d81e06;
 }
 .message-navigator li {
 	padding:0;
@@ -76,7 +77,76 @@
 	padding:10px 25px;
 }
 .message-header {
-	margin:20px 0 0 0;
+	margin:50px 0 0 0;
 	padding:0;
 	background-color: #f2f2f2;
 }
+.message-content {
+	padding:0;
+}
+.message-detail {
+	font: 14px/150% tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif;
+	color: #666;
+	margin-top: 30px;
+	padding-left: 15px;
+}
+.mesage-list {
+	margin-top:8px;
+	padding:0;
+}
+.mesage-list li {
+	padding:2px 40px 2px 0;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.main-images {
+	padding:0;
+	margin:30px 0 0 0;
+	list-style: none;
+}
+.image-display {
+	padding:0;
+}
+.main-images li{
+	overflow: hidden;
+}
+.after-sale {
+	margin-top: 30px;
+}
+.sale-image {
+	display:inline-block;
+	height:30px;
+	margin-right: 10px;
+}
+.sale-header {
+	font-size: 18px;
+	color:#d81e06;
+}
+.sale-message {
+	color:#666;
+	padding-left: 30px;
+}
+.head-portrait {
+	width:30px;
+	height:30px;
+}
+.comment {
+	padding-top: 4px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

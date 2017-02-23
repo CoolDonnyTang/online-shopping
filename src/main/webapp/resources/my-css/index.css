@@ -1,5 +1,5 @@
 div {
-	border:1px solid red;
+	/* border:1px solid red; */
 }
 .page-header {
 	margin:0;
@@ -109,4 +109,7 @@ div {
 .top-goods h3 {
 	margin:0;
 	padding-top:5px;
+}
+.serch-icon_:HOVER {
+	cursor: pointer;
 }
