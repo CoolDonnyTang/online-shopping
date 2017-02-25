@@ -1,0 +1,18 @@
+.list-container {
+	margin-top:30px;
+}
+.list-operate {
+	padding:5px 0;
+	padding-left:3px;
+	background-color: #f9f9f9;
+	margin-bottom: 16px;
+}
+.list-operate button {
+	color:#666;
+}
+.list-operate button:HOVER {
+	color:#d81e06;
+}
+.list-image {
+	padding:0;
+}

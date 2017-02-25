@@ -19,7 +19,7 @@ div {
 }
 
 .page-search {
-	margin-top: 12px;
+	margin-top: 30px;
 	margin-bottom: 5px;
 }
 .serch-icon {
@@ -76,7 +76,7 @@ div {
 	display:inline-block;
 	height:40px;
 	overflow:hidden;
-	color:#999999;
+	color:#666;
 }
 .commodity-dec {
 	padding:0 !important;
