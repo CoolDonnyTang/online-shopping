@@ -31,3 +31,9 @@
 	fill: currentColor;
 	overflow: hidden;
 }
+.my-btn-1 {
+	color:#666;
+}
+.my-btn-1:HOVER {
+	color:#d81e06;
+}
