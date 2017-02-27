@@ -37,3 +37,26 @@
 .my-btn-1:HOVER {
 	color:#d81e06;
 }
+.my-link-1 {
+	text-decoration: none;
+	color:#666;
+}
+.my-link-1:HOVER {
+	color:red;
+	text-decoration: none;
+	cursor: pointer;
+}
+.color666 {
+	color:#666;
+}
+
+
+
+
+
+
+
+
+
+
+
