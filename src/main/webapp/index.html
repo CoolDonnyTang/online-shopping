@@ -346,7 +346,21 @@
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
-		
+		$(function() {
+			//发送请求加载分类
+			$.ajax({
+				data:"",
+				dataType:"json",
+				error:function() {
+					
+				},
+				success:function(result) {
+					
+				}
+				type:"post",
+				url:"",
+			});
+		});
 	</script>
 </body>
 </html>

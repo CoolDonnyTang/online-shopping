@@ -93,7 +93,10 @@
 	margin-right: 20px;
 	float: left;
 }
-
+.total-money {
+	color:red;
+	font-size: 16px;
+}
 
 
 

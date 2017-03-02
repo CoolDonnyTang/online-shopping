@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+
+<title>免费注册</title>
+
+<!-- Bootstrap -->
+<link href="resources/plugins/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="resources/my-css/manage.css" rel="stylesheet">
+<link href="resources/my-css/user-base.css" rel="stylesheet">
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1">
+				<h4>内部管理</h4>
+			</div>
+		</div>
+		<hr/>
+		<div class="row">
+			<div class="col-md-2">
+				<ul class="list-group">
+				  <li class="list-group-item list-1" id="kinds_btn">分类管理</li>
+				  <li class="list-group-item list-1">Dapibus ac facilisis in</li>
+				  <li class="list-group-item list-1">Morbi leo risus</li>
+				  <li class="list-group-item list-1">Porta ac consectetur ac</li>
+				  <li class="list-group-item list-1">Vestibulum at eros</li>
+				</ul>
+			</div>
+			<div class="col-md-10 content" >
+				<!-- 分类管理 -->
+				<div class="kinds-content" id="kinds_content">
+					<ul class="nav nav-tabs" id="kinds_operate">
+					  <li role="presentation" class="list-2"><a>添加主分类</a></li>
+					  <li role="presentation" class="list-2"><a>添加子分类</a></li>
+					  <li role="presentation" class="list-2"><a>删除主分类</a></li>
+					  <li role="presentation" class="list-2"><a>删除子分类</a></li>
+					</ul>
+					<!-- 添加主分类 -->
+					<div class="operate-content col-md-12" id="add_main">
+						<div class="form-group">
+						    <label for="main-kinds">主分类输入</label>
+						    <input type="email" class="form-control" id="main-kinds">
+						</div>
+						<div class="form-group">
+						    <label for="subsidiary_kinds1">从分类输入</label>
+						    <textarea class="form-control" id="subsidiary_kinds1" rows="3"></textarea>
+						</div>
+						<button type="button" class="btn btn-danger col-md-2" id="sub_main">提交</button>
+					</div>
+					<!-- 添加从分类 -->
+					<div class="operate-content col-md-12" id="add_subsidiary">
+						<div class="form-group">
+						    <label for="main_kinds_l1">选择主分类</label>
+						    <select class="form-control" id="main_kinds_l1">
+							  <option>1</option>
+							  <option>2</option>
+							  <option>3</option>
+							  <option>4</option>
+							  <option>5</option>
+							</select>
+						</div>
+						<div class="form-group">
+						    <label for="subsidiary_kinds2">从分类输入</label>
+						    <textarea class="form-control" id="subsidiary_kinds2" rows="3"></textarea>
+						</div>
+						<button type="button" class="btn btn-danger col-md-2">删除</button>
+					</div><!--  -->
+					<!-- 删除主分类 -->
+					<div class="operate-content col-md-12" id="delete_main">
+						<div class="form-group">
+						    <label for="main_kinds_l2">删除主分类</label>
+						    <select class="form-control" id="main_kinds_l2">
+							  <option>1</option>
+							  <option>2</option>
+							  <option>3</option>
+							  <option>4</option>
+							  <option>5</option>
+							</select>
+						</div>
+						<button type="button" class="btn btn-danger col-md-2">删除</button>
+					</div><!--  -->
+					<!-- 删除从分类 -->
+					<div class="operate-content col-md-12" id="delete_subsidiary">
+						<div class="form-group">
+						    <label for="main_kinds_l3">选择主分类</label>
+						    <select class="form-control" id="main_kinds_l3">
+							  <option>1</option>
+							  <option>2</option>
+							  <option>3</option>
+							  <option>4</option>
+							  <option>5</option>
+							</select>
+						</div>
+						<div class="form-group">
+						    <label for="subsidiary_kinds3">删除从分类</label>
+						    <select class="form-control" id="subsidiary_kinds3">
+							  <option>1</option>
+							  <option>2</option>
+							  <option>3</option>
+							  <option>4</option>
+							  <option>5</option>
+							</select>
+						</div>
+						<button type="button" class="btn btn-danger col-md-2">删除</button>
+					</div><!--  -->
+				</div><!--分类管理结束 -->
+			</div>
+		</div>
+		<hr/>
+		<div class="page-copyright text-center">
+			Copyright &copy; 2017 <strong>爱购商城i-go.shop</strong> 版权所有
+		</div>
+	</div>
+	<script src="resources/plugins/jquery-2.2.4.min.js"></script>
+	<script src="resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/scripts/manage.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#kinds_btn").click(function() {
+				$("#kinds_content").show();
+			});
+			$("#kinds_operate").click(function(event){
+				var $target = $(event.target);
+				$("#kinds_operate").children("li").removeClass("active");
+				$target.parent().addClass("active");
+				switch($target.text().trim())
+				{
+				case "添加主分类":
+				  operKindsDis(1);
+				  break;
+				case "添加子分类":
+				  operKindsDis(2);
+				  break;
+				case "删除主分类":
+				  operKindsDis(3);
+				  break;
+				case "删除子分类":
+				  operKindsDis(4);
+				  break;
+				}
+			});
+			//提交新建主类事件
+			$("#sub_main").click() {
+				var mainText = $("#main-kinds").val().trim();
+				var subText = $("#subsidiary_kinds1").val().trim();
+				if(""===mainText || ""===subText) {
+					alert("主类和子类均不可为空");
+					return;
+				}
+				$.ajax({
+					data:"",
+					dataType:"jason",
+					error:function() {
+						
+					},
+					success:function(result) {
+						if(result.status === 1) {
+							
+						}
+					},
+					type:"post",
+					url:""
+				});
+			}
+		});
+	</script>
+</body>
+</html>
