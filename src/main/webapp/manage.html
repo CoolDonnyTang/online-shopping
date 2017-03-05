@@ -69,7 +69,7 @@
 						    <label for="subsidiary_kinds2">从分类输入</label>
 						    <textarea class="form-control" id="subsidiary_kinds2" rows="3"></textarea>
 						</div>
-						<button type="button" class="btn btn-danger col-md-2">删除</button>
+						<button type="button" class="btn btn-danger col-md-2" id="submitSubKind">删除</button>
 					</div><!--  -->
 					<!-- 删除主分类 -->
 					<div class="operate-content col-md-12" id="delete_main">
@@ -132,21 +132,50 @@
 				switch($target.text().trim())
 				{
 				case "添加主分类":
-				  operKindsDis(1);
-				  break;
+				  	operKindsDis(1);
+				  	break;
 				case "添加子分类":
-				  operKindsDis(2);
-				  break;
+					//发送请求加载主分类
+					$.ajax({
+						data:"",
+						dataType:"json",
+						error:function() {
+							alert("连接服务器失败");
+						},
+						success:function(result) {
+							if(result.status === 1) {
+								var data = result.data;
+console.log(data);
+								//清空原来列表
+								$("#main_kinds_l1").html("");
+								for(var i=0; i<data.length; i++) {
+									var $option = $("<option>" +data[i].name + "</option>");
+									$option.data("id", data[i].id);
+									$("#main_kinds_l1").append($option);
+									//提交可点
+									$("#submitSubKind").removeAttr("disabled");
+								}
+							} else {
+								alert(result.info);
+								//提交按钮不可点
+								$("#submitSubKind").attr("disabled", "disabled");
+							}
+						},
+						type:"post",
+						url:"manage/findMain.action"
+					});
+				 	operKindsDis(2);
+				  	break;
 				case "删除主分类":
-				  operKindsDis(3);
-				  break;
+				  	operKindsDis(3);
+				  	break;
 				case "删除子分类":
-				  operKindsDis(4);
-				  break;
+				  	operKindsDis(4);
+				  	break;
 				}
 			});
 			//提交新建主类事件
-			$("#sub_main").click() {
+			$("#sub_main").click(function(){
 				var mainText = $("#main-kinds").val().trim();
 				var subText = $("#subsidiary_kinds1").val().trim();
 				if(""===mainText || ""===subText) {
@@ -154,20 +183,22 @@
 					return;
 				}
 				$.ajax({
-					data:"",
-					dataType:"jason",
+					data:{mainName:mainText,subName:subText},
+					dataType:"json",
 					error:function() {
-						
+						alert("连接服务器失败");
 					},
 					success:function(result) {
 						if(result.status === 1) {
-							
+							alert("添加成功");
+						} else {
+							alert(result.info);
 						}
 					},
 					type:"post",
-					url:""
+					url:"manage/addMainKind.action"
 				});
-			}
+			});
 		});
 	</script>
 </body>
