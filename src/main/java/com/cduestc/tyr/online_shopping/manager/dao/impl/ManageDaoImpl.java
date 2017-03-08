@@ -31,5 +31,24 @@ public class ManageDaoImpl implements ManageDao {
 		Query query = sf.getCurrentSession().createQuery(hql);
 		return query.list();
 	}
+
+	@Override
+	public KindBean findMainKindById(int id) {
+		Session session = sf.getCurrentSession();
+		return (KindBean) session.load(KindBean.class, id);
+	}
+
+	@Override
+	public void updateSubKind(KindBean kind) {
+		Session session = sf.getCurrentSession();
+		session.update(kind);
+	}
+
+	@Override
+	public void deleteMainKindById(int id) {
+		Session session = sf.getCurrentSession();
+		KindBean kind = (KindBean) session.load(KindBean.class, id);
+		session.delete(kind);
+	}
 	
 }

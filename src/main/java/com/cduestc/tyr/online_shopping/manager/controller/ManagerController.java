@@ -49,4 +49,33 @@ public class ManagerController {
 		return rd;
 	}
 	
+	@RequestMapping("/addSubKind.action")
+	@ResponseBody
+	public ResultData addSubKind(int mainId, String subName) {
+		ResultData rd = new ResultData();
+		try {
+			service.addSubKind(mainId, subName);
+			rd.setStatus(1);
+		} catch(Exception e) {
+			rd.setStatus(-1);
+			rd.setInfo("添加子类出错");
+			throw new RuntimeException("添加子类出错");
+		}
+		return rd;
+	}
+	@RequestMapping("/deleteMain.action")
+	@ResponseBody
+	public ResultData deleteMainKind(int mainId) {
+		ResultData rd = new ResultData();
+		try {
+			service.deleteMainKind(mainId);
+			rd.setStatus(1);
+		} catch(Exception e) {
+			rd.setStatus(-1);
+			rd.setInfo("删除主分类出错");
+			e.printStackTrace();
+			//throw new RuntimeException("删除主分类出错");
+		}
+		return rd;
+	}
 }

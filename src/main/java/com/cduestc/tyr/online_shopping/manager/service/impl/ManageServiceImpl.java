@@ -28,7 +28,7 @@ public class ManageServiceImpl implements ManageService {
 			kind.setEntryTime(nowTime);
 			kind.setLastChangeTime(nowTime);
 			Set<KindBean> set = new HashSet<KindBean>();
-			String subStr[] = subName.split("\\s*,\\s*");
+			String subStr[] = subName.split("\\s+");
 			for(String str : subStr) {
 				KindBean k = new KindBean();
 				k.setName(str);
@@ -49,5 +49,26 @@ public class ManageServiceImpl implements ManageService {
 		return dao.findMainKind();
 	}
 
-	
+	@Override
+	public void addSubKind(int mainId, String subText) {
+		KindBean kind = dao.findMainKindById(mainId);
+		Set<KindBean> kinds = kind.getSubKinds();
+		long time = System.currentTimeMillis();
+		for(String s : subText.split("\\s+")) {
+			KindBean k = new KindBean();
+			k.setName(s);
+			k.setEntryTime(time);
+			k.setEntryId(1);
+			k.setLastChangeTime(time);
+			kinds.add(k);
+		}
+		kind.setLastChangeTime(time);
+		kind.setSubKinds(kinds);
+		dao.updateSubKind(kind);
+	}
+
+	@Override
+	public void deleteMainKind(int id) {
+		dao.deleteMainKindById(id);
+	}
 }

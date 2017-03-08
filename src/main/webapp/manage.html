@@ -45,7 +45,7 @@
 					<div class="operate-content col-md-12" id="add_main">
 						<div class="form-group">
 						    <label for="main-kinds">主分类输入</label>
-						    <input type="email" class="form-control" id="main-kinds">
+						    <input type="text" class="form-control" id="main-kinds">
 						</div>
 						<div class="form-group">
 						    <label for="subsidiary_kinds1">从分类输入</label>
@@ -69,7 +69,7 @@
 						    <label for="subsidiary_kinds2">从分类输入</label>
 						    <textarea class="form-control" id="subsidiary_kinds2" rows="3"></textarea>
 						</div>
-						<button type="button" class="btn btn-danger col-md-2" id="submitSubKind">删除</button>
+						<button type="button" class="btn btn-danger col-md-2" id="submitSubKind">提交</button>
 					</div><!--  -->
 					<!-- 删除主分类 -->
 					<div class="operate-content col-md-12" id="delete_main">
@@ -83,7 +83,7 @@
 							  <option>5</option>
 							</select>
 						</div>
-						<button type="button" class="btn btn-danger col-md-2">删除</button>
+						<button type="button" class="btn btn-danger col-md-2" id="deleteMain">删除</button>
 					</div><!--  -->
 					<!-- 删除从分类 -->
 					<div class="operate-content col-md-12" id="delete_subsidiary">
@@ -167,6 +167,34 @@ console.log(data);
 				 	operKindsDis(2);
 				  	break;
 				case "删除主分类":
+					//发送请求加载主分类
+					$.ajax({
+						data:"",
+						dataType:"json",
+						error:function() {
+							alert("连接服务器失败");
+						},
+						success:function(result) {
+							if(result.status === 1) {
+								var data = result.data;
+								//清空原来列表
+								$("#main_kinds_l2").html("");
+								for(var i=0; i<data.length; i++) {
+									var $option = $("<option>" +data[i].name + "</option>");
+									$option.data("id", data[i].id);
+									$("#main_kinds_l2").append($option);
+									//删除可点
+									$("#deleteMain").removeAttr("disabled");
+								}
+							} else {
+								alert(result.info);
+								//删除按钮不可点
+								$("#deleteMain").attr("disabled", "disabled");
+							}
+						},
+						type:"post",
+						url:"manage/findMain.action"
+					});
 				  	operKindsDis(3);
 				  	break;
 				case "删除子分类":
@@ -197,6 +225,55 @@ console.log(data);
 					},
 					type:"post",
 					url:"manage/addMainKind.action"
+				});
+			});
+			//提交辅类提交事件
+			$("#submitSubKind").click(function() {
+				var subText = $("#subsidiary_kinds2").val().trim();
+				var mainId = $("#main_kinds_l1 option:selected").data("id");
+				if(subText === "" || undefined=== mainId) {
+					alert("输入有误或操作非法");
+					return;
+				}
+				$.ajax({
+					data:{mainId:mainId,subName:subText},
+					dataType:"json",
+					error:function() {
+						alert("连接服务器失败");
+					},
+					success:function(result) {
+						if(result.status === 1) {
+							alert("添加成功");
+						} else {
+							alert(result.info);
+						}
+					},
+					type:"post",
+					url:"manage/addSubKind.action"
+				});
+			});
+			//删除主类事件
+			$("#deleteMain").click(function() {
+				var mainId = $("#main_kinds_l2 option:selected").data("id");
+				if(undefined=== mainId) {
+				alert("不可执行该操作");
+					return;
+				}
+				$.ajax({
+					data:{mainId:mainId},
+					dataType:"json",
+					error:function() {
+						alert("连接服务器失败");
+					},
+					success:function(result) {
+						if(result.status === 1) {
+							alert("删除成功");
+						} else {
+							alert(result.info);
+						}
+					},
+					type:"post",
+					url:"manage/deleteMain.action"
 				});
 			});
 		});
