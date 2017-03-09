@@ -82,16 +82,12 @@
 			<div class="col-md-2">xx</div>
 		</div>
 		<div class="row">
-			<div class="col-md-2 goods-category">
-				<ul>
-					<li>家用电器</li>
-					<li>电脑办公</li>
-					<li>手机数码</li>
-					<li>食品</li>
-					<li>服装</li>
+			<div class="col-md-2 goods-category" id="mainKinds">
+				<ul id="mainKindsList">
+					
 				</ul>
 			</div>
-			<div class="col-md-8 store-activity">
+			<div class="col-md-8 store-activity" id="activty" style="display: none;">
 				<div id="carousel-example-generic" class="carousel slide"
 					data-ride="carousel">
 					<ol class="carousel-indicators">
@@ -128,7 +124,17 @@
 					</a>
 				</div>
 			</div>
-
+			<!-- 显示子分类 -->
+			<div class="col-md-8 dis-sub-kinds" id="disSubKinds">
+				<ul class="nav nav-pills subKinds-list" id="subKindsList">
+				  <li class="text-center">剃须刀</li>
+				  <li class="text-center">电视剧</li>
+				  <li class="text-center">游戏机</li>
+				  <li class="text-center">手机</li>
+				  <li class="text-center">电脑</li>
+				  <li class="text-center">中央空调注意注意这样做是</li>
+				</ul>
+			</div><!-- 显示子分类结束 -->
 		</div>
 
 		<div class="row goods-recommend">
@@ -347,18 +353,64 @@
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
 		$(function() {
+			var data;
 			//发送请求加载分类
 			$.ajax({
 				data:"",
 				dataType:"json",
 				error:function() {
-					
+					$("#mainKinds").text("列表加载失败");
 				},
 				success:function(result) {
-					
-				}
+					if(result.status === 1) {
+						data = result.data;
+						//清空列表
+						$("#mainKindsList li").remove();
+						for(var i=0; i<data.length; i++) {
+							var $li = $("<li>" +data[i].name + "</li>");
+							$li.data("id", data[i].id);
+							$("#mainKindsList").append($li);
+						}
+						$("#mainKindsList li").hover(function(event) {
+							var $target = $(event.target);
+							var $li = null;
+							var subKinds = null;
+							$("#activty").hide();
+							$("#disSubKinds").show();
+							//清空原有列表
+							$("#subKindsList li").remove();
+							for(var k=0; k<data.length; k++) {
+								if(data[k].id === $target.data("id")) {
+									subKinds = data[k].subKinds;
+									for(var j=0; j<subKinds.length; j++) {
+										console.log(subKinds[j].name);
+										$li = $("<li class='text-center'>" + subKinds[j].name +"</li>");
+										$("#subKindsList").append($li);
+									}
+								}
+							}
+						});
+						$("#mainKindsList li").mouseout(function() {
+							$("#disSubKinds").hide();
+							$("#activty").show();
+						});
+						$("#disSubKinds").mouseout(function(event) {
+							if(event.target.tagName !== "DIV") {
+								return;
+							}
+							$("#disSubKinds").hide();
+							$("#activty").show();
+						});
+						$("#disSubKinds").mousemove(function() {
+							$("#disSubKinds").show();
+							$("#activty").hide();
+						});
+					} else {
+						$("#mainKinds").text("列表加载失败");
+					}
+				},
 				type:"post",
-				url:"",
+				url:"manage/findMain.action",
 			});
 		});
 	</script>

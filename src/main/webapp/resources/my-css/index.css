@@ -54,6 +54,22 @@ div {
 	margin:0;
 	border:0;
 }
+.subKinds-list li {
+	color:#555555;
+	padding:3px 5px;
+	margin:0;
+	white-space: nowrap;
+}
+.subKinds-list li:HOVER {
+	cursor: pointer;
+	color:red;
+}
+.dis-sub-kinds {
+	margin:0;
+	padding:20px 10px;
+	background-color: #f6f6f6;
+	height: 380px;
+}
 .goods-recommend {
 	margin-top: 20px;
 }
