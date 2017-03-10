@@ -35,3 +35,13 @@ function operKindsDis(num) {
 		$("#delete_subsidiary").show();
 	}
 }
+
+function disManageList(num) {
+	if(num === 1) {
+		$("#kinds_content").show();
+		$("#commodityContent").hide();
+	} else if(num === 2) {
+		$("#kinds_content").hide();
+		$("#commodityContent").show();
+	}
+}

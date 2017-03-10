@@ -24,9 +24,9 @@
 		<hr/>
 		<div class="row">
 			<div class="col-md-2">
-				<ul class="list-group">
-				  <li class="list-group-item list-1" id="kinds_btn">分类管理</li>
-				  <li class="list-group-item list-1">Dapibus ac facilisis in</li>
+				<ul class="list-group" id="managerList">
+				  <li class="list-group-item list-1">分类管理</li>
+				  <li class="list-group-item list-1">添加商品</li>
 				  <li class="list-group-item list-1">Morbi leo risus</li>
 				  <li class="list-group-item list-1">Porta ac consectetur ac</li>
 				  <li class="list-group-item list-1">Vestibulum at eros</li>
@@ -34,7 +34,7 @@
 			</div>
 			<div class="col-md-10 content" >
 				<!-- 分类管理 -->
-				<div class="kinds-content" id="kinds_content">
+				<div class="kinds-content" id="kinds_content" style="display: none;">
 					<ul class="nav nav-tabs" id="kinds_operate">
 					  <li role="presentation" class="list-2"><a>添加主分类</a></li>
 					  <li role="presentation" class="list-2"><a>添加子分类</a></li>
@@ -98,6 +98,101 @@
 						<button type="button" class="btn btn-danger col-md-2">删除</button>
 					</div><!--  -->
 				</div><!--分类管理结束 -->
+				<!-- 添加商品开始 -->
+				<div class="kinds-content" id="commodityContent">
+					<form action="manage/addCommodity.action"  id="commodityMessage" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+						    <label for="commodity-title">商品标题</label>
+						    <input type="text" class="form-control" id="commodity-title">
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="commodityMainKinds">所属主类别</label>
+						    <select class="form-control" id="commodityMainKinds">
+							  <option>A</option>
+							  <option>B</option>
+							  <option>C</option>
+							</select>
+						</div>
+						<div class="form-group">
+						    <label for="commoditySubKinds">所属子类别</label>
+						    <select class="form-control" id="commoditySubKinds">
+							  <option>1</option>
+							  <option>2</option>
+							  <option>3</option>
+							</select>
+						</div>
+						<hr>
+						 <div class="form-group">
+						    <label for="mainImage1">商品主图片</label>
+						    <input type="file" name="mainImage" id="mainImage1">
+						    <label class="sr-only" for="mainImage2">File input</label>
+						    <input type="file" name="mainImage" id="mainImage2">
+						    <label class="sr-only" for="mainImage3">File input</label>
+						    <input type="file" name="mainImage" id="mainImage3">
+						    <label class="sr-only" for="mainImage4">File input</label>
+						    <input type="file" name="mainImage" id="mainImage4">
+						    <p class="help-block">请上传380x460像素比例图片</p>
+						  </div>
+						  <hr>
+						  <div class="form-group">
+						    <label for="commodityInventory">库存</label>
+						    <input type="text" class="form-control" id="commodityInventory">
+						</div>
+						<div class="form-group">
+						    <label for="marketPrice">市场价</label>
+						    <input type="text" class="form-control" id="marketPrice">
+						</div>
+						<div class="form-group">
+						    <label for="myPrice">销售价</label>
+						    <input type="text" class="form-control" id="myPrice">
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="property1">属性一</label>
+						    <input type="text" class="form-control" id="property1">
+						</div>
+						<div class="form-group">
+						    <label for="property1Detail">属性一详情</label>
+						    <textarea class="form-control" id="property1Detail" rows="3"></textarea>
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="property2">属性二</label>
+						    <input type="text" class="form-control" id="property2">
+						</div>
+						<div class="form-group">
+						    <label for="property2Detail">属性二详情</label>
+						    <textarea class="form-control" id="property2Detail" rows="3"></textarea>
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="brand">品牌</label>
+						    <input type="text" class="form-control" id="brand">
+						</div>
+						<div class="form-group">
+						    <label for="paramDetail">参数详情</label>
+						    <textarea class="form-control" id="paramDetail" rows="3"></textarea>
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="detailImage1">商品详情图片</label>
+						    <input type="file" name="detailImage" id="detailImage1">
+						    <label class="sr-only" for="detailImage2">File input</label>
+						    <input type="file" name="detailImage" id="detailImage2">
+						    <label class="sr-only" for="detailImage3">File input</label>
+						    <input type="file" name="detailImage" id="detailImage3">
+						    <label class="sr-only" for="detailImage4">File input</label>
+						    <input type="file" name="detailImage" id="detailImage4">
+						    <label class="sr-only" for="detailImage5">File input</label>
+						    <input type="file" name="detailImage" id="detailImage5">
+						    <label class="sr-only" for="detailImage6">File input</label>
+						    <input type="file" name="detailImage" id="detailImage6">
+						    <p class="help-block">请上传1200x560像素比例图片最佳</p>
+						  </div>
+						 </form>
+					  <button type="button" class="btn btn-danger col-md-3" id="submitSubKind">提交</button>
+				</div><!-- 添加商品结束 -->
 			</div>
 		</div>
 		<hr/>
@@ -110,8 +205,17 @@
 	<script type="text/javascript" src="resources/scripts/manage.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			$("#kinds_btn").click(function() {
-				$("#kinds_content").show();
+			$("#managerList").click(function(event) {
+				var $target = $(event.target);
+				switch($target.text().trim())
+				{
+				case "分类管理":
+					disManageList(1);
+				  	break;
+				case "添加商品":
+					disManageList(2);
+					break;
+				}
 			});
 			$("#kinds_operate").click(function(event){
 				var $target = $(event.target);
