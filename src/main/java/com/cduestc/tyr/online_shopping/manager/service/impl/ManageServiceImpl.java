@@ -23,7 +23,7 @@ public class ManageServiceImpl implements ManageService {
 		if(null!=subName && !"".equals(subName)) {
 			Long nowTime = System.currentTimeMillis();
 			KindBean kind = new KindBean();
-			kind.setName(mainName);
+			kind.setKindName(mainName);
 			kind.setEntryId(1);
 			kind.setEntryTime(nowTime);
 			kind.setLastChangeTime(nowTime);
@@ -31,7 +31,7 @@ public class ManageServiceImpl implements ManageService {
 			String subStr[] = subName.split("\\s+");
 			for(String str : subStr) {
 				KindBean k = new KindBean();
-				k.setName(str);
+				k.setKindName(str);
 				k.setEntryId(1);
 				k.setEntryTime(nowTime);
 				k.setLastChangeTime(nowTime);
@@ -56,7 +56,7 @@ public class ManageServiceImpl implements ManageService {
 		long time = System.currentTimeMillis();
 		for(String s : subText.split("\\s+")) {
 			KindBean k = new KindBean();
-			k.setName(s);
+			k.setKindName(s);
 			k.setEntryTime(time);
 			k.setEntryId(1);
 			k.setLastChangeTime(time);

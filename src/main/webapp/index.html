@@ -367,7 +367,7 @@
 						//清空列表
 						$("#mainKindsList li").remove();
 						for(var i=0; i<data.length; i++) {
-							var $li = $("<li>" +data[i].name + "</li>");
+							var $li = $("<li>" +data[i].kindName + "</li>");
 							$li.data("id", data[i].id);
 							$("#mainKindsList").append($li);
 						}
@@ -384,7 +384,7 @@
 									subKinds = data[k].subKinds;
 									for(var j=0; j<subKinds.length; j++) {
 										console.log(subKinds[j].name);
-										$li = $("<li class='text-center'>" + subKinds[j].name +"</li>");
+										$li = $("<li class='text-center'>" + subKinds[j].kindName +"</li>");
 										$("#subKindsList").append($li);
 									}
 								}

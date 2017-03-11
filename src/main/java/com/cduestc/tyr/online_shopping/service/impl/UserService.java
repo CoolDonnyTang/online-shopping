@@ -51,6 +51,7 @@ public class UserService implements IUserService {
 		return 1;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public int findUserOrsendEmailCode(String email, Boolean exist, HttpSession session) throws Exception {
 		int status;
@@ -67,6 +68,7 @@ public class UserService implements IUserService {
 System.out.println(code);
 		status = SendEmail.send(email, "安全验证", "您此次操作的验证码为<b>"+code+"</b> 有效期10分钟");
 		if(status == 1) {
+			@SuppressWarnings("rawtypes")
 			Map map = new HashMap();
 			map.put("checkCode", code);
 			map.put("start", Long.valueOf(System.currentTimeMillis()));
@@ -77,6 +79,7 @@ System.out.println(code);
 		return status;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public int checkEmailCode(String email, String checkCode, HttpSession session) throws Exception {
 		Map message = (Map) session.getAttribute("checkCodeMessage");

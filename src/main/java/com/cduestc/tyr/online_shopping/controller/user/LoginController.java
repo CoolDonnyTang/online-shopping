@@ -1,25 +1,15 @@
 package com.cduestc.tyr.online_shopping.controller.user;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.OutputStream;
-import java.util.Random;
-
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cduestc.tyr.online_shopping.beans.ResultData;
 import com.cduestc.tyr.online_shopping.service.IUserService;
-import com.cduestc.tyr.online_shopping.utils.CheckCode;
 
 @Controller
 @RequestMapping("/user")

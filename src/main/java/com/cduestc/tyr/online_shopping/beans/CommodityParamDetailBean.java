@@ -1,23 +1,15 @@
 package com.cduestc.tyr.online_shopping.beans;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 @Entity
-@Table(name="kind")
-public class KindBean implements Serializable {
+@Table(name = "commodity_param_detail")
+public class CommodityParamDetailBean implements Serializable {
 	/**
 	 * 
 	 */
@@ -25,33 +17,22 @@ public class KindBean implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String kindName;
-	private Integer belong;
+	private Integer belongCommodityId;
+	private String paramContent;
 	private Integer entryId;
 	private Long entryTime;
 	private Long lastChangeTime;
-	@Fetch(FetchMode.JOIN)
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "belong")
-	private Set<KindBean> subKinds;
-	
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getKindName() {
-		return kindName;
+	public String getParamContent() {
+		return paramContent;
 	}
-	public void setKindName(String kindName) {
-		this.kindName = kindName;
-	}
-	public Integer getBelong() {
-		return belong;
-	}
-	public void setBelong(Integer belong) {
-		this.belong = belong;
+	public void setParamContent(String paramContent) {
+		this.paramContent = paramContent;
 	}
 	public Integer getEntryId() {
 		return entryId;
@@ -71,27 +52,25 @@ public class KindBean implements Serializable {
 	public void setLastChangeTime(Long lastChangeTime) {
 		this.lastChangeTime = lastChangeTime;
 	}
-	public Set<KindBean> getSubKinds() {
-		return subKinds;
-	}
-	public void setSubKinds(Set<KindBean> subKinds) {
-		this.subKinds = subKinds;
+	public Integer getBelongCommodityId() {
+		return belongCommodityId;
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((belong == null) ? 0 : belong.hashCode());
+		result = prime
+				* result
+				+ ((belongCommodityId == null) ? 0 : belongCommodityId
+						.hashCode());
 		result = prime * result + ((entryId == null) ? 0 : entryId.hashCode());
 		result = prime * result
 				+ ((entryTime == null) ? 0 : entryTime.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result
-				+ ((kindName == null) ? 0 : kindName.hashCode());
-		result = prime * result
 				+ ((lastChangeTime == null) ? 0 : lastChangeTime.hashCode());
 		result = prime * result
-				+ ((subKinds == null) ? 0 : subKinds.hashCode());
+				+ ((paramContent == null) ? 0 : paramContent.hashCode());
 		return result;
 	}
 	@Override
@@ -102,11 +81,11 @@ public class KindBean implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		KindBean other = (KindBean) obj;
-		if (belong == null) {
-			if (other.belong != null)
+		CommodityParamDetailBean other = (CommodityParamDetailBean) obj;
+		if (belongCommodityId == null) {
+			if (other.belongCommodityId != null)
 				return false;
-		} else if (!belong.equals(other.belong))
+		} else if (!belongCommodityId.equals(other.belongCommodityId))
 			return false;
 		if (entryId == null) {
 			if (other.entryId != null)
@@ -123,22 +102,17 @@ public class KindBean implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (kindName == null) {
-			if (other.kindName != null)
-				return false;
-		} else if (!kindName.equals(other.kindName))
-			return false;
 		if (lastChangeTime == null) {
 			if (other.lastChangeTime != null)
 				return false;
 		} else if (!lastChangeTime.equals(other.lastChangeTime))
 			return false;
-		if (subKinds == null) {
-			if (other.subKinds != null)
+		if (paramContent == null) {
+			if (other.paramContent != null)
 				return false;
-		} else if (!subKinds.equals(other.subKinds))
+		} else if (!paramContent.equals(other.paramContent))
 			return false;
 		return true;
 	}
 	
-}
+}	

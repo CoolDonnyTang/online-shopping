@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 
-<title>免费注册</title>
+<title>管理员页面</title>
 
 <!-- Bootstrap -->
 <link href="resources/plugins/bootstrap/css/bootstrap.min.css"
@@ -102,8 +102,8 @@
 				<div class="kinds-content" id="commodityContent">
 					<form action="manage/addCommodity.action"  id="commodityMessage" method="post" enctype="multipart/form-data">
 						<div class="form-group">
-						    <label for="commodity-title">商品标题</label>
-						    <input type="text" class="form-control" id="commodity-title">
+						    <label for="commodityTitle">商品标题</label>
+						    <input type="text" class="form-control" id="commodityTitle" name="titleName">
 						</div>
 						<hr>
 						<div class="form-group">
@@ -111,41 +111,37 @@
 						    <select class="form-control" id="commodityMainKinds">
 							  <option>A</option>
 							  <option>B</option>
-							  <option>C</option>
+							  <option selected="selected">C</option>
 							</select>
 						</div>
 						<div class="form-group">
 						    <label for="commoditySubKinds">所属子类别</label>
-						    <select class="form-control" id="commoditySubKinds">
+						    <select class="form-control" id="commoditySubKinds" name="belongKindId">
 							  <option>1</option>
 							  <option>2</option>
 							  <option>3</option>
 							</select>
 						</div>
 						<hr>
-						 <div class="form-group">
+						 <div class="form-group" id="mainImageList">
 						    <label for="mainImage1">商品主图片</label>
-						    <input type="file" name="mainImage" id="mainImage1">
+						    <input type="file" name="file" class="mainImage">
 						    <label class="sr-only" for="mainImage2">File input</label>
-						    <input type="file" name="mainImage" id="mainImage2">
+						    <input type="file" name="file" class="mainImage">
 						    <label class="sr-only" for="mainImage3">File input</label>
-						    <input type="file" name="mainImage" id="mainImage3">
+						    <input type="file" name="file" class="mainImage">
 						    <label class="sr-only" for="mainImage4">File input</label>
-						    <input type="file" name="mainImage" id="mainImage4">
+						    <input type="file" name="file" class="mainImage">
 						    <p class="help-block">请上传380x460像素比例图片</p>
 						  </div>
 						  <hr>
 						  <div class="form-group">
 						    <label for="commodityInventory">库存</label>
-						    <input type="text" class="form-control" id="commodityInventory">
-						</div>
-						<div class="form-group">
-						    <label for="marketPrice">市场价</label>
-						    <input type="text" class="form-control" id="marketPrice">
+						    <input type="text" class="form-control" id="commodityInventory" name="inventory">
 						</div>
 						<div class="form-group">
 						    <label for="myPrice">销售价</label>
-						    <input type="text" class="form-control" id="myPrice">
+						    <input type="text" class="form-control" id="myPrice" name="myPrice">
 						</div>
 						<hr>
 						<div class="form-group">
@@ -167,31 +163,39 @@
 						</div>
 						<hr>
 						<div class="form-group">
-						    <label for="brand">品牌</label>
-						    <input type="text" class="form-control" id="brand">
+						    <label for="brand">所属品牌</label>
+						    <input type="text" class="form-control" id="brand" name="brand">
 						</div>
 						<div class="form-group">
 						    <label for="paramDetail">参数详情</label>
 						    <textarea class="form-control" id="paramDetail" rows="3"></textarea>
 						</div>
 						<hr>
-						<div class="form-group">
+						<div class="form-group" id="detailImageList">
 						    <label for="detailImage1">商品详情图片</label>
-						    <input type="file" name="detailImage" id="detailImage1">
+						    <input type="file" name="file" class="detailImage">
 						    <label class="sr-only" for="detailImage2">File input</label>
-						    <input type="file" name="detailImage" id="detailImage2">
+						    <input type="file" name="file" class="detailImage">
 						    <label class="sr-only" for="detailImage3">File input</label>
-						    <input type="file" name="detailImage" id="detailImage3">
+						    <input type="file" name="file" class="detailImage">
 						    <label class="sr-only" for="detailImage4">File input</label>
-						    <input type="file" name="detailImage" id="detailImage4">
+						    <input type="file" name="file" class="detailImage">
 						    <label class="sr-only" for="detailImage5">File input</label>
-						    <input type="file" name="detailImage" id="detailImage5">
+						    <input type="file" name="file" class="detailImage">
 						    <label class="sr-only" for="detailImage6">File input</label>
-						    <input type="file" name="detailImage" id="detailImage6">
+						    <input type="file" name="file" class="detailImage">
+						    <label class="sr-only" for="detailImage7">File input</label>
+						    <input type="file" name="file" class="detailImage">
+						    <label class="sr-only" for="detailImage8">File input</label>
+						    <input type="file" name="file" class="detailImage">
+						    <label class="sr-only" for="detailImage9">File input</label>
+						    <input type="file" name="file" class="detailImage">
+						    <label class="sr-only" for="detailImage10">File input</label>
+						    <input type="file" name="file" class="detailImage">
 						    <p class="help-block">请上传1200x560像素比例图片最佳</p>
 						  </div>
 						 </form>
-					  <button type="button" class="btn btn-danger col-md-3" id="submitSubKind">提交</button>
+					  <button type="button" class="btn btn-danger col-md-3" id="submitCommodityMessage">提交</button>
 				</div><!-- 添加商品结束 -->
 			</div>
 		</div>
@@ -202,9 +206,10 @@
 	</div>
 	<script src="resources/plugins/jquery-2.2.4.min.js"></script>
 	<script src="resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="resources/scripts/manage.js"></script>
+	<script type="text/javascript" src="resources/scripts/manage/manage.js"></script>
 	<script type="text/javascript">
 		$(function() {
+			//主操作列表点击事件
 			$("#managerList").click(function(event) {
 				var $target = $(event.target);
 				switch($target.text().trim())
@@ -213,10 +218,51 @@
 					disManageList(1);
 				  	break;
 				case "添加商品":
+					//发送请求加载分类
+					$.ajax({
+						data:"",
+						dataType:"json",
+						error:function() {
+							
+						},
+						success:function(result) {
+							if(result.status === 1) {
+								var data = result.data;
+								//清空列表
+								$("#commodityMainKinds option").remove();
+								for(var i=0; i<data.length; i++) {
+									var $option;
+									if(i===0) {
+										$option = $("<option selected='selected' value="+ data[i].id +">"+data[i].kindName+"</option>");
+										//清空列表
+										$("#commoditySubKinds option").remove();
+										for(var j=0; j<data[i].subKinds.length; j++) {
+											var $option2 ;
+											if(j === 0) {
+												$option2 = $("<option selected='selected' value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+											} else {
+												$option2 = $("<option value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+											}
+											$("#commoditySubKinds").append($option2);
+										}
+									} else {
+										$option = $("<option value="+ data[i].id +">"+data[i].kindName+"</option>");
+									}
+									$("#commodityMainKinds").data("data", data);
+									$("#commodityMainKinds").append($option);
+								} 
+							}else {
+									
+							}
+						},
+						type:"post",
+						url:"manage/findMain.action",
+					});
 					disManageList(2);
 					break;
 				}
 			});
+			//类操作事件
 			$("#kinds_operate").click(function(event){
 				var $target = $(event.target);
 				$("#kinds_operate").children("li").removeClass("active");
@@ -241,7 +287,7 @@ console.log(data);
 								//清空原来列表
 								$("#main_kinds_l1").html("");
 								for(var i=0; i<data.length; i++) {
-									var $option = $("<option>" +data[i].name + "</option>");
+									var $option = $("<option>" +data[i].kindName + "</option>");
 									$option.data("id", data[i].id);
 									$("#main_kinds_l1").append($option);
 									//提交可点
@@ -272,7 +318,7 @@ console.log(data);
 								//清空原来列表
 								$("#main_kinds_l2").html("");
 								for(var i=0; i<data.length; i++) {
-									var $option = $("<option>" +data[i].name + "</option>");
+									var $option = $("<option>" +data[i].kindName + "</option>");
 									$option.data("id", data[i].id);
 									$("#main_kinds_l2").append($option);
 									//删除可点
@@ -370,6 +416,133 @@ console.log(data);
 					type:"post",
 					url:"manage/deleteMain.action"
 				});
+			});
+			/**
+			 * 添加商品相关js
+			 **/
+			//选择类别联动菜单
+			$("#commodityMainKinds").change(function() {
+				var id = $("#commodityMainKinds option:selected").val();
+				var data = $("#commodityMainKinds").data("data");
+console.log(id);
+				for(var i=0; i<data.length; i++) {
+					if(data[i].id == id) {
+						//清空子列表
+						$("#commoditySubKinds option").remove();
+						for(var j=0; j<data[i].subKinds.length; j++) {
+//console.log(data[i].subKinds[j].kindName);
+							var $option2 ;
+							if(j === 0) {
+								$option2 = $("<option selected='selected' value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+							} else {
+								$option2 = $("<option value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+							}
+							$("#commoditySubKinds").append($option2);
+						}
+					}
+				}
+			});
+			//提交信息
+			$("#submitCommodityMessage").click(function() {
+				//标题
+				var title = $("#commodityTitle").val().trim();
+				//所属类别
+				var subKind = $("#commoditySubKinds option:selected").val().trim();
+				//主图片组
+				var mainImages = $("#mainImageList input[class='mainImage']");
+				//库存
+				var inventory = $("#commodityInventory").val().trim();
+				//售价
+				var price = $("#myPrice").val().trim();
+				//属性1
+				var propertyName1 = $("#property1").val().trim();
+				var propertyContent1 = $("#property1Detail").val().trim();
+				//属性2
+				var propertyName2 = $("#property2").val().trim();
+				var propertyContent2 = $("#property2Detail").val().trim();
+				//品牌
+				var brand = $("#brand").val().trim();
+				//参数
+				var paramDetail = $("#paramDetail").val().trim();
+				//详情图片组
+				var detailImage = $("#detailImageList input[class='detailImage']");
+				if("" === title) {
+					alert("标题不可为空");
+					return;
+				}
+				if(isNaN(subKind) || subKind<0) {
+					alert("出现一个异常，请刷新页面重试");
+					return;
+				}
+				var counter1 = 0;
+				var imageReg = /^.+\.(png)|(jpg)|(jpeg)|(gif)$/i;
+				var imageName = "";
+				for(var i=0; i<mainImages.length; i++) {
+					imageName = mainImages.eq(i).val().trim();
+					if(!(imageName === "")) {
+						if(!(imageReg.test(imageName))) {
+							alert("商品主图片出现非图片格式文件");
+							return;
+						} else {
+							counter1 = counter1 + 1;
+						}
+					}
+				}
+				if(counter1 <= 0) {
+					alert("商品主图片至少选择一张");
+					return;
+				}
+				if(propertyName1 === "" && propertyName2 === "") {
+					alert("请至少填写一个属性项");
+					return;
+				}
+				if(!(propertyName1 === "") && "" === propertyContent1) {
+					alert("请填写属性一详情");
+					return;
+				}
+				if(!(propertyName2 === "") && "" === propertyContent2) {
+					alert("请填写属性二详情");
+					return;
+				}
+				if(brand === "") {
+					alert("请填写所属品牌");
+					return;
+				}
+				if(paramDetail === "") {
+					alert("请填写参数详情");
+					return;
+				}
+				counter1 = 0;
+				imageName = "";
+				for(var i=0; i<detailImage.length; i++) {
+					imageName = detailImage.eq(i).val().trim();
+					if(!(imageName === "")) {
+						if(!(imageReg.test(imageName))) {
+							alert("商品主图片出现非图片格式文件");
+							return;
+						} else {
+							counter1 = counter1 + 1;
+						}
+					}
+				}
+				if(counter1 <= 0) {
+					alert("商品详情图片至少选择一张");
+					return;
+				}
+				//所有验证通过则提交表单
+				$("#commodityMessage").submit();
+				/* var test =  new FormData($("#commodityMessage").get(0));
+				 $.ajax({
+		            url: "manage/addCommodity.action",
+		            type: "post",
+		            data: test,
+		            cache: false,
+		            contentType: false,    //不可缺
+		            processData: false,    //不可缺
+		            success:function(result){
+		                alert(result.info);
+		            }
+		        }); */
 			});
 		});
 	</script>
