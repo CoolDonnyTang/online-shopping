@@ -143,23 +143,27 @@
 						    <label for="myPrice">销售价</label>
 						    <input type="text" class="form-control" id="myPrice" name="myPrice">
 						</div>
+						<div class="form-group">
+						    <label for="marketPrice">市场价</label>
+						    <input type="text" class="form-control" id="marketPrice" name="marketPrice">
+						</div>
 						<hr>
 						<div class="form-group">
 						    <label for="property1">属性一</label>
-						    <input type="text" class="form-control" id="property1">
+						    <input type="text" class="form-control" id="property1" name="property1">
 						</div>
 						<div class="form-group">
 						    <label for="property1Detail">属性一详情</label>
-						    <textarea class="form-control" id="property1Detail" rows="3"></textarea>
+						    <textarea class="form-control" id="property1Detail" rows="3" name="property1Content"></textarea>
 						</div>
 						<hr>
 						<div class="form-group">
 						    <label for="property2">属性二</label>
-						    <input type="text" class="form-control" id="property2">
+						    <input type="text" class="form-control" id="property2" name="property2">
 						</div>
 						<div class="form-group">
 						    <label for="property2Detail">属性二详情</label>
-						    <textarea class="form-control" id="property2Detail" rows="3"></textarea>
+						    <textarea class="form-control" id="property2Detail" rows="3" name="property2Content"></textarea>
 						</div>
 						<hr>
 						<div class="form-group">
@@ -168,7 +172,7 @@
 						</div>
 						<div class="form-group">
 						    <label for="paramDetail">参数详情</label>
-						    <textarea class="form-control" id="paramDetail" rows="3"></textarea>
+						    <textarea class="form-control" id="paramDetail" rows="3" name="paramss"></textarea>
 						</div>
 						<hr>
 						<div class="form-group" id="detailImageList">
@@ -206,6 +210,7 @@
 	</div>
 	<script src="resources/plugins/jquery-2.2.4.min.js"></script>
 	<script src="resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="resources/scripts/my-utils.js"></script>
 	<script type="text/javascript" src="resources/scripts/manage/manage.js"></script>
 	<script type="text/javascript">
 		$(function() {
@@ -454,6 +459,8 @@ console.log(id);
 				var inventory = $("#commodityInventory").val().trim();
 				//售价
 				var price = $("#myPrice").val().trim();
+				//市场价
+				var marketPrice = $("#marketPrice").val().trim();
 				//属性1
 				var propertyName1 = $("#property1").val().trim();
 				var propertyContent1 = $("#property1Detail").val().trim();
@@ -477,6 +484,7 @@ console.log(id);
 				var counter1 = 0;
 				var imageReg = /^.+\.(png)|(jpg)|(jpeg)|(gif)$/i;
 				var imageName = "";
+				var mainImageNames = new Array(mainImages.length);
 				for(var i=0; i<mainImages.length; i++) {
 					imageName = mainImages.eq(i).val().trim();
 					if(!(imageName === "")) {
@@ -485,8 +493,17 @@ console.log(id);
 							return;
 						} else {
 							counter1 = counter1 + 1;
+							mainImageNames[i] = imageName;
 						}
 					}
+				}
+				if(!checkInteger(inventory)) {
+					alert("库存有效值为 1-999999");
+					return;
+				}
+				if(!checkBigDicemal(price)) {
+					alert("售价有效值为 0.00-999999999.00");
+					return;
 				}
 				if(counter1 <= 0) {
 					alert("商品主图片至少选择一张");
@@ -530,19 +547,27 @@ console.log(id);
 					return;
 				}
 				//所有验证通过则提交表单
-				$("#commodityMessage").submit();
-				/* var test =  new FormData($("#commodityMessage").get(0));
+				//$("#commodityMessage").submit();
+				 var data =  new FormData($("#commodityMessage").get(0));
+				 data.append("mainImages",mainImageNames);
 				 $.ajax({
 		            url: "manage/addCommodity.action",
 		            type: "post",
-		            data: test,
+		            data: data,
 		            cache: false,
 		            contentType: false,    //不可缺
 		            processData: false,    //不可缺
+		            error: function() {
+		            	alert("连接服务器失败");
+		            },
 		            success:function(result){
+		                if(result.status === 1) {
+		                	$("#commodityMessage input").val("");
+		                	$("#commodityMessage textarea").val("");
+		                }
 		                alert(result.info);
 		            }
-		        }); */
+		        }); 
 			});
 		});
 	</script>

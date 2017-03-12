@@ -89,9 +89,9 @@
 				<button type="button" class="btn btn-default btn-sm">价格<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>
 				<button type="button" class="btn btn-default btn-sm">评论数<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span></button>
 			</div>
-			<div>
+			<div id="commoditiesList">
 				<!-- 商品列表开始 -->
-				<div class="col-sm-3 col-md-3 commodities-list">
+				<div class="col-sm-3 col-md-3 commodities-list" >
 					<div class="thumbnail">
 						<img src="resources/images/commodity-1.jpg" class="col-sm-12 col-md-12 list-image">
 						<div class="caption commodity-dec">
@@ -227,7 +227,52 @@
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
-		
+		$(function() {
+			//获取url后面的参数
+			var urlParam = window.atob(window.location.search.replace("?", ""))
+			var data = {};
+			data[urlParam.substring(0, urlParam.indexOf("=")).trim()] = urlParam.substring(urlParam.indexOf("=") + 1).trim();
+console.log(data);
+			//发送请求加载数据
+			$.ajax({
+				data:data,
+				dataType:"json",
+				error:function() {
+					alert("连接服务器失败");
+				},
+				success:function(result) {
+					if(result.status === 1) {
+console.log(result.data);
+						var data = result.data;
+						//var $container = $("#commoditiesList").html("");
+						var $commodity;
+						for(var i=0; i<data.length; i++) {
+							$commodity = "<div class='col-sm-3 col-md-3 commodities-list'>" +
+											"<div class='thumbnail'>" +
+												"<img src="+ data[i].url +" class='col-sm-12 col-md-12 list-image'>" +
+												"<div class='caption commodity-dec'>" +
+													"<a class='header-link commodity-title'>"+ data[i].title +"</a>" +
+													"<span class='price-now'>￥"+ data[i].price +"</span>" +
+													"<span class='price-original'>￥<s>"+ data[i].marketPrice +"</s></span>"
+												"</div>" +
+											"</div>" +
+										"</div>"
+							//$container.append($commodity);
+						}
+						//获取商品列表下的所有图片
+						var $images = $("#commoditiesList img");
+						for(var j=0; j<$images.length; j++) {
+							var iwidth = $images.eq(j).width();
+							$images.eq(j).height(iwidth);
+						}
+					} else {
+						alert(result.info);
+					}
+				},
+				type:"post",
+				url:"comm/findComm.action"
+			});
+		});
 	</script>
 </body>
 </html>

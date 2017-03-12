@@ -31,8 +31,9 @@ public class CommodityBean implements Serializable{
 	private String titleName;
 	private Integer belongKindId;
 	private Integer inventory;
-	private Double activPrice;
+	private Double marketPrice;
 	private BigDecimal myPrice;
+	private Integer sales;
 	private Integer entryId;
 	private Long entryTime;
 	private Long lastChangeTime;
@@ -48,7 +49,6 @@ public class CommodityBean implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "belongCommodityId")
 	private Set<CommodityPropertyBean> properties; //商品参数
-	
 	public Integer getId() {
 		return id;
 	}
@@ -79,17 +79,23 @@ public class CommodityBean implements Serializable{
 	public void setInventory(Integer inventory) {
 		this.inventory = inventory;
 	}
-	public Double getHistoryPrice() {
-		return activPrice;
+	public Double getMarketPrice() {
+		return marketPrice;
 	}
-	public void setHistoryPrice(Double historyPrice) {
-		this.activPrice = historyPrice;
+	public void setMarketPrice(Double marketPrice) {
+		this.marketPrice = marketPrice;
 	}
 	public BigDecimal getMyPrice() {
 		return myPrice;
 	}
 	public void setMyPrice(BigDecimal myPrice) {
 		this.myPrice = myPrice;
+	}
+	public Integer getSales() {
+		return sales;
+	}
+	public void setSales(Integer sales) {
+		this.sales = sales;
 	}
 	public Integer getEntryId() {
 		return entryId;
@@ -109,7 +115,6 @@ public class CommodityBean implements Serializable{
 	public void setLastChangeTime(Long lastChangeTime) {
 		this.lastChangeTime = lastChangeTime;
 	}
-	
 	public Set<CommodityImageBean> getImages() {
 		return images;
 	}
@@ -128,97 +133,4 @@ public class CommodityBean implements Serializable{
 	public void setProperties(Set<CommodityPropertyBean> properties) {
 		this.properties = properties;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((belongKindId == null) ? 0 : belongKindId.hashCode());
-		result = prime * result + ((brand == null) ? 0 : brand.hashCode());
-		result = prime * result + ((entryId == null) ? 0 : entryId.hashCode());
-		result = prime * result
-				+ ((entryTime == null) ? 0 : entryTime.hashCode());
-		result = prime * result
-				+ ((activPrice == null) ? 0 : activPrice.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((inventory == null) ? 0 : inventory.hashCode());
-		result = prime * result
-				+ ((lastChangeTime == null) ? 0 : lastChangeTime.hashCode());
-		result = prime * result + ((myPrice == null) ? 0 : myPrice.hashCode());
-		result = prime * result
-				+ ((titleName == null) ? 0 : titleName.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CommodityBean other = (CommodityBean) obj;
-		if (belongKindId == null) {
-			if (other.belongKindId != null)
-				return false;
-		} else if (!belongKindId.equals(other.belongKindId))
-			return false;
-		if (brand == null) {
-			if (other.brand != null)
-				return false;
-		} else if (!brand.equals(other.brand))
-			return false;
-		if (entryId == null) {
-			if (other.entryId != null)
-				return false;
-		} else if (!entryId.equals(other.entryId))
-			return false;
-		if (entryTime == null) {
-			if (other.entryTime != null)
-				return false;
-		} else if (!entryTime.equals(other.entryTime))
-			return false;
-		if (activPrice == null) {
-			if (other.activPrice != null)
-				return false;
-		} else if (!activPrice.equals(other.activPrice))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (inventory == null) {
-			if (other.inventory != null)
-				return false;
-		} else if (!inventory.equals(other.inventory))
-			return false;
-		if (lastChangeTime == null) {
-			if (other.lastChangeTime != null)
-				return false;
-		} else if (!lastChangeTime.equals(other.lastChangeTime))
-			return false;
-		if (myPrice == null) {
-			if (other.myPrice != null)
-				return false;
-		} else if (!myPrice.equals(other.myPrice))
-			return false;
-		if (titleName == null) {
-			if (other.titleName != null)
-				return false;
-		} else if (!titleName.equals(other.titleName))
-			return false;
-		return true;
-	}
-	@Override
-	public String toString() {
-		return "CommodityBean [id=" + id + ", brand=" + brand + ", titleName="
-				+ titleName + ", belongKindId=" + belongKindId + ", inventory="
-				+ inventory + ", historyPrice=" + activPrice + ", myPrice="
-				+ myPrice + ", entryId=" + entryId + ", entryTime=" + entryTime
-				+ ", lastChangeTime=" + lastChangeTime + ", images=" + images
-				+ ", params=" + params + ", properties=" + properties + "]";
-	}
-	
 }

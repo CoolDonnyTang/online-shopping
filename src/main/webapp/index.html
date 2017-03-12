@@ -87,7 +87,7 @@
 					
 				</ul>
 			</div>
-			<div class="col-md-8 store-activity" id="activty" style="display: none;">
+			<div class="col-md-8 store-activity" id="activty">
 				<div id="carousel-example-generic" class="carousel slide"
 					data-ride="carousel">
 					<ol class="carousel-indicators">
@@ -125,7 +125,7 @@
 				</div>
 			</div>
 			<!-- 显示子分类 -->
-			<div class="col-md-8 dis-sub-kinds" id="disSubKinds">
+			<div class="col-md-8 dis-sub-kinds" id="disSubKinds" style="display: none;">
 				<ul class="nav nav-pills subKinds-list" id="subKindsList">
 				  <li class="text-center">剃须刀</li>
 				  <li class="text-center">电视剧</li>
@@ -385,6 +385,7 @@
 									for(var j=0; j<subKinds.length; j++) {
 										console.log(subKinds[j].name);
 										$li = $("<li class='text-center'>" + subKinds[j].kindName +"</li>");
+										$li.data("id",subKinds[j].id);
 										$("#subKindsList").append($li);
 									}
 								}
@@ -411,6 +412,16 @@
 				},
 				type:"post",
 				url:"manage/findMain.action",
+			});
+			//注册主类单击事件
+			$("#mainKindsList").on("click","li",function(event) {
+				var $target = $(event.target);
+				window.location.href="commodity-list.html?" + window.btoa("mainKindId=" + $target.data("id"));
+			});
+			//注册子类单击事件
+			$("#subKindsList").on("click","li",function(event) {
+				var $target = $(event.target);
+				window.location.href="commodity-list.html?" + window.btoa("subKindId=" + $target.data("id"));
 			});
 		});
 	</script>

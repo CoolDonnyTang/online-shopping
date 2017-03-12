@@ -8,6 +8,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.cduestc.tyr.online_shopping.beans.CommodityBean;
+import com.cduestc.tyr.online_shopping.beans.CommodityImageBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
 import com.cduestc.tyr.online_shopping.manager.dao.ManageDao;
 import com.cduestc.tyr.online_shopping.manager.service.ManageService;
@@ -70,5 +72,10 @@ public class ManageServiceImpl implements ManageService {
 	@Override
 	public void deleteMainKind(int id) {
 		dao.deleteMainKindById(id);
+	}
+
+	@Override
+	public void addCommodity(CommodityBean comm) {
+		dao.addCommodity(comm);
 	}
 }

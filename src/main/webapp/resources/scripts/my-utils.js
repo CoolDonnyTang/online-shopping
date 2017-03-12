@@ -30,6 +30,21 @@ function checkCheckCode(checkCode) {
 	if(checkCode===null || checkCode===undefined) {
 		return false
 	}
-	var reg = /[a-zA-Z0-9]{5}/;
+	var reg = /^[a-zA-Z0-9]{5}&/;
+	return reg.test(checkCode);
+}
+function checkInteger(checkCode) {
+	if(checkCode===null || checkCode===undefined) {
+		return false
+	}
+	var reg = /^[1-9]\d{0,5}$/;
+	return reg.test(checkCode);
+}
+///未完成
+function checkBigDicemal(checkCode) {
+	if(checkCode===null || checkCode===undefined) {
+		return false
+	}
+	var reg = /^((0\.(\d|\d{2}))|([1-9]\d{0,9})|([1-9]\d{0,9}\.(\d|\d{2}))|(0))$/;
 	return reg.test(checkCode);
 }
