@@ -1,6 +1,5 @@
 package com.cduestc.tyr.online_shopping.beans;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Set;
 
@@ -17,57 +16,69 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 @Entity
-@Table(name="commodity")
-public class CommodityBean implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@Table(name="commodity_entity")
+public class CommEntityBean {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String brand;
-	private String titleName;
-	private Integer belongKindId;
+	private Integer belongCommId;
+	private Integer inventory;
+	private Double marketPrice;
+	private BigDecimal myPrice;
+	private Integer sales;
+	private String propDetail;
 	private Integer entryId;
 	private Long entryTime;
 	private Long lastChangeTime;
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "belongCommodityId")
-	private Set<CommodityImageBean> images; //详情图片
+	private Set<CommodityImageBean> images; //主图片
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "belongCommodityId")
-	private Set<CommodityPropertyBean> properties; //商品属性
-	@Fetch(FetchMode.JOIN)
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "belongCommId")
-	private Set<CommEntityBean> commEntity; //商品实体
+	private Set<CommodityParamDetailBean> params; //商品参数
 	public Integer getId() {
 		return id;
 	}
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getBrand() {
-		return brand;
+	public Integer getBelongCommId() {
+		return belongCommId;
 	}
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setBelongCommId(Integer belongCommId) {
+		this.belongCommId = belongCommId;
 	}
-	public String getTitleName() {
-		return titleName;
+	public Integer getInventory() {
+		return inventory;
 	}
-	public void setTitleName(String titleName) {
-		this.titleName = titleName;
+	public void setInventory(Integer inventory) {
+		this.inventory = inventory;
 	}
-	public Integer getBelongKindId() {
-		return belongKindId;
+	public Double getMarketPrice() {
+		return marketPrice;
 	}
-	public void setBelongKindId(Integer belongKindId) {
-		this.belongKindId = belongKindId;
+	public void setMarketPrice(Double marketPrice) {
+		this.marketPrice = marketPrice;
+	}
+	public BigDecimal getMyPrice() {
+		return myPrice;
+	}
+	public void setMyPrice(BigDecimal myPrice) {
+		this.myPrice = myPrice;
+	}
+	public Integer getSales() {
+		return sales;
+	}
+	public void setSales(Integer sales) {
+		this.sales = sales;
+	}
+	public String getPropDetail() {
+		return propDetail;
+	}
+	public void setPropDetail(String propDetail) {
+		this.propDetail = propDetail;
 	}
 	public Integer getEntryId() {
 		return entryId;
@@ -87,16 +98,11 @@ public class CommodityBean implements Serializable{
 	public void setLastChangeTime(Long lastChangeTime) {
 		this.lastChangeTime = lastChangeTime;
 	}
-	public Set<CommodityImageBean> getImages() {
-		return images;
+	public Set<CommodityParamDetailBean> getParams() {
+		return params;
 	}
-	public void setImages(Set<CommodityImageBean> images) {
-		this.images = images;
+	public void setParams(Set<CommodityParamDetailBean> params) {
+		this.params = params;
 	}
-	public Set<CommodityPropertyBean> getProperties() {
-		return properties;
-	}
-	public void setProperties(Set<CommodityPropertyBean> properties) {
-		this.properties = properties;
-	}
+	
 }

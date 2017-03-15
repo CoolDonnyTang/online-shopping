@@ -107,7 +107,7 @@ public class ManagerController {
 	        long time = System.currentTimeMillis();
 	        int mainImageNum = 0;
 	        int subImageNum = 0;
-	       
+	        //详情图片
 	        for (MultipartFile mf : file) {
 	            if(!mf.isEmpty() && mf.getContentType().matches("(?i)image/((jpg)|(gif)|(jpeg)|(png))")){
 	            	int nowNum = 0;
@@ -179,11 +179,9 @@ public class ManagerController {
 	        }
 	        com.setImages(images);
 	        com.setProperties(props);
-	        com.setParams(parms);
 	        com.setEntryId(1);
 	        com.setEntryTime(time);
 	        com.setLastChangeTime(time);
-	        com.setSales(0);
 	        service.addCommodity(com);
 	        rd.setStatus(1);
 	        rd.setInfo("success");
