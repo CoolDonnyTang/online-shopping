@@ -1,7 +1,6 @@
 package com.cduestc.tyr.online_shopping.beans;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -98,5 +97,11 @@ public class CommodityBean implements Serializable{
 	}
 	public void setProperties(Set<CommodityPropertyBean> properties) {
 		this.properties = properties;
+	}
+	public Set<CommEntityBean> getCommEntity() {
+		return commEntity;
+	}
+	public void setCommEntity(Set<CommEntityBean> commEntity) {
+		this.commEntity = commEntity;
 	}
 }

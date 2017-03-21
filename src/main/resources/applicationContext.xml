@@ -59,7 +59,7 @@
 				<value>com.cduestc.tyr.online_shopping.beans.UserBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.KindBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.CommodityBean</value>
-				<value>com.cduestc.tyr.online_shopping.beans.CommodityBean</value>
+				<value>com.cduestc.tyr.online_shopping.beans.CommEntityBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.CommodityImageBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.CommodityParamDetailBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.CommodityPropertyBean</value>

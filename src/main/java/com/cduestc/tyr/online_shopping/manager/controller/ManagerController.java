@@ -92,8 +92,8 @@ public class ManagerController {
 	@RequestMapping("/addCommodity.action")
 	@ResponseBody
 	public ResultData addCommodity(@RequestParam(value="file",required=false) MultipartFile file[], CommodityBean com,  
-				String[] mainImages, String property1, String property2, String property1Content,
-				String property2Content, String paramss, HttpServletRequest req) {
+				String property1, String property2, String property1Content,
+				String property2Content, HttpServletRequest req) {
 		ResultData rd = new ResultData();
 		try{
 			System.out.println(com);
@@ -103,32 +103,18 @@ public class ManagerController {
 	        String url = "";
 	        Set<CommodityImageBean> images = new HashSet<CommodityImageBean>();
 	        Set<CommodityPropertyBean> props = new HashSet<CommodityPropertyBean>();
-	        Set<CommodityParamDetailBean> parms = new HashSet<CommodityParamDetailBean>();
 	        long time = System.currentTimeMillis();
-	        int mainImageNum = 0;
-	        int subImageNum = 0;
+	        //图片顺序
+	        int num = 0;
 	        //详情图片
 	        for (MultipartFile mf : file) {
 	            if(!mf.isEmpty() && mf.getContentType().matches("(?i)image/((jpg)|(gif)|(jpeg)|(png))")){
-	            	int nowNum = 0;
+	            	num++;
 	            	//获取文件后缀名
 	            	String imageType = mf.getContentType().substring(mf.getContentType().indexOf("/")+1);
 	            	//生成uuid作为文件名称  
 	    			String uuid = UUID.randomUUID().toString().replaceAll("-","");
-	    			//标识是否为主图片
-	        		boolean flag = false;
-	            	for(String name : mainImages) {
-	            		if(mf.getOriginalFilename().equals(name)) {
-	            			flag = true;
-	            		}
-	            	}
-	            	if(flag) {
-	            		path = File.separator + "commodityImages" + File.separator + "mainImags" + File.separator + uuid + "." + imageType;
-	            		nowNum = ++mainImageNum;
-	            	} else {
-	            		path = File.separator + "commodityImages" + File.separator + "detailImags" + File.separator + uuid + "." + imageType;
-	            		nowNum = ++subImageNum;
-	            	}
+            		path = File.separator + "commodityImages" + File.separator + "detailImags" + File.separator + uuid + "." + imageType;
 	    			url = req.getContextPath().replace("/", "\\") + path;
 	    			File file11 = new File(pathRoot, path);
 	    			System.out.println("url:  " + url);
@@ -140,8 +126,8 @@ public class ManagerController {
 					CommodityImageBean image = new CommodityImageBean();
 					image.setUrl(url);
 					image.setRealPath(pathRoot + path);
-					image.setSerialNumber(nowNum);
-					image.setMainImage(flag);
+					image.setSerialNumber(num);
+					image.setMainImage(false);
 					image.setEntryId(1);
 					image.setLastChangeTime(time);
 					image.setEntryTime(time);
@@ -167,15 +153,6 @@ public class ManagerController {
 	        	prop.setEntryTime(time);
 	        	prop.setLastChangeTime(time);
 	        	props.add(prop);
-	        }
-	        //参数
-	        for(String str : paramss.split("\\s+")) {
-	        	CommodityParamDetailBean par = new CommodityParamDetailBean();
-	        	par.setEntryId(1);
-	        	par.setEntryTime(time);
-	        	par.setLastChangeTime(time);
-	        	par.setParamContent(str.trim());
-	        	parms.add(par);
 	        }
 	        com.setImages(images);
 	        com.setProperties(props);

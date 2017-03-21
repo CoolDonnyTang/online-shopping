@@ -19,6 +19,7 @@ public class CommodityImageBean implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private Integer belongCommodityId;
+	private Integer belongCommEntityId;
 	private Boolean mainImage;	//标识是否属于主图片
 	private String url;
 	private String realPath;
@@ -79,6 +80,12 @@ public class CommodityImageBean implements Serializable {
 	}
 	public void setSerialNumber(Integer serialNumber) {
 		this.serialNumber = serialNumber;
+	}
+	public Integer getBelongCommEntityId() {
+		return belongCommEntityId;
+	}
+	public void setBelongCommEntityId(Integer belongCommEntityId) {
+		this.belongCommEntityId = belongCommEntityId;
 	}
 	
 	

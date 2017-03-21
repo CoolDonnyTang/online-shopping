@@ -100,12 +100,12 @@
 				</div><!--分类管理结束 -->
 				<!-- 添加商品开始 -->
 				<div class="kinds-content" id="commodityContent">
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-tabs" id="commodityOperateList">
 					  <li role="presentation" class="list-2"><a>添加商品模板</a></li>
 					  <li role="presentation" class="list-2"><a>添加商品实体</a></li>
 					</ul>
 					<!-- 添加商品模板开始 -->
-					<div>
+					<div id="addCommodityModel" class="operate-content" style="display: none;">
 						<form action="manage/addCommodity.action"  id="commodityMessage" method="post" enctype="multipart/form-data">
 							<div class="form-group">
 							    <label for="commodityTitle">商品标题</label>
@@ -179,7 +179,7 @@
 						<button type="button" class="btn btn-danger col-md-3" id="submitCommodityMessage">提交</button>
 					</div><!-- 添加商品模板结束 -->
 					<!-- 添加商品实体开始 -->
-					<div>
+					<div id="addCommodityEntity"  class="operate-content" style="display: none;">
 						<form method="post" enctype="multipart/form-data">
 							<div class="form-group">
 							    <label for="commEntityMainKinds">所属主类别</label>
@@ -284,46 +284,6 @@
 					disManageList(1);
 				  	break;
 				case "添加商品":
-					//发送请求加载分类
-					$.ajax({
-						data:"",
-						dataType:"json",
-						error:function() {
-							
-						},
-						success:function(result) {
-							if(result.status === 1) {
-								var data = result.data;
-								//清空列表
-								$("#commodityMainKinds option").remove();
-								for(var i=0; i<data.length; i++) {
-									var $option;
-									if(i===0) {
-										$option = $("<option selected='selected' value="+ data[i].id +">"+data[i].kindName+"</option>");
-										//清空列表
-										$("#commoditySubKinds option").remove();
-										for(var j=0; j<data[i].subKinds.length; j++) {
-											var $option2 ;
-											if(j === 0) {
-												$option2 = $("<option selected='selected' value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
-											} else {
-												$option2 = $("<option value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
-											}
-											$("#commoditySubKinds").append($option2);
-										}
-									} else {
-										$option = $("<option value="+ data[i].id +">"+data[i].kindName+"</option>");
-									}
-									$("#commodityMainKinds").data("data", data);
-									$("#commodityMainKinds").append($option);
-								} 
-							}else {
-									
-							}
-						},
-						type:"post",
-						url:"manage/findMain.action",
-					});
 					disManageList(2);
 					break;
 				}
@@ -331,8 +291,10 @@
 			//类操作事件
 			$("#kinds_operate").click(function(event){
 				var $target = $(event.target);
-				$("#kinds_operate").children("li").removeClass("active");
-				$target.parent().addClass("active");
+				if(event.target.nodeName === "A") {
+					$("#kinds_operate").children("li").removeClass("active");
+					$target.parent().addClass("active");
+				}
 				switch($target.text().trim())
 				{
 				case "添加主分类":
@@ -486,7 +448,107 @@ console.log(data);
 			/**
 			 * 添加商品相关js
 			 **/
-			//选择类别联动菜单
+			//切换添加商品模板和添加商品实体
+			$("#commodityOperateList").click(function(event) {
+				var $target = $(event.target);
+//alert(event.target.nodeName);
+				if(event.target.nodeName === "A") {
+					$("#commodityOperateList").children("li").removeClass("active");
+					$target.parent().addClass("active");
+				}
+				switch($target.text().trim())
+				{
+				case "添加商品模板":
+					//发送请求加载分类
+					$.ajax({
+						data:"",
+						dataType:"json",
+						error:function() {
+							alert("分类加载失败");
+						},
+						success:function(result) {
+							if(result.status === 1) {
+								var data = result.data;
+								//清空列表
+								$("#commodityMainKinds option").remove();
+								for(var i=0; i<data.length; i++) {
+									var $option;
+									if(i===0) {
+										$option = $("<option selected='selected' value="+ data[i].id +">"+data[i].kindName+"</option>");
+										//清空列表
+										$("#commoditySubKinds option").remove();
+										for(var j=0; j<data[i].subKinds.length; j++) {
+											var $option2 ;
+											if(j === 0) {
+												$option2 = $("<option selected='selected' value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+											} else {
+												$option2 = $("<option value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+											}
+											$("#commoditySubKinds").append($option2);
+										}
+									} else {
+										$option = $("<option value="+ data[i].id +">"+data[i].kindName+"</option>");
+									}
+									$("#commodityMainKinds").data("data", data);
+									$("#commodityMainKinds").append($option);
+								} 
+							}else {
+									
+							}
+						},
+						type:"post",
+						url:"manage/findMain.action",
+					});
+					$("#addCommodityModel").show();
+					$("#addCommodityEntity").hide();
+				  	break;
+				case "添加商品实体":
+					//发送请求加载分类
+					$.ajax({
+						data:"",
+						dataType:"json",
+						error:function() {
+							alert("分类加载失败");
+						},
+						success:function(result) {
+							if(result.status === 1) {
+								var data = result.data;
+								//清空列表
+								$("#commEntityMainKinds option").remove();
+								for(var i=0; i<data.length; i++) {
+									var $option;
+									if(i===0) {
+										$option = $("<option selected='selected' value="+ data[i].id +">"+data[i].kindName+"</option>");
+										//清空列表
+										$("#commEntitySubKinds2 option").remove();
+										for(var j=0; j<data[i].subKinds.length; j++) {
+											var $option2 ;
+											if(j === 0) {
+												$option2 = $("<option selected='selected' value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+											} else {
+												$option2 = $("<option value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+											}
+											$("#commEntitySubKinds2").append($option2);
+										}
+									} else {
+										$option = $("<option value="+ data[i].id +">"+data[i].kindName+"</option>");
+									}
+									$("#commEntityMainKinds").data("data", data);
+									$("#commEntityMainKinds").append($option);
+								} 
+							}else {
+									
+							}
+						},
+						type:"post",
+						url:"manage/findMain.action",
+					});
+					$("#addCommodityModel").hide();
+					$("#addCommodityEntity").show();
+					break;
+				}
+			});
+			//添加商品模板选择类别联动菜单
 			$("#commodityMainKinds").change(function() {
 				var id = $("#commodityMainKinds option:selected").val();
 				var data = $("#commodityMainKinds").data("data");
@@ -508,20 +570,21 @@ console.log(id);
 					}
 				}
 			});
-			//提交信息
+			
+			//提交模板信息
 			$("#submitCommodityMessage").click(function() {
 				//标题
 				var title = $("#commodityTitle").val().trim();
 				//所属类别
 				var subKind = $("#commoditySubKinds option:selected").val().trim();
 				//主图片组
-				var mainImages = $("#mainImageList input[class='mainImage']");
+				//var mainImages = $("#mainImageList input[class='mainImage']");
 				//库存
-				var inventory = $("#commodityInventory").val().trim();
+				//var inventory = $("#commodityInventory").val().trim();
 				//售价
-				var price = $("#myPrice").val().trim();
+				//var price = $("#myPrice").val().trim();
 				//市场价
-				var marketPrice = $("#marketPrice").val().trim();
+				//var marketPrice = $("#marketPrice").val().trim();
 				//属性1
 				var propertyName1 = $("#property1").val().trim();
 				var propertyContent1 = $("#property1Detail").val().trim();
@@ -531,7 +594,7 @@ console.log(id);
 				//品牌
 				var brand = $("#brand").val().trim();
 				//参数
-				var paramDetail = $("#paramDetail").val().trim();
+				//var paramDetail = $("#paramDetail").val().trim();
 				//详情图片组
 				var detailImage = $("#detailImageList input[class='detailImage']");
 				if("" === title) {
@@ -545,7 +608,7 @@ console.log(id);
 				var counter1 = 0;
 				var imageReg = /^.+\.(png)|(jpg)|(jpeg)|(gif)$/i;
 				var imageName = "";
-				var mainImageNames = new Array(mainImages.length);
+				/*var mainImageNames = new Array(mainImages.length);
 				for(var i=0; i<mainImages.length; i++) {
 					imageName = mainImages.eq(i).val().trim();
 					if(!(imageName === "")) {
@@ -569,7 +632,7 @@ console.log(id);
 				if(counter1 <= 0) {
 					alert("商品主图片至少选择一张");
 					return;
-				}
+				} */
 				if(propertyName1 === "" && propertyName2 === "") {
 					alert("请至少填写一个属性项");
 					return;
@@ -586,10 +649,10 @@ console.log(id);
 					alert("请填写所属品牌");
 					return;
 				}
-				if(paramDetail === "") {
+				/* if(paramDetail === "") {
 					alert("请填写参数详情");
 					return;
-				}
+				} */
 				counter1 = 0;
 				imageName = "";
 				for(var i=0; i<detailImage.length; i++) {
@@ -610,7 +673,6 @@ console.log(id);
 				//所有验证通过则提交表单
 				//$("#commodityMessage").submit();
 				 var data =  new FormData($("#commodityMessage").get(0));
-				 data.append("mainImages",mainImageNames);
 				 $.ajax({
 		            url: "manage/addCommodity.action",
 		            type: "post",
@@ -629,6 +691,32 @@ console.log(id);
 		                alert(result.info);
 		            }
 		        }); 
+			});
+			//添加商品实体选择类别联动菜单
+			$("#commEntityMainKinds").change(function() {
+				var id = $("#commEntityMainKinds option:selected").val();
+				var data = $("#commEntityMainKinds").data("data");
+console.log(id);
+				for(var i=0; i<data.length; i++) {
+					if(data[i].id == id) {
+						//清空子列表
+						$("#commEntitySubKinds2 option").remove();
+						for(var j=0; j<data[i].subKinds.length; j++) {
+//console.log(data[i].subKinds[j].kindName);
+							var $option2 ;
+							if(j === 0) {
+								$option2 = $("<option selected='selected' value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+							} else {
+								$option2 = $("<option value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
+							}
+							$("#commEntitySubKinds2").append($option2);
+						}
+					}
+				}
+			});
+			//提交实体信息
+			$("#submitCommEntityMessage").click(function(){
+				
 			});
 		});
 	</script>

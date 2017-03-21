@@ -26,17 +26,16 @@ public class CommEntityBean {
 	private Double marketPrice;
 	private BigDecimal myPrice;
 	private Integer sales;
-	private String propDetail;
 	private Integer entryId;
 	private Long entryTime;
 	private Long lastChangeTime;
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "belongCommodityId")
+	@JoinColumn(name = "belongCommEntityId")
 	private Set<CommodityImageBean> images; //主图片
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "belongCommodityId")
+	@JoinColumn(name = "belongCommEntityId")
 	private Set<CommodityParamDetailBean> params; //商品参数
 	public Integer getId() {
 		return id;
@@ -73,12 +72,6 @@ public class CommEntityBean {
 	}
 	public void setSales(Integer sales) {
 		this.sales = sales;
-	}
-	public String getPropDetail() {
-		return propDetail;
-	}
-	public void setPropDetail(String propDetail) {
-		this.propDetail = propDetail;
 	}
 	public Integer getEntryId() {
 		return entryId;
