@@ -26,6 +26,8 @@ public class CommEntityBean {
 	private Double marketPrice;
 	private BigDecimal myPrice;
 	private Integer sales;
+	private String propty1;
+	private String propty2;
 	private Integer entryId;
 	private Long entryTime;
 	private Long lastChangeTime;
@@ -96,6 +98,24 @@ public class CommEntityBean {
 	}
 	public void setParams(Set<CommodityParamDetailBean> params) {
 		this.params = params;
+	}
+	public String getPropty1() {
+		return propty1;
+	}
+	public void setPropty1(String propty1) {
+		this.propty1 = propty1;
+	}
+	public String getPropty2() {
+		return propty2;
+	}
+	public void setPropty2(String propty2) {
+		this.propty2 = propty2;
+	}
+	public Set<CommodityImageBean> getImages() {
+		return images;
+	}
+	public void setImages(Set<CommodityImageBean> images) {
+		this.images = images;
 	}
 	
 }

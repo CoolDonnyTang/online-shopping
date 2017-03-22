@@ -169,4 +169,20 @@ public class ManagerController {
 		}
 		return rd;
 	}
+	
+	@RequestMapping("/selectMessage4addCommEntity.action")
+	@ResponseBody
+	public ResultData selectMessage4addCommEntity(Integer subKindId) {
+		ResultData rd = new ResultData();
+		try {
+			rd.setData(service.findBrandTitlePropBySubKindId(subKindId));
+			rd.setStatus(1);
+	        rd.setInfo("success");
+		} catch (Exception e) {
+			rd.setStatus(-1);
+			rd.setInfo("服务器偷懒啦 请稍后再试");
+			e.printStackTrace();
+		}
+		return rd;
+	}
 }

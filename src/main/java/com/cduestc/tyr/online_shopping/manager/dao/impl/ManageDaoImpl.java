@@ -1,6 +1,7 @@
 package com.cduestc.tyr.online_shopping.manager.dao.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -56,6 +57,17 @@ public class ManageDaoImpl implements ManageDao {
 	public void addCommodity(CommodityBean comm) {
 		Session session = sf.getCurrentSession();
 		session.save(comm);
+	}
+
+	@Override
+	public List<Map> findBrandTitlePropBySubKindId(int subKindId) {
+		String hql = "select new map(c.id as id, c.brand as brand, c.titleName as title, p.id as propId, p.propertyName as popName, p.propertyCotent as porpContent) "
+				+ " from CommodityBean as c join c.properties as p"
+				+ " where c.belongKindId = ? order by p.id";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setInteger(0, subKindId);
+		return query.list();
 	}
 	
 }

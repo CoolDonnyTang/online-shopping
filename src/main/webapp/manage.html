@@ -201,7 +201,7 @@
 							<div class="form-group">
 							    <label for="commEntityBrand">品牌</label>
 							    <select class="form-control" id="commEntityBrand">
-								  <option>1</option>
+								  <option selected="selected">1</option>
 								  <option>2</option>
 								  <option>3</option>
 								</select>
@@ -713,6 +713,58 @@ console.log(id);
 						}
 					}
 				}
+			});
+			//子分类列表改变重新加载品牌和商品标题以及属性
+			$("#commEntitySubKinds2").change(function(){
+				$.ajax({
+					data:"",
+					dataType:"json",
+					error:function(){
+						alert("连接服务器失败");
+					},
+					success:function(result){
+						if(result.status === 1) {
+							var data = result.data;
+							var brandArray = new Array(data.length);
+							var brandExistFlag;
+							//记录brandArray中实际的品牌数量
+							var brandCounter = 0;
+							//清空品牌下拉选
+							$("#commEntityBrand option").remove();
+							for(var i=0; i<data.length; i++) {
+								brandExistFlag = false;
+								for(var j=0; j<brandCounter; j++) {
+									if(brandArray[j] === data[i].brand) {
+										brandExistFlag = true;
+										break;
+									}
+								}
+								if(!brandExistFlag) {
+									var $option ;
+									if(brandCounter === 0) {
+										$option = $("<option selected='selected'>"+ data[i].brand +"</option>");
+									} else {
+										$option = $("<option>"+ data[i].brand +"</option>");
+									}
+									brandArray[brandCounter] = data[i].brand;
+									brandCounter = brandCounter + 1;
+								}
+							}
+							
+							if(counter > 0) {
+								//重置商品标题
+								$("#commEntityTitle").val(data[0].title);
+							} else {
+								//清空商品标题
+								$("#commEntityTitle").val(data[0].title);
+							}
+						} else {
+							
+						}
+					},
+					type:"post",
+					url:"manage/selectMessage4addCommEntity.action"
+				});
 			});
 			//提交实体信息
 			$("#submitCommEntityMessage").click(function(){

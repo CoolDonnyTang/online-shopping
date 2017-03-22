@@ -1,7 +1,10 @@
 package com.cduestc.tyr.online_shopping.manager.service.impl;
 
+import java.security.KeyStore.Entry;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -11,6 +14,9 @@ import org.springframework.stereotype.Service;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityImageBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
+import com.cduestc.tyr.online_shopping.manager.beans.Message4AddCommEntityPOJO;
+import com.cduestc.tyr.online_shopping.manager.beans.Prop4AddCommEntityPOJO;
+import com.cduestc.tyr.online_shopping.manager.beans.Title4AddCommEntityPOJO;
 import com.cduestc.tyr.online_shopping.manager.dao.ManageDao;
 import com.cduestc.tyr.online_shopping.manager.service.ManageService;
 
@@ -77,5 +83,89 @@ public class ManageServiceImpl implements ManageService {
 	@Override
 	public void addCommodity(CommodityBean comm) {
 		dao.addCommodity(comm);
+	}
+
+	@Override
+	public List<Message4AddCommEntityPOJO> findBrandTitlePropBySubKindId(int subKindId) {
+		List<Message4AddCommEntityPOJO> resultData = new ArrayList<Message4AddCommEntityPOJO>();
+		//保存品牌
+		Set<String> brands = new HashSet<String>();
+		List<Map> results = dao.findBrandTitlePropBySubKindId(subKindId);
+		for(Map map : results) {
+			String brandName = (String)map.get("brand");
+			if(null == brandName) {
+				continue;
+			}
+			if(!brands.contains(brandName)) {
+				brands.add(brandName);
+				Message4AddCommEntityPOJO message = new Message4AddCommEntityPOJO();
+				message.setBrandName(brandName);
+				//保存标题
+				Set<String> titles = new HashSet<String>();
+				Set<Title4AddCommEntityPOJO> commTitles = new HashSet<Title4AddCommEntityPOJO>();
+				//flag，记录第一个属性
+				boolean flag = false;
+				for(Map map2 : results) {
+					String commTitle = (String)map2.get("title");
+					if(null == commTitle) {
+						continue;
+					}
+					if(brandName.equals((String)map2.get("brand")) && !titles.contains(commTitle)) {
+						//该标题下第一个属性的Id
+						Integer pop1Id = new Integer(-1);
+						if(!flag) {
+							pop1Id = (Integer)map2.get("propId");
+							flag = true;
+						}
+						titles.add(commTitle);
+						Title4AddCommEntityPOJO title = new Title4AddCommEntityPOJO();
+						title.setCommId((Integer) map2.get("id"));
+						title.setCommTitle(commTitle);
+						//保存属性1
+						Set<String> props1 = new HashSet<String>();
+						Prop4AddCommEntityPOJO prop1 = new Prop4AddCommEntityPOJO();
+						//保存属性2
+						Set<String> props2 = new HashSet<String>();
+						Prop4AddCommEntityPOJO prop2 = new Prop4AddCommEntityPOJO();
+						for(Map map3 : results) {
+							String propName = (String)map3.get("popName");
+							if(null == propName) {
+								continue;
+							}
+System.out.println(pop1Id + " " + ((Integer)map3.get("propId")));
+							if(pop1Id.intValue() == ((Integer)map3.get("propId")).intValue()) {
+								if(brandName.equals((String)map3.get("brand")) && commTitle.equals((String)map3.get("title")) && !props1.contains(propName)) {
+									props1.add(propName);
+									prop1.setPropId(pop1Id);
+									prop1.setPropName(propName);
+									Set<String> propContents = new HashSet<String>();
+									for(String s:((String)map3.get("porpContent")).split("\\s+")) {
+										propContents.add(s);
+									}
+									prop1.setProps(propContents);
+								}
+							} else {
+								if(brandName.equals((String)map3.get("brand")) && commTitle.equals((String)map3.get("title")) && !props2.contains(propName)) {
+									props2.add(propName);
+									prop2.setPropId((Integer)map3.get("popId"));
+									prop2.setPropName(propName);
+									Set<String> propContents = new HashSet<String>();
+									for(String s:((String)map3.get("porpContent")).split("\\s+")) {
+										propContents.add(s);
+									}
+									prop2.setProps(propContents);
+								}
+							}
+						}
+						title.setProp1(prop1);
+						title.setProp2(prop2);
+						commTitles.add(title);
+					}
+				}
+				message.setCommTitles(commTitles);
+				resultData.add(message);
+			}
+		}
+		return resultData;
 	}
 }
