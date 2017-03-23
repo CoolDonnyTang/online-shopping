@@ -103,9 +103,9 @@ public class ManageServiceImpl implements ManageService {
 				//保存标题
 				Set<String> titles = new HashSet<String>();
 				Set<Title4AddCommEntityPOJO> commTitles = new HashSet<Title4AddCommEntityPOJO>();
-				//flag，记录第一个属性
-				boolean flag = false;
 				for(Map map2 : results) {
+					//flag，记录第一个属性
+					boolean flag = false;
 					String commTitle = (String)map2.get("title");
 					if(null == commTitle) {
 						continue;
@@ -113,10 +113,6 @@ public class ManageServiceImpl implements ManageService {
 					if(brandName.equals((String)map2.get("brand")) && !titles.contains(commTitle)) {
 						//该标题下第一个属性的Id
 						Integer pop1Id = new Integer(-1);
-						if(!flag) {
-							pop1Id = (Integer)map2.get("propId");
-							flag = true;
-						}
 						titles.add(commTitle);
 						Title4AddCommEntityPOJO title = new Title4AddCommEntityPOJO();
 						title.setCommId((Integer) map2.get("id"));
@@ -131,6 +127,10 @@ public class ManageServiceImpl implements ManageService {
 							String propName = (String)map3.get("popName");
 							if(null == propName) {
 								continue;
+							}
+							if(!flag) {
+								pop1Id = (Integer)map2.get("propId");
+								flag = true;
 							}
 System.out.println(pop1Id + " " + ((Integer)map3.get("propId")));
 							if(pop1Id.intValue() == ((Integer)map3.get("propId")).intValue()) {
@@ -147,7 +147,7 @@ System.out.println(pop1Id + " " + ((Integer)map3.get("propId")));
 							} else {
 								if(brandName.equals((String)map3.get("brand")) && commTitle.equals((String)map3.get("title")) && !props2.contains(propName)) {
 									props2.add(propName);
-									prop2.setPropId((Integer)map3.get("popId"));
+									prop2.setPropId((Integer)map3.get("propId"));
 									prop2.setPropName(propName);
 									Set<String> propContents = new HashSet<String>();
 									for(String s:((String)map3.get("porpContent")).split("\\s+")) {

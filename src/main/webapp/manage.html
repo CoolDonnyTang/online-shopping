@@ -208,12 +208,16 @@
 							</div>
 							<hr>
 							<div class="form-group">
-							    <label for="commEntityTitle">商品标题</label>
-							    <input type="text" class="form-control" id="commEntityTitle">
+							    <label for="commEntityBrand">商品标题</label>
+							    <select class="form-control" id="commEntityTitle">
+								  <option selected="selected">1</option>
+								  <option>2</option>
+								  <option>3</option>
+								</select>
 							</div>
 							<hr>
 							<div class="form-group">
-							    <label for="commEntityProp1">属性一</label>
+							    <label for="commEntityProp1" id="popLable1">属性一</label>
 							    <select class="form-control" id="commEntityProp1">
 								  <option>1</option>
 								  <option>2</option>
@@ -221,7 +225,7 @@
 								</select>
 							</div>
 							<div class="form-group">
-							    <label for="commEntityProp2">属性二</label>
+							    <label for="commEntityProp2" id="popLable2">属性二</label>
 							    <select class="form-control" id="commEntityProp2">
 								  <option>1</option>
 								  <option>2</option>
@@ -535,7 +539,82 @@ console.log(data);
 									}
 									$("#commEntityMainKinds").data("data", data);
 									$("#commEntityMainKinds").append($option);
-								} 
+								}
+								/**
+								*	加载模板默认信息
+								*/
+								//子分类下拉选的值
+								var subKindId = $("#commEntitySubKinds2 option:selected").val();
+								$.ajax({
+									data:{"subKindId":subKindId},
+									dataType:"json",
+									error:function(){
+										alert("连接服务器失败");
+									},
+									success:function(result){
+										if(result.status === 1) {
+											var data = result.data;
+											if(data.length<=0) {
+												alert("当前分类下未建立商品模板");
+												return;
+											}
+											//清空品牌下拉选
+											$("#commEntityBrand option").remove();
+											for(var i=0; i<data.length; i++) {
+												var $option ;
+												if(i === 0) {
+													$option = $("<option selected='selected'>"+ data[i].brandName +"</option>");
+												} else {
+													$option = $("<option>"+ data[i].brandName +"</option>");
+												}
+												$("#commEntityBrand").append($option);
+												$("#commEntityBrand").data("data", data);
+											}
+											//清空商品标题下拉选
+											$("#commEntityTitle option").remove();
+											for(var j=0; j<data[0].commTitles.length; j++) {
+												var $titleOption ;
+												if(j === 0) {
+													$titleOption = $("<option selected='selected'>" + data[0].commTitles[j].commTitle +"</option>");
+												} else {
+													$titleOption = $("<option>" + data[0].commTitles[j].commTitle +"</option>");
+												}
+												$("#commEntityTitle").append($titleOption);
+											}
+											/**
+											*	初始化属性下拉选
+											*/
+											$("#popLable1").text(data[0].commTitles[0].prop1.propName);
+											//清空属性一下拉选
+											$("#commEntityProp1 option").remove();
+											for(var p1=0; p1<data[0].commTitles[0].prop1.props.length; p1++) {
+												var $prop1Option ;
+												if(p1 === 0) {
+													$prop1Option = $("<option selected='selected'>" + data[0].commTitles[0].prop1.props[p1] +"</option>");
+												} else {
+													$prop1Option = $("<option>" + data[0].commTitles[0].prop1.props[p1] +"</option>");
+												}
+												$("#commEntityProp1").append($prop1Option);
+											}
+											$("#popLable2").text(data[0].commTitles[0].prop2.propName);
+											//清空属性一下拉选
+											$("#commEntityProp2 option").remove();
+											for(var p2=0; p2<data[0].commTitles[0].prop2.props.length; p2++) {
+												var $prop2Option ;
+												if(p2 === 0) {
+													$prop2Option = $("<option selected='selected'>" + data[0].commTitles[0].prop2.props[p2] +"</option>");
+												} else {
+													$prop2Option = $("<option>" + data[0].commTitles[0].prop2.props[p2] +"</option>");
+												}
+												$("#commEntityProp2").append($prop2Option);
+											}
+										} else {
+											
+										}
+									},
+									type:"post",
+									url:"manage/selectMessage4addCommEntity.action"
+								}); 
 							}else {
 									
 							}
@@ -710,14 +789,17 @@ console.log(id);
 								$option2 = $("<option value="+ data[i].subKinds[j].id +">"+data[i].subKinds[j].kindName+"</option>");
 							}
 							$("#commEntitySubKinds2").append($option2);
+							
 						}
 					}
 				}
 			});
 			//子分类列表改变重新加载品牌和商品标题以及属性
 			$("#commEntitySubKinds2").change(function(){
+				//子分类下拉选的值
+				var subKindId = $("#commEntitySubKinds2 option:selected").val();
 				$.ajax({
-					data:"",
+					data:{"subKindId":subKindId},
 					dataType:"json",
 					error:function(){
 						alert("连接服务器失败");
@@ -725,38 +807,70 @@ console.log(id);
 					success:function(result){
 						if(result.status === 1) {
 							var data = result.data;
-							var brandArray = new Array(data.length);
-							var brandExistFlag;
-							//记录brandArray中实际的品牌数量
-							var brandCounter = 0;
+							if(data.length <= 0) {
+								alert("当前分类下未建立商品模板");
+								//清空品牌下拉选
+								$("#commEntityBrand option").remove();
+								//清空商品标题下拉选
+								$("#commEntityTitle option").remove();
+								$("#popLable1").text("属性一");
+								//清空属性一下拉选
+								$("#commEntityProp1 option").remove();
+								$("#popLable2").text("属性二");
+								//清空属性一下拉选
+								$("#commEntityProp2 option").remove();
+								return;
+							}
+//console.log("data::" + data.length);
 							//清空品牌下拉选
 							$("#commEntityBrand option").remove();
 							for(var i=0; i<data.length; i++) {
-								brandExistFlag = false;
-								for(var j=0; j<brandCounter; j++) {
-									if(brandArray[j] === data[i].brand) {
-										brandExistFlag = true;
-										break;
-									}
+								var $option ;
+								if(i === 0) {
+									$option = $("<option selected='selected'>"+ data[i].brandName +"</option>");
+								} else {
+									$option = $("<option>"+ data[i].brandName +"</option>");
 								}
-								if(!brandExistFlag) {
-									var $option ;
-									if(brandCounter === 0) {
-										$option = $("<option selected='selected'>"+ data[i].brand +"</option>");
-									} else {
-										$option = $("<option>"+ data[i].brand +"</option>");
-									}
-									brandArray[brandCounter] = data[i].brand;
-									brandCounter = brandCounter + 1;
-								}
+								$("#commEntityBrand").append($option);
+								$("#commEntityBrand").data("data", data);
 							}
-							
-							if(counter > 0) {
-								//重置商品标题
-								$("#commEntityTitle").val(data[0].title);
-							} else {
-								//清空商品标题
-								$("#commEntityTitle").val(data[0].title);
+							//清空商品标题下拉选
+							$("#commEntityTitle option").remove();
+							for(var j=0; j<data[0].commTitles.length; j++) {
+								var $titleOption ;
+								if(j === 0) {
+									$titleOption = $("<option value="+ data[0].commTitles[j].commId +" selected='selected'>" + data[0].commTitles[j].commTitle +"</option>");
+								} else {
+									$titleOption = $("<option value="+ data[0].commTitles[j].commId +">" + data[0].commTitles[j].commTitle +"</option>");
+								}
+								$("#commEntityTitle").append($titleOption);
+							}
+							/**
+							*	初始化属性下拉选
+							*/
+							$("#popLable1").text(data[0].commTitles[0].prop1.propName);
+							//清空属性一下拉选
+							$("#commEntityProp1 option").remove();
+							for(var p1=0; p1<data[0].commTitles[0].prop1.props.length; p1++) {
+								var $prop1Option ;
+								if(p1 === 0) {
+									$prop1Option = $("<option selected='selected'>" + data[0].commTitles[0].prop1.props[p1] +"</option>");
+								} else {
+									$prop1Option = $("<option>" + data[0].commTitles[0].prop1.props[p1] +"</option>");
+								}
+								$("#commEntityProp1").append($prop1Option);
+							}
+							$("#popLable2").text(data[0].commTitles[0].prop2.propName);
+							//清空属性一下拉选
+							$("#commEntityProp2 option").remove();
+							for(var p2=0; p2<data[0].commTitles[0].prop2.props.length; p2++) {
+								var $prop2Option ;
+								if(p2 === 0) {
+									$prop2Option = $("<option selected='selected'>" + data[0].commTitles[0].prop2.props[p2] +"</option>");
+								} else {
+									$prop2Option = $("<option>" + data[0].commTitles[0].prop2.props[p2] +"</option>");
+								}
+								$("#commEntityProp2").append($prop2Option);
 							}
 						} else {
 							
@@ -765,6 +879,98 @@ console.log(id);
 					type:"post",
 					url:"manage/selectMessage4addCommEntity.action"
 				});
+			});
+			/**
+			*	添加商品实体的品牌、标题、属性三级联动下拉选
+			*/
+			//三级联动下拉选之品牌改变
+			$("#commEntityBrand").change(function(){
+				var data = $("#commEntityBrand").data("data");
+				var brandName = $("#commEntityBrand option:selected").text().trim();
+				for(var i=0; i<data.length; i++) {
+					if(data[i].brandName === brandName) {
+						//清空商品标题下拉选
+						$("#commEntityTitle option").remove();
+						for(var j=0; j<data[i].commTitles.length; j++) {
+							var $titleOption ;
+							if(j === 0) {
+								$titleOption = $("<option value="+ data[i].commTitles[j].commId +" selected='selected'>" + data[i].commTitles[j].commTitle +"</option>");
+							} else {
+								$titleOption = $("<option value="+ data[i].commTitles[j].commId +">" + data[i].commTitles[j].commTitle +"</option>");
+							}
+							$("#commEntityTitle").append($titleOption);
+						}
+						/**
+						*	初始化属性下拉选
+						*/
+						$("#popLable1").text(data[i].commTitles[0].prop1.propName);
+						//清空属性一下拉选
+						$("#commEntityProp1 option").remove();
+						for(var p1=0; p1<data[i].commTitles[0].prop1.props.length; p1++) {
+							var $prop1Option ;
+							if(p1 === 0) {
+								$prop1Option = $("<option selected='selected'>" + data[i].commTitles[0].prop1.props[p1] +"</option>");
+							} else {
+								$prop1Option = $("<option>" + data[i].commTitles[0].prop1.props[p1] +"</option>");
+							}
+							$("#commEntityProp1").append($prop1Option);
+						}
+						$("#popLable2").text(data[i].commTitles[0].prop2.propName);
+						//清空属性一下拉选
+						$("#commEntityProp2 option").remove();
+						for(var p2=0; p2<data[i].commTitles[0].prop2.props.length; p2++) {
+							var $prop2Option ;
+							if(p2 === 0) {
+								$prop2Option = $("<option selected='selected'>" + data[i].commTitles[0].prop2.props[p2] +"</option>");
+							} else {
+								$prop2Option = $("<option>" + data[i].commTitles[0].prop2.props[p2] +"</option>");
+							}
+							$("#commEntityProp2").append($prop2Option);
+						}
+					}
+				}
+			});
+			//三级联动下拉选之商品标题改变
+			$("#commEntityTitle").change(function(){
+				var data = $("#commEntityBrand").data("data");
+				var brandName = $("#commEntityBrand option:selected").text().trim();
+				var titleName = $("#commEntityTitle option:selected").text().trim();
+				for(var i=0; i<data.length; i++) {
+					if(data[i].brandName === brandName) {
+						for(var j=0; j<data[i].commTitles.length; j++) {
+							if(data[i].commTitles[j].commTitle === titleName) {
+								/**
+								*	初始化属性下拉选
+								*/
+								$("#popLable1").text(data[i].commTitles[j].prop1.propName);
+								//清空属性一下拉选
+								$("#commEntityProp1 option").remove();
+								for(var p1=0; p1<data[i].commTitles[j].prop1.props.length; p1++) {
+									var $prop1Option ;
+									if(p1 === 0) {
+										$prop1Option = $("<option selected='selected'>" + data[i].commTitles[j].prop1.props[p1] +"</option>");
+									} else {
+										$prop1Option = $("<option>" + data[i].commTitles[j].prop1.props[p1] +"</option>");
+									}
+									$("#commEntityProp1").append($prop1Option);
+								}
+								$("#popLable2").text(data[i].commTitles[j].prop2.propName);
+								//清空属性一下拉选
+								$("#commEntityProp2 option").remove();
+								for(var p2=0; p2<data[i].commTitles[0].prop2.props.length; p2++) {
+									var $prop2Option ;
+									if(p2 === 0) {
+										$prop2Option = $("<option selected='selected'>" + data[i].commTitles[j].prop2.props[p2] +"</option>");
+									} else {
+										$prop2Option = $("<option>" + data[i].commTitles[j].prop2.props[p2] +"</option>");
+									}
+									$("#commEntityProp2").append($prop2Option);
+								}
+							}
+						}
+						
+					}
+				}
 			});
 			//提交实体信息
 			$("#submitCommEntityMessage").click(function(){
