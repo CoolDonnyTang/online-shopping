@@ -4,5 +4,5 @@ import java.util.List;
 import java.util.Map;
 
 public abstract interface ICommodityService {
-	public List<Map> findSimpleComm(Map map);
+	public List<Map> findSimpleComm(Map map, int firstResult, int pageSize);
 }

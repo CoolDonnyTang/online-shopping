@@ -3,6 +3,7 @@ package com.cduestc.tyr.online_shopping.manager.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
 
@@ -13,5 +14,6 @@ public interface ManageDao {
 	public void updateSubKind(KindBean kind);
 	public void deleteMainKindById(int id);
 	public void addCommodity(CommodityBean comm);
+	public void addCommEntity(CommEntityBean comm);
 	public List<Map> findBrandTitlePropBySubKindId(int subKindId);
 }

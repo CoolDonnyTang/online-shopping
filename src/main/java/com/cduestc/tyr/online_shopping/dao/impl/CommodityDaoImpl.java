@@ -24,27 +24,59 @@ public class CommodityDaoImpl implements ICommodityDao {
 		Session session = sf.getCurrentSession();
 		return (CommodityBean) session.load(CommodityBean.class, id);
 	}
-
+	
 	@Override
-	public List<Map> findSimpleCommByMainKindId(int mainKindId) {
-		String hql = "select new map(c.id as id, c.titleName as title, c.myPrice as price, c.marketPrice as marketPrice, c.sales as sales, i.url as url) "
-				+ " from CommodityBean as c join c.images as i"
-				+ " where c.belongKindId in (select k.id from KindBean k where k.belong = ?)"
-				+ " and i.mainImage = true and i.serialNumber = 1";
+	public List<Map> findSimpleCommByMainKindId(int mainKindId, int firstResult, int pageSize) {
+//		String hql = "from CommodityBean c "
+//				+ "where c.belongKindId in (select k.id from KindBean k where k.belong = ?)"
+//				+ ")";
+		String hql = "select new map("
+				+ "c.id as commId, "
+				+ "c.brand as commBrand, "
+				+ "c.titleName as commTitle, "
+				+ "ce.id as commEntityId, "
+				+ "ce.myPrice as price, "
+				+ "ce.marketPrice as marketPrice, "
+				+ "ce.propty1 as prop1, "
+				+ "ce.propty2 as prop2, "
+				+ "img.url as mainUrl"
+		+ ") from CommodityBean as c "
+		+ "join c.commEntity as ce "
+		+ "join ce.images as img "
+		+ "where c.belongKindId in (select k.id from KindBean k where k.belong = ?) "
+		+ "and img.mainImage = true and img.serialNumber = 1 "
+		+ "order by c.id";
 		Session session = sf.getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setInteger(0, mainKindId);
+		query.setFirstResult(firstResult);
+		query.setMaxResults(pageSize);
 		return query.list();
 	}
 
 	@Override
-	public List<Map> findSimpleCommBySubKindId(int subKindId) {
-		String hql = "select new map(c.id as id, c.titleName as title, c.myPrice as price, c.marketPrice as marketPrice, c.sales as sales, i.url as url) "
-				+ " from CommodityBean as c join c.images as i"
-				+ " where c.belongKindId = ? and i.mainImage = true and i.serialNumber = 1";
+	public List<Map> findSimpleCommBySubKindId(int subKindId, int firstResult, int pageSize) {
+//		String hql = "from CommodityBean c where c.belongKindId = ?";
+		String hql = "select new map("
+				+ "c.id as commId, "
+				+ "c.brand as commBrand, "
+				+ "c.titleName as commTitle, "
+				+ "ce.id as commEntityId, "
+				+ "ce.myPrice as price, "
+				+ "ce.marketPrice as marketPrice, "
+				+ "ce.propty1 as prop1, "
+				+ "ce.propty2 as prop2, "
+				+ "img.url as mainUrl"
+		+ ") from CommodityBean as c "
+		+ "join c.commEntity as ce "
+		+ "join ce.images as img "
+		+ "where c.belongKindId = ? and img.mainImage = true and img.serialNumber = 1 "
+		+ "order by c.id";
 		Session session = sf.getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setInteger(0, subKindId);
+		query.setFirstResult(firstResult);
+		query.setMaxResults(pageSize);
 		return query.list();
 	}
 

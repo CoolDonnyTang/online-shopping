@@ -15,20 +15,23 @@ import com.cduestc.tyr.online_shopping.service.ICommodityService;
 @Controller
 @RequestMapping("/comm")
 public class CommodityController {
-	
+	private static final int PAGE_SIZE = 40;
 	@Resource
 	private ICommodityService service;
 	
 	@RequestMapping("/findComm.action")
 	@ResponseBody
-	public ResultData findCommdity(Integer mainKindId, Integer subKindId, String nameKey) {
+	public ResultData findCommdity(Integer mainKindId, Integer subKindId, String nameKey, Integer page) {
 		ResultData result = new ResultData();
 		try {
 			Map map = new HashMap();
 			map.put("mainKindId", mainKindId);
 			map.put("subKindId", subKindId);
 			map.put("nameKey", nameKey);
-			result.setData(service.findSimpleComm(map));
+			if(null == page) {
+				page = 1;
+			}
+			result.setData(service.findSimpleComm(map, (page-1)*PAGE_SIZE, PAGE_SIZE));
 			result.setStatus(1);
 			result.setInfo("success");
 		} catch (Exception e) {

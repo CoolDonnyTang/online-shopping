@@ -180,7 +180,7 @@
 					</div><!-- 添加商品模板结束 -->
 					<!-- 添加商品实体开始 -->
 					<div id="addCommodityEntity"  class="operate-content" style="display: none;">
-						<form method="post" enctype="multipart/form-data">
+						<form method="post" enctype="multipart/form-data" id="commEntityForm">
 							<div class="form-group">
 							    <label for="commEntityMainKinds">所属主类别</label>
 							    <select class="form-control" id="commEntityMainKinds">
@@ -209,7 +209,7 @@
 							<hr>
 							<div class="form-group">
 							    <label for="commEntityBrand">商品标题</label>
-							    <select class="form-control" id="commEntityTitle">
+							    <select class="form-control" id="commEntityTitle" name="belongCommId">
 								  <option selected="selected">1</option>
 								  <option>2</option>
 								  <option>3</option>
@@ -575,9 +575,9 @@ console.log(data);
 											for(var j=0; j<data[0].commTitles.length; j++) {
 												var $titleOption ;
 												if(j === 0) {
-													$titleOption = $("<option selected='selected'>" + data[0].commTitles[j].commTitle +"</option>");
+													$titleOption = $("<option selected='selected' value="+ data[0].commTitles[j].commId +">" + data[0].commTitles[j].commTitle +"</option>");
 												} else {
-													$titleOption = $("<option>" + data[0].commTitles[j].commTitle +"</option>");
+													$titleOption = $("<option value="+ data[0].commTitles[j].commId +">" + data[0].commTitles[j].commTitle +"</option>");
 												}
 												$("#commEntityTitle").append($titleOption);
 											}
@@ -656,14 +656,6 @@ console.log(id);
 				var title = $("#commodityTitle").val().trim();
 				//所属类别
 				var subKind = $("#commoditySubKinds option:selected").val().trim();
-				//主图片组
-				//var mainImages = $("#mainImageList input[class='mainImage']");
-				//库存
-				//var inventory = $("#commodityInventory").val().trim();
-				//售价
-				//var price = $("#myPrice").val().trim();
-				//市场价
-				//var marketPrice = $("#marketPrice").val().trim();
 				//属性1
 				var propertyName1 = $("#property1").val().trim();
 				var propertyContent1 = $("#property1Detail").val().trim();
@@ -672,8 +664,6 @@ console.log(id);
 				var propertyContent2 = $("#property2Detail").val().trim();
 				//品牌
 				var brand = $("#brand").val().trim();
-				//参数
-				//var paramDetail = $("#paramDetail").val().trim();
 				//详情图片组
 				var detailImage = $("#detailImageList input[class='detailImage']");
 				if("" === title) {
@@ -687,31 +677,6 @@ console.log(id);
 				var counter1 = 0;
 				var imageReg = /^.+\.(png)|(jpg)|(jpeg)|(gif)$/i;
 				var imageName = "";
-				/*var mainImageNames = new Array(mainImages.length);
-				for(var i=0; i<mainImages.length; i++) {
-					imageName = mainImages.eq(i).val().trim();
-					if(!(imageName === "")) {
-						if(!(imageReg.test(imageName))) {
-							alert("商品主图片出现非图片格式文件");
-							return;
-						} else {
-							counter1 = counter1 + 1;
-							mainImageNames[i] = imageName;
-						}
-					}
-				}
-				if(!checkInteger(inventory)) {
-					alert("库存有效值为 1-999999");
-					return;
-				}
-				if(!checkBigDicemal(price)) {
-					alert("售价有效值为 0.00-999999999.00");
-					return;
-				}
-				if(counter1 <= 0) {
-					alert("商品主图片至少选择一张");
-					return;
-				} */
 				if(propertyName1 === "" && propertyName2 === "") {
 					alert("请至少填写一个属性项");
 					return;
@@ -728,10 +693,6 @@ console.log(id);
 					alert("请填写所属品牌");
 					return;
 				}
-				/* if(paramDetail === "") {
-					alert("请填写参数详情");
-					return;
-				} */
 				counter1 = 0;
 				imageName = "";
 				for(var i=0; i<detailImage.length; i++) {
@@ -974,7 +935,83 @@ console.log(id);
 			});
 			//提交实体信息
 			$("#submitCommEntityMessage").click(function(){
-				
+				//商品id
+				var commId = $("#commEntityTitle option:selected").val();
+				//商品属性
+				var prop1 = $("#commEntityProp1 option:selected").text();
+				var prop2 = $("#commEntityProp2 option:selected").text();
+				//主图片组
+				var mainImages = $("#mainImageList input[class='mainImage']");
+				//库存
+				var inventory = $("#commEntityInventory").val().trim();
+				//售价
+				var price = $("#myPrice").val().trim();
+				//市场价
+				var marketPrice = $("#marketPrice").val().trim();
+				//参数
+				var paramDetail = $("#paramDetail").val().trim();
+				/**
+				*	数据校验
+				*/
+				//主图片校验
+				var counter1 = 0;
+				var imageReg = /^.+\.(png)|(jpg)|(jpeg)|(gif)$/i;
+				var imageName = "";
+				var mainImageNames = new Array(mainImages.length);
+				for(var i=0; i<mainImages.length; i++) {
+					imageName = mainImages.eq(i).val().trim();
+					if(!(imageName === "")) {
+						if(!(imageReg.test(imageName))) {
+							alert("商品主图片出现非图片格式文件");
+							return;
+						} else {
+							counter1 = counter1 + 1;
+							mainImageNames[i] = imageName;
+						}
+					}
+				}
+				if(!checkInteger(inventory)) {
+					alert("库存有效值为 1-999999");
+					return;
+				}
+				if(!checkBigDicemal(price)) {
+					alert("售价有效值为 0.00-999999999.00");
+					return;
+				}
+				if(counter1 <= 0) {
+					alert("商品主图片至少选择一张");
+					return;
+				}
+				if(paramDetail === "") {
+					alert("请填写参数详情");
+					return;
+				}
+				var data =  new FormData($("#commEntityForm").get(0));
+				data.append("propty1",prop1);
+				data.append("propty2",prop2);
+				$.ajax({
+					url: "manage/addCommEntity.action",
+		            type: "post",
+		            data: data,
+		            cache: false,
+		            contentType: false,    //不可缺
+		            processData: false,    //不可缺
+		            error: function() {
+		            	alert("连接服务器失败");
+		            },
+		            success:function(result){
+		                if(result.status === 1) {
+		                	/* $("#commodityMessage input").val("");
+		                	$("#commodityMessage textarea").val(""); */
+		                	$("#mainImageList input[class='mainImage']").val("");
+		                	$("#commEntityInventory").val("");
+		                	$("#myPrice").val("");
+		                	$("#marketPrice").val("");
+							$("#paramDetail").val("");
+		                }
+		                alert(result.info);
+		            }
+				});
 			});
 		});
 	</script>

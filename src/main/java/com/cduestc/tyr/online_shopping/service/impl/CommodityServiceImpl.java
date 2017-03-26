@@ -17,11 +17,11 @@ public class CommodityServiceImpl implements ICommodityService {
 	private ICommodityDao dao;
 
 	@Override
-	public List<Map> findSimpleComm(Map map) {
+	public List<Map> findSimpleComm(Map map, int firstResult, int pageSize) {
 		if(map.get("mainKindId") != null) {
-			return dao.findSimpleCommByMainKindId((int) map.get("mainKindId"));
+			return dao.findSimpleCommByMainKindId((int) map.get("mainKindId"), firstResult, pageSize);
 		} else if(map.get("subKindId") != null) {
-			return dao.findSimpleCommBySubKindId((int) map.get("subKindId"));
+			return dao.findSimpleCommBySubKindId((int) map.get("subKindId"), firstResult, pageSize);
 		} else if(map.get("nameKey") != null) {
 			
 		}

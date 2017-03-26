@@ -117,5 +117,15 @@ public class CommEntityBean {
 	public void setImages(Set<CommodityImageBean> images) {
 		this.images = images;
 	}
+	@Override
+	public String toString() {
+		return "CommEntityBean [id=" + id + ", belongCommId=" + belongCommId
+				+ ", inventory=" + inventory + ", marketPrice=" + marketPrice
+				+ ", myPrice=" + myPrice + ", sales=" + sales + ", propty1="
+				+ propty1 + ", propty2=" + propty2 + ", entryId=" + entryId
+				+ ", entryTime=" + entryTime + ", lastChangeTime="
+				+ lastChangeTime + ", images=" + images + ", params=" + params
+				+ "]";
+	}
 	
 }

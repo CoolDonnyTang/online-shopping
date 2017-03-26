@@ -8,12 +8,14 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityImageBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityParamDetailBean;
@@ -162,6 +164,80 @@ public class ManagerController {
 	        service.addCommodity(com);
 	        rd.setStatus(1);
 	        rd.setInfo("success");
+		} catch (Exception e) {
+			rd.setStatus(-1);
+			rd.setInfo("出现未知错误，添加失败");
+			e.printStackTrace();
+		}
+		return rd;
+	}
+	
+	@RequestMapping("/addCommEntity.action")
+	@ResponseBody
+	public ResultData addCommodity(@RequestParam(value="file",required=false) MultipartFile file[], CommEntityBean commEntity,
+						String paramss, HttpServletRequest req) {
+		ResultData rd = new ResultData();
+		try{
+			//获得物理路径webapp所在路径  
+	        String pathRoot = req.getSession().getServletContext().getRealPath("");  
+	        String path = "";  
+	        String url = "";
+	        Set<CommodityImageBean> images = new HashSet<CommodityImageBean>();
+	        Set<CommodityParamDetailBean> params = new HashSet<CommodityParamDetailBean>();
+	        long time = System.currentTimeMillis();
+	        //图片顺序
+	        int num = 0;
+	        //详情图片
+	        for (MultipartFile mf : file) {
+	            if(!mf.isEmpty() && mf.getContentType().matches("(?i)image/((jpg)|(gif)|(jpeg)|(png))")){
+	            	num++;
+	            	//获取文件后缀名
+	            	String imageType = mf.getContentType().substring(mf.getContentType().indexOf("/")+1);
+	            	//生成uuid作为文件名称  
+	    			String uuid = UUID.randomUUID().toString().replaceAll("-","");
+            		path = File.separator + "commodityImages" + File.separator + "mainImags" + File.separator + uuid + "." + imageType;
+	    			url = req.getContextPath().replace("/", "\\") + path;
+	    			File file11 = new File(pathRoot, path);
+	    			System.out.println("url:  " + url);
+	    			System.out.println("path:  " + file11.getPath());
+	    			if(!file11.exists()) {
+	    				file11.mkdirs();
+	    			}
+					mf.transferTo(file11);
+					CommodityImageBean image = new CommodityImageBean();
+					image.setUrl(url);
+					image.setRealPath(pathRoot + path);
+					image.setSerialNumber(num);
+					image.setMainImage(true);
+					image.setEntryId(1);
+					image.setLastChangeTime(time);
+					image.setEntryTime(time);
+					images.add(image); 
+	            }  
+	        }
+	        //参数处理
+	        String param[] = paramss.split("\\s+");
+	        for(String s : param) {
+	        	s = s.trim();
+	        	if(!"".equals(s)) {
+	        		CommodityParamDetailBean commParam = new CommodityParamDetailBean();
+	        		commParam.setEntryId(1);
+	        		commParam.setEntryTime(time);
+	        		commParam.setLastChangeTime(time);
+	        		commParam.setParamContent(s);
+	        		params.add(commParam);
+	        	}
+	        }
+	        commEntity.setImages(images);
+	        commEntity.setParams(params);
+	        commEntity.setEntryId(1);
+	        commEntity.setEntryTime(time);
+	        commEntity.setLastChangeTime(time);
+	        commEntity.setSales(0);
+	        service.addCommEntity(commEntity);
+	        rd.setStatus(1);
+	        rd.setInfo("success");
+//System.out.println("entity:" + commEntity + "  param:" + paramss);
 		} catch (Exception e) {
 			rd.setStatus(-1);
 			rd.setInfo("出现未知错误，添加失败");

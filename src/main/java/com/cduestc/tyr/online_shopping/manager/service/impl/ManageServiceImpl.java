@@ -1,6 +1,5 @@
 package com.cduestc.tyr.online_shopping.manager.service.impl;
 
-import java.security.KeyStore.Entry;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -11,8 +10,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
-import com.cduestc.tyr.online_shopping.beans.CommodityImageBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
 import com.cduestc.tyr.online_shopping.manager.beans.Message4AddCommEntityPOJO;
 import com.cduestc.tyr.online_shopping.manager.beans.Prop4AddCommEntityPOJO;
@@ -132,7 +131,7 @@ public class ManageServiceImpl implements ManageService {
 								pop1Id = (Integer)map2.get("propId");
 								flag = true;
 							}
-System.out.println(pop1Id + " " + ((Integer)map3.get("propId")));
+//System.out.println(pop1Id + " " + ((Integer)map3.get("propId")));
 							if(pop1Id.intValue() == ((Integer)map3.get("propId")).intValue()) {
 								if(brandName.equals((String)map3.get("brand")) && commTitle.equals((String)map3.get("title")) && !props1.contains(propName)) {
 									props1.add(propName);
@@ -167,5 +166,10 @@ System.out.println(pop1Id + " " + ((Integer)map3.get("propId")));
 			}
 		}
 		return resultData;
+	}
+
+	@Override
+	public void addCommEntity(CommEntityBean comm) {
+		dao.addCommEntity(comm);
 	}
 }

@@ -90,9 +90,17 @@ div {
 }
 .commodity-title {
 	display:inline-block;
-	height:40px;
+	height:3em;
 	overflow:hidden;
-	color:#666;
+	color:#000;
+	padding:2px;
+	background-color: #eee;
+}
+.commBrand {
+	height:1.4em;
+	padding:0;
+	overflow: hidden;
+	margin-bottom: 0.4em;
 }
 .commodity-dec {
 	padding:0 !important;

@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
 import com.cduestc.tyr.online_shopping.manager.dao.ManageDao;
@@ -68,6 +69,12 @@ public class ManageDaoImpl implements ManageDao {
 		Query query = session.createQuery(hql);
 		query.setInteger(0, subKindId);
 		return query.list();
+	}
+
+	@Override
+	public void addCommEntity(CommEntityBean comm) {
+		Session session = sf.getCurrentSession();
+		session.save(comm);
 	}
 	
 }
