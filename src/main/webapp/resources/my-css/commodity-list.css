@@ -16,3 +16,6 @@
 .list-image {
 	padding:0;
 }
+.list-image:HOVER {
+	cursor: pointer;
+}

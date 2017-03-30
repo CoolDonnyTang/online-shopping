@@ -20,9 +20,9 @@ public class CommodityDaoImpl implements ICommodityDao {
 	private SessionFactory sf;
 	
 	@Override
-	public CommodityBean findCommById(int id) {
+	public CommodityBean findCommModelAndEntityById(int id) {
 		Session session = sf.getCurrentSession();
-		return (CommodityBean) session.load(CommodityBean.class, id);
+		return (CommodityBean) session.get(CommodityBean.class, id);
 	}
 	
 	@Override

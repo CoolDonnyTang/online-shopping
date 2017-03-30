@@ -115,7 +115,7 @@
 			<!-- 标题区 -->
 			<div class="col-sm-8 col-md-8">
 				<div class="col-sm-12 col-md-12">
-					<h1 class="commodify-title">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</h1>
+					<h1 class="commodify-title" id="commTitle">标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题</h1>
 				</div>
 				<div class="col-sm-12 col-md-12 commodify-price">
 					<div class="col-sm-10 col-md-10">
@@ -196,7 +196,7 @@
 				<!-- 详情区之商品详情 -->
 				<div> <!-- style="display:none" -->
 					<div class="message-detail col-md-12">
-						品牌：&nbsp;&nbsp;<span>唐晏忍</span>
+						品牌：&nbsp;&nbsp;<span id="brand">唐晏忍</span>
 						<ul class="nav nav-pills mesage-list">
 						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得1</li>
 						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得2</li>
@@ -208,7 +208,7 @@
 					</div>
 					<div>
 						<!-- 图片区开始 -->
-						<ul class="col-md-12 main-images">
+						<ul class="col-md-12 main-images" id="detailImage">
 							<li><img src="resources/images/login-background.jpg" class="col-md-12 image-display"></li>
 							<li><img src="resources/images/activity-1.jpg" class="col-md-12 image-display"></li>
 						</ul>
@@ -298,7 +298,53 @@
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
-		
+		$(function(){
+			var param =  window.atob(window.location.search.replace("?", ""));
+			var data = {};
+			data[param.substr(0, param.indexOf("=")).trim()] = param.substr(param.indexOf("=") + 1, param.indexOf("&")-param.indexOf("=")-1).trim();
+			var commEntityId = param.substr(param.lastIndexOf("=") + 1).trim();
+			console.log(data);
+			//发送请求加载数据
+			$.ajax({
+				data:data,
+				dataType:"json",
+				error:function(){
+				
+				},
+				success:function(result){
+					if(result.status === 1 && result.data !== null) {
+						var data = result.data;
+						var selectEntity = null;
+						//找到应该选中的实体的信息
+						for(var i=0; i<data.commEntity.length; i++) {
+							if(data.commEntity[i].id == commEntityId) {
+								selectEntity = data.commEntity[i];
+							}
+						}
+						/**
+						*加载基本信息
+						*/
+						//加载标题
+						$("#commTitle").text(data.titleName);
+						//加载品牌
+						$("#brand").text(data.brand);
+						//加载详情图片
+						$("#detailImage").html("");
+						var detailImages = new Array(data.images.length);
+						for(var j=0; j<data.images.length; j++) {
+							detailImages[data.images[j].serialNumber-1] = $("<li><img src=" + data.images[j].url + " class='col-md-12 image-display'></li>");
+						}
+						for(var k=0; k<detailImages.length; k++) {
+							$("#detailImage").append(detailImages[k]);
+						}
+					} else {
+						
+					}
+				},
+				type:"post",
+				url:"comm/findCommModelAndEntity.action"
+			});
+		});
 	</script>
 </body>
 </html>

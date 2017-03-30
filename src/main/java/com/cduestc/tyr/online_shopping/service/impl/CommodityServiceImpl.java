@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.dao.ICommodityDao;
 import com.cduestc.tyr.online_shopping.service.ICommodityService;
 
@@ -26,6 +27,11 @@ public class CommodityServiceImpl implements ICommodityService {
 			
 		}
 		return null;
+	}
+
+	@Override
+	public CommodityBean findCommModelAndEntity(int commId) {
+		return dao.findCommModelAndEntityById(commId);
 	}
 
 }
