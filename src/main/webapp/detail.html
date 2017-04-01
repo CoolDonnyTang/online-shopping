@@ -106,10 +106,25 @@
 		</div>
 <!-- 商品主图片 -->
 		<div class="row">
-			<!-- 图片区 -->
-			<div class="col-sm-4 col-md-4 main-commodity-image">
-			    <div class="thumbnail">
-			      <img src="resources/images/activity-1.jpg" alt="">
+			<!-- 主图片区 -->
+			<div class="col-sm-4 col-md-4 main-commodity-image" id="main-img-dis">
+			    <div class="thumbnail " style="margin-bottom: 2px">
+			      <img src="resources/images/activity-1.jpg" alt="" id="mainImage">
+			    </div>
+			    <!-- ---------------------------- -->
+			    <div class="main-img-lis-con col-sm-12 col-md-12" id="main-img-list">
+			    	<div class="thumbnail col-sm-3 col-md-3 main-img-lis">
+				      <img src="resources/images/activity-1.jpg" alt="" id="mainImage">
+				    </div>
+				    <div class="thumbnail col-sm-3 col-md-3 main-img-lis">
+				      <img src="resources/images/activity-1.jpg" alt="" id="mainImage">
+				    </div>
+				    <div class="thumbnail col-sm-3 col-md-3 main-img-lis">
+				      <img src="resources/images/activity-1.jpg" alt="" id="mainImage">
+				    </div>
+				    <div class="thumbnail col-sm-3 col-md-3 main-img-lis">
+				      <img src="resources/images/activity-1.jpg" alt="" id="mainImage">
+				    </div>
 			    </div>
 			</div>
 			<!-- 标题区 -->
@@ -137,27 +152,27 @@
 				<div class="col-sm-12 col-md-12 commodify-attribute">
 					<div class="col-sm-10 col-md-10">
 						<div class="price-content">
-							<div class="col-md-2 text-right">属性一：</div>
-							<div class="col-md-8 price_">
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
+							<div class="col-md-2 text-right" id="prop1Name">属性一：</div>
+							<div class="col-md-8 price_" id="prop1Content">
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
 							</div>
 						</div>
-						<div class="price-content">
-							<div class="col-md-2 text-right">属性二：</div>
-							<div class="col-md-8 price_">
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
-								<button type="button" class="btn btn-default">Default</button>
+						<div class="price-content" id="prop2-con">
+							<div class="col-md-2 text-right" id="prop2Name">属性二：</div>
+							<div class="col-md-8 price_" id="prop2Content">
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop">Default</button>
 							</div>
 						</div>
 					</div>
@@ -197,7 +212,7 @@
 				<div> <!-- style="display:none" -->
 					<div class="message-detail col-md-12">
 						品牌：&nbsp;&nbsp;<span id="brand">唐晏忍</span>
-						<ul class="nav nav-pills mesage-list">
+						<ul class="nav nav-pills mesage-list" id="params">
 						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得1</li>
 						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得2</li>
 						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得3</li>
@@ -295,6 +310,7 @@
 	<script src="resources/plugins/jquery-2.2.4.min.js"></script>
 	<script src="resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="resources/scripts/my-utils.js"></script>
+	<script src="resources/scripts/detail-fun.js"></script>
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
@@ -302,7 +318,7 @@
 			var param =  window.atob(window.location.search.replace("?", ""));
 			var data = {};
 			data[param.substr(0, param.indexOf("=")).trim()] = param.substr(param.indexOf("=") + 1, param.indexOf("&")-param.indexOf("=")-1).trim();
-			var commEntityId = param.substr(param.lastIndexOf("=") + 1).trim();
+			var commEntityId = parseInt(param.substr(param.lastIndexOf("=") + 1).trim());
 			console.log(data);
 			//发送请求加载数据
 			$.ajax({
@@ -337,6 +353,67 @@
 						for(var k=0; k<detailImages.length; k++) {
 							$("#detailImage").append(detailImages[k]);
 						}
+						//加载属性
+						var props = data.properties;
+						if(props.length === 1) {
+							//移除属性二
+							$("#prop2-con").html("");
+							//移除属性的选项
+							$("#prop1Content").html("");
+							$("#prop1Name").text(props[0].propertyName + ":");
+							var propContent = props[0].propertyCotent.split(/\s+/);
+							for(var propc=0; propc<propContent.length; propc++) {
+								$("#prop1Content").append($(
+										"<button type='button' class='btn btn-default prop'>" + propContent[propc] + "</button>"
+									));
+							}
+						} else if(props.length === 2) {
+							if(props[0].id<props[1].id) {
+								/**设置属性一**/
+								//移除属性的选项
+								$("#prop1Content").html("");
+								$("#prop1Name").text(props[0].propertyName + ":");
+								var propContent = props[0].propertyCotent.split(/\s+/);
+								for(var propc=0; propc<propContent.length; propc++) {
+									$("#prop1Content").append($(
+											"<button type='button' class='btn btn-default prop'>" + propContent[propc] + "</button>"
+										));
+								}
+								/**设置属性二**/
+								//移除属性的选项
+								$("#prop2Content").html("");
+								$("#prop2Name").text(props[1].propertyName + ":");
+								var propContent2 = props[1].propertyCotent.split(/\s+/);
+								for(var propc=0; propc<propContent2.length; propc++) {
+									$("#prop2Content").append($(
+											"<button type='button' class='btn btn-default prop'>" + propContent2[propc] + "</button>"
+										));
+								}
+							} else {
+								/**设置属性一**/
+								//移除属性的选项
+								$("#prop1Content").html("");
+								$("#prop1Name").text(props[1].propertyName + ":");
+								var propContent = props[1].propertyCotent.split(/\s+/);
+								for(var propc=0; propc<propContent.length; propc++) {
+									$("#prop1Content").append($(
+											"<button type='button' class='btn btn-default prop'>" + propContent[propc] + "</button>"
+										));
+								}
+								/**设置属性二**/
+								//移除属性的选项
+								$("#prop2Content").html("");
+								$("#prop2Name").text(props[0].propertyName + ":");
+								var propContent2 = props[0].propertyCotent.split(/\s+/);
+								for(var propc=0; propc<propContent2.length; propc++) {
+									$("#prop2Content").append($(
+											"<button type='button' class='btn btn-default prop'>" + propContent2[propc] + "</button>"
+										));
+								}
+							}
+						}
+						//显示指定的entity
+						chooesEntity(data, commEntityId);
 					} else {
 						
 					}

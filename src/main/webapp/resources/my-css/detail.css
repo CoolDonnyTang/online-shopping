@@ -7,6 +7,19 @@
 .navigator {
 	padding:20px 0 0 0;
 }
+.main-img-lis-con {
+	border: 1px solid #ddd;
+	padding:2px 1px;
+}
+.main-img-lis {
+	border: 0;
+	margin:0;
+	padding:2px;
+}
+.main-img-lis:HOVER {
+	cursor: pointer;
+	border:2px solid red;
+}
 .header-content {
 	font-size:18px;
 	color:#fff;
@@ -21,6 +34,9 @@
 .main-commodity-image{
 	padding:8px;
 	min-height: 360px;
+}
+.main-commodity-image img {
+	width:100%;
 }
 .main-header {
 	border-top: 2px solid #d81e06;
@@ -134,7 +150,9 @@
 .comment {
 	padding-top: 4px;
 }
-
+.prop {
+	margin:1px 3px;
+}
 
 
 
