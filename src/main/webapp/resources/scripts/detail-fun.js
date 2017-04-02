@@ -33,15 +33,35 @@ function chooesEntity(data, commEntityId) {
 								"<li role='presentation' class='text-center col-md-3'>" + param[k].paramContent + "</li>"
 							));
 				}
+				/***选中属性一和二***/
+				//遍历属性一
+				var prop1btn = $("#prop1Content button");
+				for(var pb=0; pb<prop1btn.length; pb++) {
+					//每个按钮
+					var $btn = prop1btn.eq(pb);
+					if($btn.text()===commEntity[i].propty1 || $btn.text()===commEntity[i].propty2) {
+						console.log($btn.text());
+						$btn.mousedown();
+					}
+				}
+				//遍历属性er
+				var prop2btn = $("#prop2Content button");
+				for(var pb2=0; pb2<prop2btn.length; pb2++) {
+					//每个按钮
+					var $btn2 = prop2btn.eq(pb2);
+					if($btn2.text()===commEntity[i].propty1 || $btn2.text()===commEntity[i].propty2) {
+						console.log($btn2.text());
+						$btn2.mousedown();
+					}
+				}
 			}
 		}
 	}
 	//设置主图片宽等于高
-//	var $mainImages = $("#main-img-dis img");
-//	var width;
-//	for(var n=0; n<$mainImages.length; n++) {
-//		width = $mainImages.eq(n).width();
-//		console.log("w"　+　$mainImages.eq(n).width());
-//		$mainImages.eq(n).height(width);
-//	}
+	var $mainImages = $("#main-img-dis img");
+	var width;
+	for(var n=0; n<$mainImages.length; n++) {
+		width = $mainImages.eq(n).width();
+		$mainImages.eq(n).height(width);
+	}
 }

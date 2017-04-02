@@ -154,7 +154,7 @@
 						<div class="price-content">
 							<div class="col-md-2 text-right" id="prop1Name">属性一：</div>
 							<div class="col-md-8 price_" id="prop1Content">
-								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop" disabled="disabled">Default</button>
 								<button type="button" class="btn btn-default prop">Default</button>
 								<button type="button" class="btn btn-default prop">Default</button>
 								<button type="button" class="btn btn-default prop">Default</button>
@@ -166,8 +166,8 @@
 						<div class="price-content" id="prop2-con">
 							<div class="col-md-2 text-right" id="prop2Name">属性二：</div>
 							<div class="col-md-8 price_" id="prop2Content">
-								<button type="button" class="btn btn-default prop">Default</button>
-								<button type="button" class="btn btn-default prop">Default</button>
+								<button type="button" class="btn btn-default prop" disabled='disabled'>Default</button>
+								<button type="button" class="btn btn-default prop" disabled="disabled">Default</button>
 								<button type="button" class="btn btn-default prop">Default</button>
 								<button type="button" class="btn btn-default prop">Default</button>
 								<button type="button" class="btn btn-default prop">Default</button>
@@ -315,6 +315,7 @@
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
 		$(function(){
+			var commData;
 			var param =  window.atob(window.location.search.replace("?", ""));
 			var data = {};
 			data[param.substr(0, param.indexOf("=")).trim()] = param.substr(param.indexOf("=") + 1, param.indexOf("&")-param.indexOf("=")-1).trim();
@@ -330,6 +331,7 @@
 				success:function(result){
 					if(result.status === 1 && result.data !== null) {
 						var data = result.data;
+						commData = data;
 						var selectEntity = null;
 						//找到应该选中的实体的信息
 						for(var i=0; i<data.commEntity.length; i++) {
@@ -376,7 +378,7 @@
 								var propContent = props[0].propertyCotent.split(/\s+/);
 								for(var propc=0; propc<propContent.length; propc++) {
 									$("#prop1Content").append($(
-											"<button type='button' class='btn btn-default prop'>" + propContent[propc] + "</button>"
+											"<button type='button' class='btn btn-default prop' disabled='disabled'>" + propContent[propc] + "</button>"
 										));
 								}
 								/**设置属性二**/
@@ -386,7 +388,7 @@
 								var propContent2 = props[1].propertyCotent.split(/\s+/);
 								for(var propc=0; propc<propContent2.length; propc++) {
 									$("#prop2Content").append($(
-											"<button type='button' class='btn btn-default prop'>" + propContent2[propc] + "</button>"
+											"<button type='button' class='btn btn-default prop' disabled='disabled'>" + propContent2[propc] + "</button>"
 										));
 								}
 							} else {
@@ -397,7 +399,7 @@
 								var propContent = props[1].propertyCotent.split(/\s+/);
 								for(var propc=0; propc<propContent.length; propc++) {
 									$("#prop1Content").append($(
-											"<button type='button' class='btn btn-default prop'>" + propContent[propc] + "</button>"
+											"<button type='button' class='btn btn-default prop' disabled='disabled'>" + propContent[propc] + "</button>"
 										));
 								}
 								/**设置属性二**/
@@ -407,12 +409,29 @@
 								var propContent2 = props[0].propertyCotent.split(/\s+/);
 								for(var propc=0; propc<propContent2.length; propc++) {
 									$("#prop2Content").append($(
-											"<button type='button' class='btn btn-default prop'>" + propContent2[propc] + "</button>"
+											"<button type='button' class='btn btn-default prop' disabled='disabled'>" + propContent2[propc] + "</button>"
 										));
 								}
 							}
 						}
-						//显示指定的entity
+						/***设置属性一哪些可点击***/
+						//获取实体
+						var entities = data.commEntity;
+						for(var en=0; en<entities.length; en++) {
+							//库存大于0
+							if(entities[en].inventory>0) {
+								//遍历属性一
+								var prop1btn = $("#prop1Content button");
+								for(var pb=0; pb<prop1btn.length; pb++) {
+									//每个按钮
+									var $btn = prop1btn.eq(pb);
+									if($btn.text()===entities[en].propty1 || $btn.text()===entities[en].propty2) {
+										$btn.removeAttr("disabled");
+									}
+								}
+							}
+						}
+						/***显示指定的entity***/
 						chooesEntity(data, commEntityId);
 					} else {
 						
@@ -421,6 +440,61 @@
 				type:"post",
 				url:"comm/findCommModelAndEntity.action"
 			});
+			//点击属性一的按钮
+			$("#prop1Content").on("mousedown","button",function(e){
+				//alert("ok");
+				var $target = $(e.target);
+				//移除其它按钮的选中
+				$("#prop1Content button").removeClass("active-btn");
+				if($target.attr("disabled")==="disabled") {
+					return;
+				}
+				//console.log("www1");
+				$target.addClass("active-btn");
+				/***展示可选择的属性二按钮***/
+				//获取实体
+				var entities = commData.commEntity;
+				//获取属性二
+				var prop2btn = $("#prop2Content button");
+				//每个按钮
+				var $btn;
+				//遍历商品实体
+				for(var en=0; en<entities.length; en++) {
+					//库存大于0,并且有一个属性为该按钮对应的 属性
+					if(entities[en].inventory>0) {
+						if(entities[en].propty1===$target.text()) {
+							//遍历属性二
+							for(var pb=0; pb<prop2btn.length; pb++) {
+								//每个按钮
+								$btn = prop2btn.eq(pb);
+								if($btn.text()===entities[en].propty2) {
+									$btn.removeAttr("disabled");
+								}
+							}
+						} else if(entities[en].propty2===$target.text()) {
+							//遍历属性二
+							for(var pb=0; pb<prop2btn.length; pb++) {
+								//每个按钮
+								$btn = prop2btn.eq(pb);
+								if($btn.text()===entities[en].propty1) {
+									$btn.removeAttr("disabled");
+								}
+							}
+						}
+					}
+				}
+			});
+			//点击属性二的按钮
+			$("#prop2Content").on("mousedown","button",function(e){
+				var $target = $(e.target);
+				//移除其它按钮的选中
+				$("#prop2Content button").removeClass("active-btn");
+				if($target.attr("disabled")==="disabled") {
+					return;
+				}
+				$target.addClass("active-btn");
+			});
+			
 		});
 	</script>
 </body>
