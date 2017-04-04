@@ -40,6 +40,13 @@ function checkInteger(checkCode) {
 	var reg = /^[1-9]\d{0,5}$/;
 	return reg.test(checkCode);
 }
+function checkNum(data) {
+	if(data===null || data===undefined) {
+		return false
+	}
+	var reg = /^[1-9]\d*$/;
+	return reg.test(data);
+}
 ///未完成
 function checkBigDicemal(checkCode) {
 	if(checkCode===null || checkCode===undefined) {

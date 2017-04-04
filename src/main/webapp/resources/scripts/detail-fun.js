@@ -1,3 +1,11 @@
+/**
+ * 根据实体id加载相应的实体信息
+ * tangyanrentyr
+ * 2017年4月4日
+ * @param data
+ * @param commEntityId
+ * @returns
+ */
 function chooesEntity(data, commEntityId) {
 	var mainImages;
 	var commEntity = data.commEntity;
@@ -30,7 +38,7 @@ function chooesEntity(data, commEntityId) {
 				//设置参数
 				for(var k=0; k<param.length; k++) {
 					$("#params").append($(
-								"<li role='presentation' class='text-center col-md-3'>" + param[k].paramContent + "</li>"
+								"<li role='presentation' class='text-left col-md-3'>" + param[k].paramContent + "</li>"
 							));
 				}
 				/***选中属性一和二***/
@@ -54,6 +62,14 @@ function chooesEntity(data, commEntityId) {
 						$btn2.mousedown();
 					}
 				}
+				/***设置库存价格等信息***/
+				//设置库存
+				$("#commInventory").text(commEntity[i].inventory);
+				//设置市场价
+				$("#marketPrice").text(commEntity[i].marketPrice);
+				//设置售价
+				$("#myPrice").text(commEntity[i].myPrice);
+				
 			}
 		}
 	}
@@ -65,3 +81,85 @@ function chooesEntity(data, commEntityId) {
 		$mainImages.eq(n).height(width);
 	}
 }
+/**
+ * 获取当前选中的属性对应的id
+ * tangyanrentyr
+ * 2017年4月4日
+ * @param data
+ * @returns
+ */
+function findEntityId(data) {
+	var commEntity = data.commEntity;
+	var propContent = "";
+	//每个按钮
+	var $btn
+	//遍历属性一
+	var prop1btn = $("#prop1Content button");
+	for(var pb=0; pb<prop1btn.length; pb++) {
+		$btn = prop1btn.eq(pb);
+		if($btn.hasClass("active-btn")) {
+			propContent += $btn.text();
+		}
+	}
+	//遍历属性二
+	var prop2btn = $("#prop2Content button");
+	//先设置属性二全部为不可点
+	for(var p2b=0; p2b<prop2btn.length; p2b++) {
+		$btn = prop2btn.eq(p2b);
+		if($btn.hasClass("active-btn")) {
+			propContent += $btn.text();
+		}
+	}
+	//寻找实体
+	for(var i=0; i<commEntity.length; i++) {
+		if(propContent.indexOf(commEntity[i].propty1)>=0 && propContent.indexOf(commEntity[i].propty2)>=0) {
+			return commEntity[i].id;
+		}
+	}
+	return -1;
+}
+/**
+ * 选择显示商品详情or评论or售后
+ * tangyanrentyr
+ * 2017年4月4日
+ * @param data
+ */
+function chooseMessage(data) {
+	if(data === 1) {
+		//显示商品详情
+		$("#messageDetail").show();
+		$("#commentContainer").hide();
+		$("#afterSale").hide();
+	} else if(data === 2) {
+		//显示评论
+		$("#commentContainer").show();
+		$("#messageDetail").hide();
+		$("#afterSale").hide();
+	} else if(data === 3) {
+		//显示售后
+		$("#afterSale").show();
+		$("#messageDetail").hide();
+		$("#commentContainer").hide();
+	}
+}
+function disMessage(data) {
+	$("#disMessage").show();
+	$("#disMessage").text(data);
+	window.setTimeout(function() {
+		$("#disMessage").hide();
+	}, 2000);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

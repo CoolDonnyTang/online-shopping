@@ -136,15 +136,15 @@
 					<div class="col-sm-10 col-md-10">
 						<div class="price-content">
 							<div class="col-md-2 text-right">库&nbsp;&nbsp;存：</div>
-							<div class="col-md-2 price_">189</div>
+							<div class="col-md-2 price_" id="commInventory">189</div>
 						</div>
 						<div class="price-content">
 							<div class="col-md-2 text-right">价&nbsp;&nbsp;格：</div>
-							<div class="col-md-2 price_">￥<s>189</s></div>
+							<div class="col-md-2 price_">￥<s id="marketPrice">189</s></div>
 						</div>
 						<div class="price-content">
 							<div class="col-md-2 my-price-name text-right">爱购价：</div>
-							<div class="col-md-2 my-price price_">￥189</div>
+							<div class="col-md-2 my-price price_">￥<span id="myPrice">1233</span></div>
 						</div>
 					</div>
 				</div>
@@ -180,13 +180,17 @@
 				<!-- 属性结束 -->
 				<!-- 加入购物车开始 -->
 				<div class="col-sm-12 col-md-12 commodify-attribute">
+					<!-- 警告信息 -->
+					<div class="col-sm-12 col-md-12 disMessage-container">
+						<div class="alert alert-danger" role="alert" id="disMessage" style="display:none">测试</div>
+					</div>
 					<div class="col-sm-10 col-md-10">
 						<div class="price-content">
 							<div class="col-md-3 text-right">
-								<div class="input-group">
-									<span class="input-group-addon amount-btn">-</span> <input
-										type="text" class="form-control amount-input"> <span
-										class="input-group-addon amount-btn">+</span>
+								<div class="input-group" id="amountInputCon">
+									<span class="input-group-addon amount-btn">-</span>
+									<input type="text" class="form-control amount-input" value=1 id="amountInput"> 
+									<span class="input-group-addon amount-btn">+</span>
 								</div>
 							</div>
 							<div class="col-md-5 price_">
@@ -201,24 +205,24 @@
 		<!-- 商品详情区开始 -->
 		<div class="row">
 			<div class="col-md-12 message-header">
-				<ul class="nav nav-pills message-navigator">
-				  <li role="presentation" class="text-center">商品详情</li>
+				<ul class="nav nav-pills message-navigator" id=messageNavigator>
+				  <li role="presentation" class="text-center message-navigator-activ">商品详情</li>
 				  <li role="presentation" class="text-center">评论信息</li>
 				  <li role="presentation" class="text-center">售后服务</li>
 				</ul>
 			</div>
 			<div class="col-md-12 message-content">
 				<!-- 详情区之商品详情 -->
-				<div> <!-- style="display:none" -->
+				<div id="messageDetail"> <!-- style="display:none" -->
 					<div class="message-detail col-md-12">
 						品牌：&nbsp;&nbsp;<span id="brand">唐晏忍</span>
 						<ul class="nav nav-pills mesage-list" id="params">
-						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得1</li>
-						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得2</li>
-						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得3</li>
-						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得4</li>
-						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得5</li>
-						  <li role="presentation" class="text-center col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得6</li>
+						  <li role="presentation" class="text-left col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得1</li>
+						  <li role="presentation" class="text-left col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得2</li>
+						  <li role="presentation" class="text-left col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得3</li>
+						  <li role="presentation" class="text-left col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得4</li>
+						  <li role="presentation" class="text-left col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得5</li>
+						  <li role="presentation" class="text-left col-md-3">我游戏基地上单兼你说的说你三十多年大神呢没得事得6</li>
 						</ul>
 					</div>
 					<div>
@@ -231,14 +235,18 @@
 					</div>
 				</div><!-- 商品详情区结束 -->
 				<!-- 售后详情开始 -->
-				<div class="after-sale">
-					<div class="sale-header"><img src="resources/images/after-sale.png" class="sale-image"><b>全国联保</b></div>
+				<div class="after-sale" style="display:none" id="afterSale">
+					<div class="sale-header"><img src="resources/images/guarantee.png" class="sale-image"><b>全国联保</b></div>
+					<div class="sale-message">
+						<p>凭质保证书及爱购商城发票，可享受全国联保服务（奢侈品、钟表除外；奢侈品、钟表由爱购联系保修，享受法定三包售后服务），与您亲临商场选购的商品享受相同的质量保证。爱购商城还为您提供具有竞争力的商品价格和运费政策，请您放心购买！ </p>
+					</div>
+					<div class="sale-header"><img src="resources/images/return-goods.png" class="sale-image"><b>七天包退</b></div>
 					<div class="sale-message">
 						<p>凭质保证书及爱购商城发票，可享受全国联保服务（奢侈品、钟表除外；奢侈品、钟表由爱购联系保修，享受法定三包售后服务），与您亲临商场选购的商品享受相同的质量保证。爱购商城还为您提供具有竞争力的商品价格和运费政策，请您放心购买！ </p>
 					</div>
 				</div><!-- 售后详情结束 -->
 				<!-- 评论详情开始 -->
-				<div class="after-sale">
+				<div class="after-sale" style="display:none" id="commentContainer">
 					<div class="media">
 					  <div class="media-left">
 					     <img class="media-object head-portrait" src="resources/images/head-portrait.png">
@@ -444,11 +452,14 @@
 			$("#prop1Content").on("mousedown","button",function(e){
 				//alert("ok");
 				var $target = $(e.target);
-				//移除其它按钮的选中
-				$("#prop1Content button").removeClass("active-btn");
-				if($target.attr("disabled")==="disabled") {
+				//如果点击的按钮不可点或已选中样式
+				if($target.attr("disabled")==="disabled" || $target.hasClass("active-btn")) {
 					return;
 				}
+				//清除属性二的选中状态
+				$("#prop2Content button").removeClass("active-btn");
+				//移除其它按钮的选中
+				$("#prop1Content button").removeClass("active-btn");
 				//console.log("www1");
 				$target.addClass("active-btn");
 				/***展示可选择的属性二按钮***/
@@ -458,6 +469,10 @@
 				var prop2btn = $("#prop2Content button");
 				//每个按钮
 				var $btn;
+				//先设置属性二全部为不可点
+				for(var p2b=0; p2b<prop2btn.length; p2b++) {
+					prop2btn.eq(p2b).attr("disabled", "disabled");
+				}
 				//遍历商品实体
 				for(var en=0; en<entities.length; en++) {
 					//库存大于0,并且有一个属性为该按钮对应的 属性
@@ -487,12 +502,113 @@
 			//点击属性二的按钮
 			$("#prop2Content").on("mousedown","button",function(e){
 				var $target = $(e.target);
-				//移除其它按钮的选中
-				$("#prop2Content button").removeClass("active-btn");
-				if($target.attr("disabled")==="disabled") {
+				if($target.hasClass("active-btn") || $target.attr("disabled")==="disabled") {
 					return;
 				}
+				//移除其它按钮的选中
+				$("#prop2Content button").removeClass("active-btn");
 				$target.addClass("active-btn");
+				var nowEntityId = findEntityId(commData);
+				chooesEntity(commData, nowEntityId);
+			});
+			//鼠标移入主图片列表则将显示的主图片换为该图片
+			$("#main-img-list").on("mouseover","img", function(event){
+				$target = $(event.target);
+				$("#mainImage").attr("src",$target.attr("src"));
+			});
+			//点击切换评论和详情等信息
+			$("#messageNavigator li").click(function(event){
+				var $target = $(event.target);
+				//移除选中样式
+				$("#messageNavigator li").removeClass("message-navigator-activ");
+				$target.addClass("message-navigator-activ");
+				switch($target.text().trim()) {
+					case "商品详情":
+						chooseMessage(1);
+						break;
+					case "评论信息":
+						chooseMessage(2);
+						break;
+					case "售后服务":
+						chooseMessage(3);
+						break;
+				};
+			});
+			//鼠标移入检查是否选中商品模板
+			$("#amountInput").focus(function(){
+				if(findEntityId(commData)<0) {
+					//获取属性1名字
+					var prop1 = $("#prop1Name").text().trim().replace(":", "");
+					//获取属性2名字
+					var prop2 = $("#prop2Name").text().trim().replace(":", "");
+					disMessage("请先选择 " + prop1 + " " + prop2);
+					$("#amountInput").blur();
+				}
+			});
+			//鼠标移除是验证输入数量的合法性
+			$("#amountInput").change(function() {
+				var value = $("#amountInput").val();
+				if(!checkNum(value)) {
+					disMessage("数量只能输入数字");
+					$("#amountInput").val(1);
+					return;
+				}
+				var num = parseInt(value);
+				if(num>$("#commInventory").text()) {
+					disMessage("数量不能大于库存");
+					$("#amountInput").val($("#commInventory").text());
+					return;
+				}
+				if(num>9999) {
+					disMessage("数量不能大于 9999");
+					$("#amountInput").val(9999);
+					return;
+				}
+				if(num<1) {
+					disMessage("数量不能小于 1");
+					$("#amountInput").val(1);
+					return;
+				}
+			});
+			//点击 加 减 按钮改变数量
+			$("#amountInputCon span").click(function(event){
+				var $target = $(event.target);
+				if($target.text().trim() === "+") {
+					if(findEntityId(commData)<0) {
+						//获取属性1名字
+						var prop1 = $("#prop1Name").text().trim().replace(":", "");
+						//获取属性2名字
+						var prop2 = $("#prop2Name").text().trim().replace(":", "");
+						disMessage("请先选择 " + prop1 + " " + prop2);
+						return;
+					}
+					var num = parseInt($("#amountInput").val());
+					if(num>=$("#commInventory").text()) {
+						disMessage("数量不能大于库存");
+						return;
+					}
+					if(num>=9999) {
+						disMessage("数量不能大于 9999");
+						return;
+					}
+					$("#amountInput").val(num+1);
+				} else if($target.text().trim() === "-") {
+					if(findEntityId(commData)<0) {
+						//获取属性1名字
+						var prop1 = $("#prop1Name").text().trim().replace(":", "");
+						//获取属性2名字
+						var prop2 = $("#prop2Name").text().trim().replace(":", "");
+						disMessage("请先选择 " + prop1 + " " + prop2);
+						return;
+					}
+					var num = parseInt($("#amountInput").val());
+					if(num<=1) {
+						disMessage("数量不能小于 1");
+						return;
+					}
+					$("#amountInput").val(num-1);
+				}
+				
 			});
 			
 		});
