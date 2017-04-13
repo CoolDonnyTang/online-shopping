@@ -29,7 +29,7 @@ public class LoginController {
 				result.setInfo("用户不存在，请免费注册");
 			} else if(status == -1) {
 				result.setInfo("用户名或密码错误");
-			}else {
+			}else if(status == -2) {
 				result.setInfo("验证码错误");
 			} 
 			result.setStatus(status);

@@ -26,7 +26,7 @@
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<!-- 前缀 -->
-		<property name="prefix" value="/WEB-INF/" />
+		<property name="prefix" value="/WEB-INF/htmlPage/" />
 		<property name="suffix" value=".html" />
 	</bean>
 
@@ -63,6 +63,7 @@
 				<value>com.cduestc.tyr.online_shopping.beans.CommodityImageBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.CommodityParamDetailBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.CommodityPropertyBean</value>
+				<value>com.cduestc.tyr.online_shopping.beans.ShoppingCartBean</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -86,10 +87,12 @@
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
 			<tx:method name="find*" propagation="REQUIRED" />
+			<tx:method name="get*" propagation="REQUIRED" />
 			<tx:method name="query*" propagation="SUPPORTS" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="write*" propagation="REQUIRED" />
 			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="remove*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
 			
@@ -113,4 +116,10 @@
 	    <!-- 最大文件大小，-1为不限制大小 -->  
 	    <property name="maxUploadSize" value="-1"/>  
 	</bean> 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/login/*"/>
+			<bean class="com.cduestc.tyr.online_shopping.interceptor.CheckLoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

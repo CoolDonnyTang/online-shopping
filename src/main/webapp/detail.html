@@ -194,7 +194,7 @@
 								</div>
 							</div>
 							<div class="col-md-5 price_">
-								<button type="button" class="btn btn-danger">加入购物车</button>
+								<button type="button" class="btn btn-danger" id="addToShoppingCart">加入购物车</button>
 							</div>
 						</div>
 					</div>
@@ -549,7 +549,7 @@
 			$("#amountInput").change(function() {
 				var value = $("#amountInput").val();
 				if(!checkNum(value)) {
-					disMessage("数量只能输入数字");
+					disMessage("请输入正确的数量");
 					$("#amountInput").val(1);
 					return;
 				}
@@ -610,6 +610,28 @@
 				}
 				
 			});
+			//点击加入购物车
+			$("#addToShoppingCart").click(function(){
+				//选择的实体的id
+				var commEntityId = findEntityId(commData);
+				//数量
+				var amount = $("#amountInput").val();
+				if(commEntityId<0) {
+					//获取属性1名字
+					var prop1 = $("#prop1Name").text().trim().replace(":", "");
+					//获取属性2名字
+					var prop2 = $("#prop2Name").text().trim().replace(":", "");
+					disMessage("请先选择 " + prop1 + " " + prop2);
+					return;
+				}
+				if(!checkNum(amount)) {
+					disMessage("请输入正确的数量");
+					return;
+				}
+				var param = window.btoa("commEntityId=" + commEntityId + "&amount=" + amount);
+				window.location.href = "login/shopping-cart.action?" + param;
+			});
+			
 			
 		});
 	</script>

@@ -30,7 +30,7 @@ function checkCheckCode(checkCode) {
 	if(checkCode===null || checkCode===undefined) {
 		return false
 	}
-	var reg = /^[a-zA-Z0-9]{5}&/;
+	var reg = /^[a-zA-Z0-9]{5}$/;
 	return reg.test(checkCode);
 }
 function checkInteger(checkCode) {
