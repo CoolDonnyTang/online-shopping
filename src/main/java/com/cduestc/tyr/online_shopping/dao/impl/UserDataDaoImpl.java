@@ -43,10 +43,14 @@ public class UserDataDaoImpl implements IUserDataDao {
 				+ "ce.propty1 as prop1, "
 				+ "ce.propty2 as prop2, "
 				+ "img.url as mainUrl, "
-				+ "(select amount from ShoppingCartBean s "
+				+ "(select s.amount from ShoppingCartBean s "
 					+ "where s.belongUserId = :userId "
 					+ "and s.commEntityId = ce.id"
-				+ ") as amount "
+				+ ") as amount,"
+				+ "(select s.entryTime from ShoppingCartBean s "
+					+ "where s.belongUserId = :userId "
+					+ "and s.commEntityId = ce.id"
+				+ ") as entryTime"
 		+ ") from CommodityBean as c "
 		+ "join c.commEntity as ce "
 		+ "join ce.images as img "
@@ -56,7 +60,7 @@ public class UserDataDaoImpl implements IUserDataDao {
 				+ "where belongUserId = :userId "
 			+ ")"
 		+ "and img.mainImage = true and img.serialNumber = 1 "
-		+ "order by c.id";
+		+ "order by entryTime desc";
 		Session session = sf.getCurrentSession();
 		Query query = session.createQuery(hql);
 		query.setInteger("userId", userId);

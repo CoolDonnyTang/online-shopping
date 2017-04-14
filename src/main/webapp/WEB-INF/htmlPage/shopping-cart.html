@@ -74,105 +74,107 @@
 				</div>
 			</div>
 			<!-- 购物车列表开始 -->
-			<div class="table-responsive cart-container">
-			  <table class="table cart-table">
-				   <thead>
-				   		<tr>
-				   			<th>
-				   				<input type="checkbox"/>
-				   				全选
-				   			</th>
-				   			<th>
-				   				商品
-				   			</th>
-				   			<th>
-				   				单价
-				   			</th>
-				   			<th>
-				   				数量
-				   			</th>
-				   			<th>
-				   				小计
-				   			</th>
-				   			<th>
-				   				操作
-				   			</th>
-				   		</tr>
-				   </thead>
-			   		<tbody>
-			   			<tr>
-			   				<td><input type="checkbox"/></td>
-			   				<td>
-			   					<div class="media cart-commodity">
-								  <div class="media-left media-middle">
-								     <img class="media-object cart-image" src="../resources/images/head-portrait.png">
-								  </div>
-								  <div class="media-body comment">
-								    <p>爱购联系保修，享受法定凭质保证书及爱购商城发票，可享受全国联保服务</p>
-								    <div class="attribute_">
-								    	<span>土豪版&nbsp;</span>
-								    	<span>32寸&nbsp;</span>
-								    </div>
-								  </div>
-								</div>
-			   				</td>
-			   				<td>￥320.00</td>
-			   				<td>
-								<div>
-									<button type="button" class="btn btn-default btn-xs">-</button>
-									<input type="text" class="form-control cart-input"/>
-									<button type="button" class="btn btn-default btn-xs">+</button>
-								</div>
-			   				</td>
-			   				<td><b>￥320.00</b></td>
-			   				<td>
-			   					<button type="button" class="btn btn-default btn-xs my-btn-1">删除</button>
-			   					<button type="button" class="btn btn-default btn-xs my-btn-1">移入关注</button>
-			   				</td>
-			   			</tr>
-			   			<tr>
-			   				<td><input type="checkbox"/></td>
-			   				<td>
-			   					<div class="media cart-commodity">
-								  <div class="media-left media-middle">
-								     <img class="media-object cart-image" src="../resources/images/head-portrait.png">
-								  </div>
-								  <div class="media-body comment">
-								    <p>爱购联系保修，享受法定凭质保证书及爱购商城发票，可享受全国联保服务</p>
-								    <div class="attribute_">
-								    	<span>土豪版&nbsp;</span>
-								    	<span>32寸&nbsp;</span>
-								    </div>
-								  </div>
-								</div>
-			   				</td>
-			   				<td>￥320.00</td>
-			   				<td>
-								<div>
-									<button type="button" class="btn btn-default btn-xs">-</button>
-									<input type="text" class="form-control cart-input"/>
-									<button type="button" class="btn btn-default btn-xs">+</button>
-								</div>
-			   				</td>
-			   				<td><b>￥320.00</b></td>
-			   				<td>
-			   					<button type="button" class="btn btn-default btn-xs my-btn-1">删除</button>
-			   					<button type="button" class="btn btn-default btn-xs my-btn-1">移入关注</button>
-			   				</td>
-			   			</tr>
-			   		</tbody>
-			  </table>
-			</div>
-			<!-- 购物车列表结束 -->
-			<div class="cart-operate col-md-12">
-				<div class="col-md-3">
-					<button type="button" class="btn btn-default btn-xs my-btn-1">删除选中商品</button>
-					<button type="button" class="btn btn-default btn-xs my-btn-1">将选中商品移入收藏夹</button>
+			<div id="cartContainer">
+				<div class="table-responsive cart-container">
+				  <table class="table cart-table">
+					   <thead>
+					   		<tr>
+					   			<th>
+					   				<input type="checkbox"/>
+					   				全选
+					   			</th>
+					   			<th>
+					   				商品
+					   			</th>
+					   			<th>
+					   				单价
+					   			</th>
+					   			<th>
+					   				数量
+					   			</th>
+					   			<th>
+					   				小计
+					   			</th>
+					   			<th>
+					   				操作
+					   			</th>
+					   		</tr>
+					   </thead>
+				   		<tbody id="cartList">
+				   			<tr>
+				   				<td><input type="checkbox"/></td>
+				   				<td>
+				   					<div class="media cart-commodity">
+									  <div class="media-left media-middle">
+									     <img class="media-object cart-image" src="file:///f:/register-right.png">
+									  </div>
+									  <div class="media-body comment">
+									    <p>爱购联系保修，享受法定凭质保证书及爱购商城发票，可享受全国联保服务</p>
+									    <div class="attribute_">
+									    	<span>土豪版&nbsp;</span>
+									    	<span>32寸&nbsp;</span>
+									    </div>
+									  </div>
+									</div>
+				   				</td>
+				   				<td>￥320.00</td>
+				   				<td>
+									<div>
+										<button type="button" class="btn btn-default btn-xs">-</button>
+										<input type="text" class="form-control cart-input"/>
+										<button type="button" class="btn btn-default btn-xs">+</button>
+									</div>
+				   				</td>
+				   				<td><b>￥320.00</b></td>
+				   				<td>
+				   					<button type="button" class="btn btn-default btn-xs my-btn-1">删除</button>
+				   					<button type="button" class="btn btn-default btn-xs my-btn-1">移入关注</button>
+				   				</td>
+				   			</tr>
+				   			<tr>
+				   				<td><input type="checkbox"/></td>
+				   				<td>
+				   					<div class="media cart-commodity">
+									  <div class="media-left media-middle">
+									     <img class="media-object cart-image" src="../resources/images/head-portrait.png">
+									  </div>
+									  <div class="media-body comment">
+									    <p>爱购联系保修，享受法定凭质保证书及爱购商城发票，可享受全国联保服务</p>
+									    <div class="attribute_">
+									    	<span>土豪版&nbsp;</span>
+									    	<span>32寸&nbsp;</span>
+									    </div>
+									  </div>
+									</div>
+				   				</td>
+				   				<td>￥320.00</td>
+				   				<td>
+									<div>
+										<button type="button" class="btn btn-default btn-xs">-</button>
+										<input type="text" class="form-control cart-input"/>
+										<button type="button" class="btn btn-default btn-xs">+</button>
+									</div>
+				   				</td>
+				   				<td><b>￥320.00</b></td>
+				   				<td>
+				   					<button type="button" class="btn btn-default btn-xs my-btn-1">删除</button>
+				   					<button type="button" class="btn btn-default btn-xs my-btn-1">移入关注</button>
+				   				</td>
+				   			</tr>
+				   		</tbody>
+				  </table>
 				</div>
-				<div class="col-md-2 col-md-offset-6">
-					总金额：<span class="total-money"><b>￥1234.00</b></span>
+				<!-- 购物车列表结束 -->
+				<div class="cart-operate col-md-12">
+					<div class="col-md-3">
+						<button type="button" class="btn btn-default btn-xs my-btn-1">删除选中商品</button>
+						<button type="button" class="btn btn-default btn-xs my-btn-1">将选中商品移入收藏夹</button>
+					</div>
+					<div class="col-md-2 col-md-offset-6">
+						总金额：<span class="total-money"><b>￥1234.00</b></span>
+					</div>
+					<button type="button" class="btn btn-danger col-md-1">去结算</button>
 				</div>
-				<button type="button" class="btn btn-danger col-md-1">去结算</button>
 			</div>
 		</div>
 		<!-- 购物车主体隐藏区结束 -->
@@ -193,13 +195,72 @@
 	<div class="page-copyright text-center">
 		Copyright &copy; 2017 <strong>爱购商城i-go.shop</strong> 版权所有
 	</div>
+	
 	<script src="../resources/plugins/jquery-2.2.4.min.js"></script>
 	<script src="../resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../resources/scripts/my-utils.js"></script>
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
-		
+		$(function(){
+			//发送请求加载购物车数据
+			$.ajax({
+				data:"",
+				dataType:"JSON",
+				error:function() {
+				
+				},
+				success:function(result){
+					if(result.status === 1) {
+						//清空列表
+						$("#cartList").html("");
+						var data = result.data;
+						if(data===undefined || data===null || data.length<1) {
+							$("#cartContainer").html("<div><img src='../resources/images/empty-shopping-cart.png' style='width:20%'></div><div><h4>购物车为空</h4></div>");
+						} else {
+							for(var i=0; i<data.length; i++) {
+								//清空列表
+								$("#cartList").html("");
+								var $node = $("<tr>"+
+								   				"<td><input type='checkbox'/></td>"+
+								   				"<td>"+
+								   					"<div class='media cart-commodity'>"+
+													  "<div class='media-left media-middle'>"+
+													     "<img class='media-object cart-image' src='file:///f:/register-right.png'>"+
+													  "</div>"+
+													  "<div class='media-body comment'>"+
+													    "<p>爱购联系保修，享受法定凭质保证书及爱购商城发票，可享受全国联保服务</p>"+
+													    "<div class='attribute_'>"+
+													    	"<span>土豪版&nbsp;</span>"+
+													    	"<span>32寸&nbsp;</span>"+
+													    "</div>"+
+													  "</div>"+
+													"</div>"+
+								   				"</td>"+
+								   				"<td>￥320.00</td>"+
+								   				"<td>"+
+													"<div>"+
+														"<button type='button' class='btn btn-default btn-xs'>-</button>"+
+														"<input type='text' class='form-control cart-input'/>"+
+														"<button type='button' class='btn btn-default btn-xs'>+</button>"+
+													"</div>"+
+								   				"</td>"+
+								   				"<td><b>￥320.00</b></td>"+
+								   				"<td>"+
+								   					"<button type='button' class='btn btn-default btn-xs my-btn-1'>删除</button>"+
+								   					"<button type='button' class='btn btn-default btn-xs my-btn-1'>移入关注</button>"+
+								   				"</td>"+
+								   			"</tr>");
+							}
+						}
+					} else {
+						
+					}
+				},
+				type:"post",
+				url:"checkLogin/get-shopping-cart-entity.action"
+			});
+		});
 	</script>
 </body>
 </html>

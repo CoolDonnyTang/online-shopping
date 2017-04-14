@@ -121,5 +121,9 @@
 			<mvc:mapping path="/login/*"/>
 			<bean class="com.cduestc.tyr.online_shopping.interceptor.CheckLoginInterceptor"/>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/checkLogin/*"/>
+			<bean class="com.cduestc.tyr.online_shopping.interceptor.CheckLogin4DataIntercepter"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>
