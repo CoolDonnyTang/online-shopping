@@ -47,6 +47,13 @@ function checkNum(data) {
 	var reg = /^[1-9]\d*$/;
 	return reg.test(data);
 }
+function checkNum4(data) {
+	if(data===null || data===undefined) {
+		return false
+	}
+	var reg = /^[1-9]\d{0,3}$/;
+	return reg.test(data);
+}
 ///未完成
 function checkBigDicemal(checkCode) {
 	if(checkCode===null || checkCode===undefined) {

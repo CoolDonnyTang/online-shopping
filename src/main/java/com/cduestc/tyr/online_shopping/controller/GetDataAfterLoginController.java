@@ -22,8 +22,15 @@ public class GetDataAfterLoginController {
 	@ResponseBody
 	public ResultData toShoppingCart(HttpServletRequest req) {
 		ResultData result = new ResultData();
-		UserBean user = (UserBean) req.getSession().getAttribute("user");
-		result.setData(service.findShoppingCartEnByUserId(user.getId()));
+		try {
+			UserBean user = (UserBean) req.getSession().getAttribute("user");
+			result.setData(service.findShoppingCartEnByUserId(user.getId()));
+			result.setInfo("success");
+			result.setStatus(1);
+		} catch(Exception e) {
+			result.setInfo("服务器异常！！");
+			result.setStatus(-1);
+		}
 		return result;
 	}
 }
