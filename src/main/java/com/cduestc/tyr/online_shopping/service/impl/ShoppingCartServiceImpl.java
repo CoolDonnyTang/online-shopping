@@ -8,14 +8,14 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.cduestc.tyr.online_shopping.beans.ShoppingCartBean;
-import com.cduestc.tyr.online_shopping.dao.IUserDataDao;
-import com.cduestc.tyr.online_shopping.service.IUserDataService;
+import com.cduestc.tyr.online_shopping.dao.IShoppingCartDao;
+import com.cduestc.tyr.online_shopping.service.IShoppingCartService;
 
 @Service
-public class UserDataServiceImpl implements IUserDataService {
+public class ShoppingCartServiceImpl implements IShoppingCartService {
 	
 	@Resource
-	private IUserDataDao dao;
+	private IShoppingCartDao dao;
 	
 	@Override
 	public int saveCommEn2Cart(int userId, int commEntityId, int amount) {
@@ -44,6 +44,33 @@ public class UserDataServiceImpl implements IUserDataService {
 	@Override
 	public List<Map<String, String>> findShoppingCartEnByUserId(int userId) {
 		return dao.findShoppingCartEnByUserId(userId);
+	}
+
+	@Override
+	public int updateAmountById(Integer amount, Integer entityId) {
+		if(null==amount || null==entityId) {
+			return 0;
+		}
+		dao.updateAmountById(amount, entityId);
+		return 1;
+	}
+
+	@Override
+	public int deleteEntityById(Integer entityId) {
+		if(entityId == null) {
+			return 0;
+		}
+		dao.deleteEntityById(entityId);
+		return 1;
+	}
+
+	@Override
+	public int deleteEntities(Integer[] entitiesId) {
+		if(null==entitiesId || entitiesId.length<1) {
+			return 0;
+		}
+		dao.deleteEntities(entitiesId);
+		return 1;
 	}
 
 }

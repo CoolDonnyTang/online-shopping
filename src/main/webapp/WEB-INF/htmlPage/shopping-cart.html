@@ -80,7 +80,7 @@
 					   <thead>
 					   		<tr>
 					   			<th>
-					   				<input type="checkbox" name="checkAll"/>
+					   				<input type="checkbox" name="checkAll" checked=""/>
 					   				全选
 					   			</th>
 					   			<th>
@@ -167,11 +167,11 @@
 				<!-- 购物车列表结束 -->
 				<div class="cart-operate col-md-12">
 					<div class="col-md-3">
-						<button type="button" class="btn btn-default btn-xs my-btn-1">删除选中商品</button>
+						<button type="button" class="btn btn-default btn-xs my-btn-1" id="deleteMore">删除选中商品</button>
 						<button type="button" class="btn btn-default btn-xs my-btn-1">将选中商品移入收藏夹</button>
 					</div>
 					<div class="col-md-2 col-md-offset-6">
-						总金额：<span class="total-money"><b>￥1234.00</b></span>
+						总金额：<span class="total-money"><b id="totalPrice">￥1234.00</b></span>
 					</div>
 					<button type="button" class="btn btn-danger col-md-1">去结算</button>
 				</div>
@@ -199,10 +199,13 @@
 	<script src="../resources/plugins/jquery-2.2.4.min.js"></script>
 	<script src="../resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../resources/scripts/my-utils.js"></script>
+	<script src="../resources/scripts/my-ajax.js"></script>
+	<script src="../resources/scripts/shopping-cart.js"></script>
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
 		$(function(){
+			
 			//发送请求加载购物车数据
 			$.ajax({
 				data:"",
@@ -238,7 +241,7 @@
 													  "</div>"+
 													"</div>"+
 								   				"</td>"+
-								   				"<td>￥"+ data[i].price +"</td>"+
+								   				"<td class='unitPrice'>￥"+ data[i].price +"</td>"+
 								   				"<td>"+
 													"<div>"+
 														"<button type='button' class='btn btn-default btn-xs amount-sub'>-</button>"+
@@ -246,15 +249,16 @@
 														"<button type='button' class='btn btn-default btn-xs amount-add'>+</button>"+
 													"</div>"+
 								   				"</td>"+
-								   				"<td><b>￥zx</b></td>"+
+								   				"<td><b class='entityTotalPrice'>￥zx</b></td>"+
 								   				"<td>"+
-								   					"<button type='button' class='btn btn-default btn-xs my-btn-1'>删除</button>"+
+								   					"<button type='button' class='btn btn-default btn-xs my-btn-1 entity-delete'>删除</button>"+
 								   					"<button type='button' class='btn btn-default btn-xs my-btn-1'>移入关注</button>"+
 								   				"</td>"+
 								   			"</tr>");
-								$node.data("commEntityId",data[i].commEntityId);
-								console.log($node);
+								$node.data("entityId",data[i].entityId);
+								console.log(data[i].entityId);
 								$("#cartList").append($node);
+								calculateEntityPrice($node);
 							}
 						}
 					} else {
@@ -291,35 +295,116 @@
 				}
 			});
 			
+			//数量输入框鼠标切入事件记录旧值
+			$("#cartContainer").on("focus",".amount-input",function(event) {
+				var $target = $(event.target);
+				$target.data("oldNum",$target.val());
+			});
+			
 			//数量按钮"- +"单击事件
 			$("#cartContainer").on("click",".amount-sub,.amount-add",function(event){
 				var $target = $(event.target);
+				var entityId = $target.parents("tr").data("entityId");
 				var $input; 
 				if($target.text().trim() === "+") {
 					$input = $target.prev();
+					if($input.val().trim() === "") {
+						return;
+					}
 					var num = parseInt($input.val());
 					if(num>=9999) {
+						$input.data("oldNum",num);
 						return;
 					}
-					$input.val(num+1);
+					$input.data("oldNum",num);
+					num = num + 1;
+					$input.val("");
+					changeAmount(num, entityId, $input);
 				} else if($target.text().trim() === "-") {
 					$input = $target.next();
-					var num = parseInt($input.val());
-					if(num<=1) {
+					if($input.val().trim() === "") {
 						return;
 					}
-					$input.val(num-1);
+					var num = parseInt($input.val());
+					if(num<=1) {
+						$input.data("oldNum",num);
+						return;
+					}
+					$input.data("oldNum",num);
+					num = num - 1;
+					$input.val("");
+					changeAmount(num, entityId, $input);
 				}
 			});
 			
 			//数量输入框值改变事件
 			$("#cartContainer").on("change",".amount-input",function(event) {
 				var $target = $(event.target);
+				var entityId = $target.parents("tr").data("entityId");
 				var value = $target.val().trim();
 				if(!checkNum4(value)) {
-					$target.val(1);
+					$target.val($target.data("oldNum"));
+					return;
+				}
+				changeAmount(value, entityId, $target);
+				console.log("ok");
+			});
+			
+			//单击删除按钮删除单个商品
+			$("#cartContainer").on("click",".entity-delete",function(event){
+				var $tr = $(event.target).parents("tr");
+				var entityId = $tr.data("entityId");
+				if(entityId !== undefined) {
+					$.ajax({
+						data:{entityId:entityId},
+						dataType:"json",
+						error:function(){
+							
+						},
+						success:function(result){
+							if(result.status === 1) {
+								$tr.remove();
+								//重新计算总价
+								calculateTotalPrice($("#cartList"));
+							}
+						},
+						type:"post",
+						url:"../checkLogin/deleteShoppingCart.action"
+					});
 				}
 			});
+			
+			//删除选中商品事件
+			$("#cartContainer").on("click","#deleteMore",function(){
+				var $allChecked = $("#cartList input:checked[name='checkProject']");
+				//console.log($allChecked);
+				if($allChecked===undefined || $allChecked===null || $allChecked.length<1) {
+					return;
+				}
+				var array = new Array($allChecked.length);
+				for(var i=0; i<$allChecked.length; i++) {
+					array[i] = $allChecked.eq(i).parents("tr").data("entityId");
+				}
+				//console.log(array);
+				$.ajax({
+					data:{entitiesId:array},
+					dataType:"json",
+					error:function(result){
+						//console.log(result);
+					},
+					success:function(result){
+						console.log(result);
+						if(result.status === 1) {
+							for(var i=0; i<$allChecked.length; i++) {
+								$allChecked.eq(i).parents("tr").remove();
+							}
+						}
+					},
+					type:"post",
+					url:"../checkLogin/deleteShoppingCarts.action"
+				});
+			});
+			
 			
 		});
 	</script>

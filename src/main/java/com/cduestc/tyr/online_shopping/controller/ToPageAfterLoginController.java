@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.cduestc.tyr.online_shopping.beans.UserBean;
-import com.cduestc.tyr.online_shopping.service.IUserDataService;
+import com.cduestc.tyr.online_shopping.service.IShoppingCartService;
 import com.cduestc.tyr.online_shopping.utils.RegUtil;
 
 @Controller
@@ -16,7 +16,7 @@ import com.cduestc.tyr.online_shopping.utils.RegUtil;
 public class ToPageAfterLoginController {
 	
 	@Resource
-	IUserDataService service;
+	IShoppingCartService service;
 	
 	@RequestMapping("/shopping-cart.action")
 	public String toShoppingCart(HttpServletRequest req) {
@@ -29,7 +29,10 @@ public class ToPageAfterLoginController {
 				Integer amount = RegUtil.getIntNumber(s, "amount=([1-9]\\d*)");
 				service.saveCommEn2Cart(user.getId(), commEntityId, amount);
 			}
+			return "redirect:/login/shopping-cart.action";
+		} else {
+			return "shopping-cart";
 		}
-		return "shopping-cart";
+		
 	}
 }

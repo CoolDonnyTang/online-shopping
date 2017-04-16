@@ -154,7 +154,7 @@ System.out.println(code);
 		session.setAttribute("checkCode", number);
 		//设置画笔颜色位随机
 		Random r = new Random();
-		g.setColor(new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256)));
+		g.setColor(new Color(175,8,2));
 		//设置字体大小和格式
 		g.setFont(new Font(null,Font.ITALIC,24));
 		//绘制字符串(可以每次只画一个字符，画5次，每个字符的位置和大小不同)

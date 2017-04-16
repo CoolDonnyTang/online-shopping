@@ -5,16 +5,17 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 import com.cduestc.tyr.online_shopping.beans.ShoppingCartBean;
-import com.cduestc.tyr.online_shopping.dao.IUserDataDao;
+import com.cduestc.tyr.online_shopping.dao.IShoppingCartDao;
 
 @Repository
-public class UserDataDaoImpl implements IUserDataDao {
+public class ShoppingCartDaoImpl implements IShoppingCartDao {
 	
 	@Resource
 	private SessionFactory sf;
@@ -38,7 +39,10 @@ public class UserDataDaoImpl implements IUserDataDao {
 		String hql = "select new map("
 				+ "c.brand as commBrand, "
 				+ "c.titleName as commTitle, "
-				+ "ce.id as commEntityId, "
+				+ "(select ss.id from ShoppingCartBean ss "
+					+ "where ss.belongUserId = :userId "
+					+ "and ss.commEntityId = ce.id"
+				+ ") as entityId, "
 				+ "ce.myPrice as price, "
 				+ "ce.propty1 as prop1, "
 				+ "ce.propty2 as prop2, "
@@ -65,6 +69,33 @@ public class UserDataDaoImpl implements IUserDataDao {
 		Query query = session.createQuery(hql);
 		query.setInteger("userId", userId);
 		return query.list();
+	}
+	@Override
+	public void updateAmountById(int amount, int entityId) {
+		Session session = sf.getCurrentSession();
+		ShoppingCartBean sc = (ShoppingCartBean) session.get(ShoppingCartBean.class, entityId);
+		if(null != sc) {
+			sc.setAmount(amount);
+		}
+		session.save(sc);
+	}
+	@Override
+	public void deleteEntityById(int entityId) {
+		Session session = sf.getCurrentSession();
+		ShoppingCartBean sc = (ShoppingCartBean) session.get(ShoppingCartBean.class, entityId);
+		if(null != sc) {
+			session.delete(sc);
+		}
+	}
+	@Override
+	public void deleteEntities(Integer[] ids) {
+		String hql = "from ShoppingCartBean where id in (" + StringUtils.join(ids,",") + ")";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		List<ShoppingCartBean> list = query.list();
+		for(ShoppingCartBean sc : list) {
+			session.delete(sc);
+		}
 	}
 
 }

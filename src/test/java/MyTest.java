@@ -2,9 +2,9 @@ import org.junit.Test;
 
 import com.cduestc.tyr.online_shopping.beans.UserBean;
 import com.cduestc.tyr.online_shopping.dao.IUserDao;
-import com.cduestc.tyr.online_shopping.dao.IUserDataDao;
+import com.cduestc.tyr.online_shopping.dao.IShoppingCartDao;
 import com.cduestc.tyr.online_shopping.dao.impl.UserDao;
-import com.cduestc.tyr.online_shopping.dao.impl.UserDataDaoImpl;
+import com.cduestc.tyr.online_shopping.dao.impl.ShoppingCartDaoImpl;
 import com.cduestc.tyr.online_shopping.utils.SendEmail;
 
 
@@ -26,7 +26,7 @@ public class MyTest {
 	
 	@Test
 	public void Test3() {
-		IUserDataDao dao = new UserDataDaoImpl();
+		IShoppingCartDao dao = new ShoppingCartDaoImpl();
 		dao.findShoppingCartEnByUserId(7);
 	}
 	

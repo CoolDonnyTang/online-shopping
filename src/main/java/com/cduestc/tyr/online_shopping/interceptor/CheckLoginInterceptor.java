@@ -16,17 +16,16 @@ import com.cduestc.tyr.online_shopping.beans.UserBean;
 public class CheckLoginInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		UserBean user = (UserBean) session.getAttribute("user");
 		if(null == user) {
 			String param = request.getQueryString();
 			String nextUrl = "?";
 			if(null==param || "".equals(param.trim())) {
-				nextUrl += Base64.encodeBase64String((request.getRequestURI() + "?" + param).getBytes());
-			} else {
 				nextUrl += Base64.encodeBase64String((request.getRequestURI()).getBytes());
+			} else {
+				nextUrl += Base64.encodeBase64String((request.getRequestURI() + "?" + param).getBytes());
 			}
 			response.sendRedirect(request.getContextPath() + "/login.html" + nextUrl);
 			return false;
