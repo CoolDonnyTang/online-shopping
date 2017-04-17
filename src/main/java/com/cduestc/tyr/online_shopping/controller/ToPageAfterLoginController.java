@@ -33,6 +33,13 @@ public class ToPageAfterLoginController {
 		} else {
 			return "shopping-cart";
 		}
+	}
+	
+	@RequestMapping("/order-commit.action")
+	public String toOrderCommit() {
+			return "order-commit";
 		
 	}
+	
+	
 }

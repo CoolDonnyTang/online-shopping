@@ -64,6 +64,7 @@
 				<value>com.cduestc.tyr.online_shopping.beans.CommodityParamDetailBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.CommodityPropertyBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.ShoppingCartBean</value>
+				<value>com.cduestc.tyr.online_shopping.beans.ShippingAddressBean</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

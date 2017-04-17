@@ -1,5 +1,8 @@
 package com.cduestc.tyr.online_shopping.dao;
 
+import java.util.List;
+
+import com.cduestc.tyr.online_shopping.beans.ShippingAddressBean;
 import com.cduestc.tyr.online_shopping.beans.UserBean;
 
 public interface IUserDao {
@@ -18,4 +21,6 @@ public interface IUserDao {
 	 * @throws Exception
 	 */
 	public int updateUser(UserBean user)throws Exception;
+	public List<ShippingAddressBean> findShippingAddressByUserId(int userId);
+	public void addShippingAddress(ShippingAddressBean addr);
 }

@@ -1,5 +1,7 @@
 package com.cduestc.tyr.online_shopping.dao.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.hibernate.Query;
@@ -7,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import com.cduestc.tyr.online_shopping.beans.ShippingAddressBean;
 import com.cduestc.tyr.online_shopping.beans.UserBean;
 import com.cduestc.tyr.online_shopping.dao.IUserDao;
 
@@ -60,6 +63,23 @@ public class UserDao implements IUserDao {
 		Session session = sf.getCurrentSession();
 		session.merge(user);
 		return 1;
+	}
+
+	@Override
+	public List<ShippingAddressBean> findShippingAddressByUserId(int userId) {
+		String hql = "from ShippingAddressBean "
+				+ "where belongUserId = ? "
+				+ "order by entryTime desc";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setInteger(0, userId);
+		return query.list();
+	}
+
+	@Override
+	public void addShippingAddress(ShippingAddressBean addr) {
+		Session session = sf.getCurrentSession();
+		session.save(addr);
 	}
 	
 }

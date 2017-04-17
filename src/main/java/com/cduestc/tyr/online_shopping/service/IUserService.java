@@ -1,8 +1,11 @@
 package com.cduestc.tyr.online_shopping.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.cduestc.tyr.online_shopping.beans.ShippingAddressBean;
 import com.cduestc.tyr.online_shopping.beans.UserBean;
 
 public interface IUserService {
@@ -70,5 +73,20 @@ public interface IUserService {
 	 * @throws Exception
 	 */
 	public int updateUser(UserBean user, HttpSession session) throws Exception;
-	
+	/**
+	 * 根据用户Id找到用户的收货地址
+	 * @author tangyanrentyr
+	 * @2017年4月17日 2017年4月17日
+	 * @param userId
+	 * @return
+	 */
+	public List<ShippingAddressBean> findShippingAddressByUserId(int userId);
+	/**
+	 * 保存一个收货地址
+	 * @author tangyanrentyr
+	 * @2017年4月17日 2017年4月17日
+	 * @param addr
+	 * @return
+	 */
+	public int addShippingAddress(ShippingAddressBean addr, HttpSession session);
 }

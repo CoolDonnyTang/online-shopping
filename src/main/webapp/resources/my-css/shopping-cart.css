@@ -56,7 +56,7 @@
 	float:right;
 }
 .adrres-list {
-	max-height: 126px;
+	height: 126px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }

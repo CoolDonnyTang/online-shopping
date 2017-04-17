@@ -43,6 +43,7 @@ public class ShoppingCartDaoImpl implements IShoppingCartDao {
 					+ "where ss.belongUserId = :userId "
 					+ "and ss.commEntityId = ce.id"
 				+ ") as entityId, "
+				+ "ce.id as commentityId, "
 				+ "ce.myPrice as price, "
 				+ "ce.propty1 as prop1, "
 				+ "ce.propty2 as prop2, "

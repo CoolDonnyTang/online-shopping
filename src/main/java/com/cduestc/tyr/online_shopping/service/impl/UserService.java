@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import com.cduestc.tyr.online_shopping.beans.ShippingAddressBean;
 import com.cduestc.tyr.online_shopping.beans.UserBean;
 import com.cduestc.tyr.online_shopping.dao.IUserDao;
 import com.cduestc.tyr.online_shopping.service.IUserService;
@@ -177,6 +179,25 @@ System.out.println(code);
 		//关闭输出流
 		os.close();
 		
+	}
+
+	@Override
+	public List<ShippingAddressBean> findShippingAddressByUserId(int userId) {
+		if(userId<1) {
+			return null;
+		}
+		return dao.findShippingAddressByUserId(userId);
+	}
+
+	@Override
+	public int addShippingAddress(ShippingAddressBean addr, HttpSession session) {
+		if(addr==null) {
+			return 0;
+		}
+		addr.setBelongUserId(((UserBean)(session.getAttribute("user"))).getId());
+		addr.setEntryTime(System.currentTimeMillis());
+		dao.addShippingAddress(addr);
+		return 1;
 	}
 	
 }

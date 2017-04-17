@@ -173,7 +173,7 @@
 					<div class="col-md-2 col-md-offset-6">
 						总金额：<span class="total-money"><b id="totalPrice">￥1234.00</b></span>
 					</div>
-					<button type="button" class="btn btn-danger col-md-1">去结算</button>
+					<button type="button" class="btn btn-danger col-md-1" id="checkout">去结算</button>
 				</div>
 			</div>
 		</div>
@@ -206,6 +206,9 @@
 	<script type="text/javascript">
 		$(function(){
 			
+			//使全选按钮不选中
+			$("#cartContainer input[name='checkAll']").prop("checked",false);
+			
 			//发送请求加载购物车数据
 			$.ajax({
 				data:"",
@@ -234,7 +237,7 @@
 													  "<div class='media-body comment'>"+
 													    "<p><b>"+ data[i].commTitle +"</b></p>"+
 													    "<div class='attribute_'>"+
-													    	"<span>"+ data[i].commBrand +"&nbsp;</span>"+
+													    	"<span>"+ data[i].commBrand +"&nbsp;: </span>"+
 													    	"<span>"+ data[i].prop1 +"&nbsp;</span>"+
 													    	"<span>"+ data[i].prop2 +"&nbsp;</span>"+
 													    "</div>"+
@@ -256,6 +259,7 @@
 								   				"</td>"+
 								   			"</tr>");
 								$node.data("entityId",data[i].entityId);
+								$node.data("commentityId",data[i].commentityId);
 								console.log(data[i].entityId);
 								$("#cartList").append($node);
 								calculateEntityPrice($node);
@@ -405,6 +409,23 @@
 				});
 			});
 			
+			//点击结算
+			$("#checkout").click(function(){
+				var $allChecked = $("#cartList input:checked[name='checkProject']");
+				//console.log($allChecked);
+				if($allChecked===undefined || $allChecked===null || $allChecked.length<1) {
+					return;
+				}
+				var array = new Array($allChecked.length);
+				for(var i=0; i<$allChecked.length; i++) {
+					array[i] = $allChecked.eq(i).parents("tr").data("commentityId") + "|" + $allChecked.eq(i).parents("tr").find(".amount-input").val().trim();
+				}
+				var param = window.btoa(array.join("&"));
+				//var nowUrlPath = window.location.pathname;
+				//应用路径
+				//var appPath = nowUrlPath.substring(0, nowUrlPath.indexOf("/", 1));
+				window.location.href = "order-commit.action?" + param;
+			});
 			
 		});
 	</script>
