@@ -77,7 +77,7 @@
 			<div class="addr-container">
 				<div class="address-header">
 					<span><b>收货人信息</b></span>
-					<button type="button" class="btn btn-default btn-xs my-btn-1">添加新地址</button>
+					<button type="button" class="btn btn-default btn-xs my-btn-1" id="addNewAddr">添加新地址</button>
 				</div>
 				<div class="adrres-list">
 					<ul id="addrList">
@@ -96,7 +96,7 @@
 							四川 成都市 高新西区 百叶路1号（电子科技大学成都学院） 181****1400</li>
 					</ul>
 					<div class="col-sm-12" id="addrMessage" style="display: none;">
-						<form class="form-horizontal">
+						<form class="form-horizontal" id="addrForm">
 							<div class="form-group">
 								<label for="inputName" class="col-sm-2 control-label">收件人:</label>
 								<div class="col-sm-10">
@@ -118,7 +118,7 @@
 										placeholder="地址" name="address">
 								</div>
 							</div>
-							<button type="button" class="btn btn-danger btn-xs">保存</button>
+							<button type="button" class="btn btn-danger btn-xs" id="commitAddr">保存</button>
 						</form>
 					</div>
 				</div>
@@ -129,11 +129,11 @@
 				<div class="address-header">
 					<span><b>支付方式</b></span>
 				</div>
-				<div class="payment">
+				<div class="payment" id="payment">
 					<ul>
 						<li><input type="radio" name="pay-list" class="addr-list-c"
-							checked="checked">网银支付</li>
-						<li><input type="radio" name="pay-list" class="addr-list-c">货到付款</li>
+							checked="checked" value="0">货到付款</li>
+						<li><input type="radio" name="pay-list" class="addr-list-c" value="1">网银支付</li>
 					</ul>
 				</div>
 			</div>
@@ -171,12 +171,12 @@
 			<!-- 商品清单结束 -->
 			<div class="cart-operate col-md-12">
 				<div class="col-md-3">
-					<button type="button" class="btn btn-default btn-xs my-btn-1">返回购物车修改</button>
+					<button type="button" class="btn btn-default btn-xs my-btn-1" id="gotoShoppingCart">返回购物车修改</button>
 				</div>
 				<div class="col-md-2 col-md-offset-6">
-					订单金额：<span class="total-money"><b>￥12333</b></span>
+					订单金额：<span class="total-money"><b id="totalPrice">￥12333</b></span>
 				</div>
-				<button type="button" class="btn btn-danger col-md-1">提交订单</button>
+				<button type="button" class="btn btn-danger col-md-1" id="commitOrder">提交订单</button>
 			</div>
 		</div>
 		<!--结算主体隐藏区结束-->
@@ -200,6 +200,8 @@
 	<script src="../resources/plugins/jquery-2.2.4.min.js"></script>
 	<script src="../resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../resources/scripts/my-utils.js"></script>
+	<script src="../resources/scripts/order-commit.js"></script>
+	<script src="../resources/scripts/my-ajax.js"></script>
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
@@ -211,35 +213,9 @@
 			for (var j = 0; j < parmArray.length; j++) {
 				commEntitiesId[j] = parseInt(parmArray[j].split("|")[0]);
 			}
-			//发送请求加载用户地址
-			$.ajax({
-				data : "",
-				dataType : "json",
-				error : function() {
-				
-				},
-				success : function(result) {
-					if (result.status === 1) {
-						var data = result.data;
-						var $li;
-						//清空列表
-						$("#addrList li").remove();
-						if(data===undefined || data===null || data.length<1) {
-							$("#addrList").append($("<li>您还没有收货地址 赶紧添加一个吧^_^</li>"));
-							return;
-						}
-						for(var i=0; i<data.length; i++) {
-							if(i === 0) {
-								$li = $("<li><input type='radio' name='addr-list' class='addr-list-c' checked='checked'>"+data[i].recipient+"&nbsp;"+data[i].address+"&nbsp;"+data[i].mobileNumber+"&nbsp;"+"</li>");
-							} else {
-								
-							}
-						}
-					}
-				},
-				type : "post",
-				url : "../checkLogin/getShippingAddr.action"
-			});
+			
+			//加载收货地址
+			loadAddr();
 			
 			//发送请求加载商品数据
 			$.ajax({
@@ -253,6 +229,8 @@
 						var data = result.data;
 						//清空列表
 						$("#commEnList tr").remove();
+						//总价
+						var totalPrice = 0;
 						for (var i = 0; i < data.length; i++) {
 							var amount;
 							for (var k = 0; k < parmArray.length; k++) {
@@ -261,7 +239,7 @@
 									amount = parmArray[k].split("|")[1];
 								}
 							}
-							console.log(result);
+							//console.log(result);
 							var $trNode = $("<tr>"
 									+ "<td>"
 									+ "<div class='media cart-commodity'>"
@@ -292,15 +270,88 @@
 									+ "<td>库存 "
 									+ data[i].inventory
 									+ "</td>" + "</tr>");
-							$trNode.data("commEntityId",
-									data[i].commEntityId);
+							totalPrice = totalPrice + data[i].price * amount;
+							$trNode.data("commEntityId", data[i].commEntityId);
+							$trNode.data("amount", amount);
 							$("#commEnList").append($trNode);
 						}
+						$("#totalPrice").text("￥"+totalPrice);
 					}
 				},
 				type : "post",
 				url : "../checkLogin/findCommEntitiesById.action"
 			});
+			//新建地址按钮点击事件
+			$("#addNewAddr").click(function(){
+				$("#addrList").hide();
+				$("#addrMessage").show();
+			});
+			//保存新建地址'保存'按钮事件
+			$("#commitAddr").click(function(){
+				var data = new FormData($("#addrForm").get(0));
+				//发送请求保存数据
+				$.ajax({
+					data : data,
+					dataType : "json",
+					cache: false,
+		            contentType: false,    //不可缺
+		            processData: false,    //不可缺
+					error : function() {
+					
+					},
+					success : function(result) {
+						if (result.status === 1) {
+							$("#addrList").show();
+							$("#addrMessage").hide();
+							//加载收货地址
+							loadAddr();
+						} else {
+							console.log("failed");
+						}
+					},
+					type : "post",
+					url : "../checkLogin/addShippingAddr.action"
+				});
+			});
+			//点击返回购物车
+			$("#gotoShoppingCart").click(function(){
+				window.location.href = "../login/shopping-cart.action"; 
+			});
+			
+			//点击提交按钮提交订单
+			$("#commitOrder").click(function(){
+				//获取地址id
+				var addrId = $("#addrList input:checked").parents("li").data("addrId");
+				var entityIdAndAmount = [];
+				//所有商品tr
+				var $tr = $("#commEnList tr");
+				//支付方式
+				var payment = $("#payment input:checked").val();
+				for(var i=0; i<$tr.length; i++) {
+					entityIdAndAmount.push("commEntityId="+$tr.eq(i).data("commEntityId") + "&amount=" +$tr.eq(i).data("amount"))
+				}
+				console.log(entityIdAndAmount);
+				//发送请求提交订单数据
+				$.ajax({
+					data : {addrId:addrId, entityIdAndAmount:entityIdAndAmount,payment:payment},
+					dataType : "json",
+					error : function() {
+						
+					},
+					success : function(result) {
+						if (result.status === 1) {
+							console.log(result);
+						} else {
+							console.log(result);
+						}
+					},
+					type : "post",
+					url : "../checkLogin/commitOrder.action"
+				});
+			});
+			
+			
+			
 		});
 	</script>
 </body>

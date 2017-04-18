@@ -22,7 +22,7 @@ public class ToPageAfterLoginController {
 	public String toShoppingCart(HttpServletRequest req) {
 		UserBean user = (UserBean) req.getSession().getAttribute("user");
 		String paran = req.getQueryString();
-		if(null!=paran && null!=user) {
+		if(null!=paran && null!=user && !paran.matches("r=.+")) {
 			String s = new String(Base64.decodeBase64(paran)).toString().trim();
 			if(s.matches("commEntityId=[1-9]\\d*&amount=[1-9]\\d*")) {
 				Integer commEntityId = RegUtil.getIntNumber(s, "commEntityId=([1-9]\\d*)");

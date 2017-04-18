@@ -42,14 +42,13 @@ console.log(amount + "<>" + price);
 }
 
 function calculateTotalPrice($tbodyNode) {
-	var $allTr = $tbodyNode.find("tr");
+	var $allTr = $tbodyNode.find("input:checked[name='checkProject']");
 	var totalPrice = 0;
 	var trPrice;
 	for(var i=0; i<$allTr.length; i++) {
-		trPrice = $allTr.eq(i).find(".entityTotalPrice").text().replace("￥", "").trim();
+		trPrice = $allTr.eq(i).parents("tr").find(".entityTotalPrice").text().replace("￥", "").trim();
 		totalPrice = trPrice * 1 + totalPrice;
 	}
-	console.log("++++++" + totalPrice);
 	$("#totalPrice").text("￥"+totalPrice);
 }
 

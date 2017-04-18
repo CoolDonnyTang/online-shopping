@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.cduestc.tyr.online_shopping.beans.OrderBean;
 import com.cduestc.tyr.online_shopping.beans.ResultData;
 import com.cduestc.tyr.online_shopping.service.ICommEntityService;
+import com.cduestc.tyr.online_shopping.service.IOrderService;
 
 @Controller
 @RequestMapping("/checkLogin")
@@ -19,6 +22,8 @@ public class OrderController {
 	
 	@Resource
 	ICommEntityService commEnService;
+	@Resource
+	IOrderService orderservice;
 	
 	@RequestMapping("/findCommEntitiesById.action")
 	@ResponseBody
@@ -37,6 +42,21 @@ public class OrderController {
 		} catch(Exception e) {
 			result.setStatus(-1);
 			result.setInfo("查询数据失败");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@RequestMapping("/commitOrder.action")
+	@ResponseBody
+	public ResultData commitOrder(HttpSession session, Integer addrId, @RequestParam(value = "entityIdAndAmount[]") String[] entityIdAndAmount, Integer payment) {
+		ResultData result = new ResultData();
+		System.out.println(addrId);
+		try {
+			result = orderservice.addOrder(session, addrId, entityIdAndAmount, payment);
+		} catch(Exception e) {
+			result.setStatus(-1);
+			result.setInfo("提交订单失败");
 			e.printStackTrace();
 		}
 		return result;

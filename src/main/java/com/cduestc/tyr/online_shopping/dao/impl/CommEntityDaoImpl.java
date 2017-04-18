@@ -1,5 +1,6 @@
 package com.cduestc.tyr.online_shopping.dao.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
+import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.dao.ICommEntityDao;
 
 @Repository
@@ -38,6 +40,34 @@ public class CommEntityDaoImpl implements ICommEntityDao {
 		Session session = sf.getCurrentSession();
 		Query query = session.createQuery(hql);
 		return query.list();
+	}
+
+	@Override
+	public Double queryPriceByEnId(int commEntityId) {
+		String hql = "select myPrice from CommEntityBean "
+				+ "where id = ?";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setInteger(0, commEntityId);
+		return Double.valueOf(((BigDecimal)query.uniqueResult()).toPlainString());
+	}
+
+	@Override
+	public int queryInventoryByEnId(int commEntityId) {
+		String hql = "select inventory from CommEntityBean "
+				+ "where id = ?";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setInteger(0, commEntityId);
+		return (int) query.uniqueResult();
+	}
+
+	@Override
+	public void updateInventoryByEnId(int commEntityId, int newInventory) {
+		Session session = sf.getCurrentSession();
+		CommEntityBean entity = (CommEntityBean) session.get(CommEntityBean.class, commEntityId);
+		entity.setInventory(newInventory);
+		session.save(entity);
 	}
 
 }

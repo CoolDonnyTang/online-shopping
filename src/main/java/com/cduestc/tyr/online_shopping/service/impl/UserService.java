@@ -191,7 +191,7 @@ System.out.println(code);
 
 	@Override
 	public int addShippingAddress(ShippingAddressBean addr, HttpSession session) {
-		if(addr==null) {
+		if(addr==null || addr.getRecipient()==null || addr.getMobileNumber()==null || addr.getAddress()==null) {
 			return 0;
 		}
 		addr.setBelongUserId(((UserBean)(session.getAttribute("user"))).getId());
