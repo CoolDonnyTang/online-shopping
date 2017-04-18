@@ -96,7 +96,7 @@ public class OrderServiceImpl implements IOrderService {
 		//构造返回数据
 		result.setStatus(1);
 		result.setData(order);
-		result.setInfo("部分商品库存不足，请返回购物修改");
+		result.setInfo("success");
 		return result;
 	}
 

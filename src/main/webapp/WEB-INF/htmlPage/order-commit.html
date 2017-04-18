@@ -169,6 +169,10 @@
 				</div>
 			</div>
 			<!-- 商品清单结束 -->
+			<!-- 警告信息 -->
+			<div class="col-sm-12 col-md-12 disMessage-container">
+				<div class="alert alert-danger" role="alert" id="disMessage" style="display: none;">测试</div>
+			</div>
 			<div class="cart-operate col-md-12">
 				<div class="col-md-3">
 					<button type="button" class="btn btn-default btn-xs my-btn-1" id="gotoShoppingCart">返回购物车修改</button>
@@ -341,8 +345,9 @@
 					success : function(result) {
 						if (result.status === 1) {
 							console.log(result);
-						} else {
-							console.log(result);
+						} else if(result.status === 0) {
+							$("#disMessage").show();
+							$("#disMessage").text(result.info)
 						}
 					},
 					type : "post",
