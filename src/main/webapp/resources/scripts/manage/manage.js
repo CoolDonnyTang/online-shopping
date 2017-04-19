@@ -40,8 +40,14 @@ function disManageList(num) {
 	if(num === 1) {
 		$("#kinds_content").show();
 		$("#commodityContent").hide();
+		$("#recommendContent").hide();
 	} else if(num === 2) {
 		$("#kinds_content").hide();
 		$("#commodityContent").show();
+		$("#recommendContent").hide();
+	} else if(num === 3) {
+		$("#kinds_content").hide();
+		$("#commodityContent").hide();
+		$("#recommendContent").show();
 	}
 }

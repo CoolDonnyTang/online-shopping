@@ -16,4 +16,5 @@ public interface ManageService {
 	public void addCommodity(CommodityBean comm);
 	public void addCommEntity(CommEntityBean comm);
 	public List<Message4AddCommEntityPOJO> findBrandTitlePropBySubKindId(int subKindId);
+	public int addRecommendEntity(Integer ids[], Integer recommendType);
 }

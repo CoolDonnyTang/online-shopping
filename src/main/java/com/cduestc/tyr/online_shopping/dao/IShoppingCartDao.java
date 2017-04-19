@@ -2,6 +2,7 @@ package com.cduestc.tyr.online_shopping.dao;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.cduestc.tyr.online_shopping.beans.ShoppingCartBean;
 
@@ -41,9 +42,15 @@ public interface IShoppingCartDao {
 	 * @param entityId
 	 */
 	public void deleteEntityById(int entityId);
-	
+	/**
+	 * 根据id删除购物车多条记录
+	 * @author tangyanrentyr
+	 * @2017年4月19日 2017年4月19日
+	 * @param ids
+	 */
 	public void deleteEntities(Integer[] ids);
 	
+	public void deleteEntitiesByCommEnIds(Set<Integer> commEnIds);
 	
 	
 	

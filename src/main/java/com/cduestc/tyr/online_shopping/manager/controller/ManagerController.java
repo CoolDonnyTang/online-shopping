@@ -261,4 +261,23 @@ public class ManagerController {
 		}
 		return rd;
 	}
+	
+	@RequestMapping("/addRcommendCommEntity.action")
+	@ResponseBody
+	public ResultData addRcommendCommEntity(@RequestParam(value="ids[]") Integer[] ids, Integer recommendType) {
+		ResultData rd = new ResultData();
+		try {
+			int status = service.addRecommendEntity(ids, recommendType);
+			rd.setStatus(status);
+			if(status !=1 ) {
+				rd.setInfo("添加失败");
+			}
+		} catch (Exception e) {
+			rd.setStatus(-1);
+			rd.setInfo("服务器偷懒啦 请稍后再试");
+			e.printStackTrace();
+		}
+		return rd;
+	}
+	
 }

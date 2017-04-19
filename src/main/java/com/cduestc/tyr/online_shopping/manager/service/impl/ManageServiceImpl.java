@@ -13,11 +13,13 @@ import org.springframework.stereotype.Service;
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
+import com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean;
 import com.cduestc.tyr.online_shopping.manager.beans.Message4AddCommEntityPOJO;
 import com.cduestc.tyr.online_shopping.manager.beans.Prop4AddCommEntityPOJO;
 import com.cduestc.tyr.online_shopping.manager.beans.Title4AddCommEntityPOJO;
 import com.cduestc.tyr.online_shopping.manager.dao.ManageDao;
 import com.cduestc.tyr.online_shopping.manager.service.ManageService;
+import com.cduestc.tyr.online_shopping.utils.RecommendKind;
 
 @Service
 public class ManageServiceImpl implements ManageService {
@@ -171,5 +173,20 @@ public class ManageServiceImpl implements ManageService {
 	@Override
 	public void addCommEntity(CommEntityBean comm) {
 		dao.addCommEntity(comm);
+	}
+
+	@Override
+	public int addRecommendEntity(Integer[] ids, Integer recommendType) {
+		if(ids==null || ids.length<1 || recommendType==null) {
+			return 0;
+		}
+		for(Integer i : ids) {
+			RecommendCommEntityBean recommend = new RecommendCommEntityBean();
+			recommend.setCommEntityId(i);
+			recommend.setEntryTime(System.currentTimeMillis());
+			recommend.setRecomendType(RecommendKind.values()[recommendType]);
+			dao.saveRecommendEntity(recommend);
+		}
+		return 1;
 	}
 }

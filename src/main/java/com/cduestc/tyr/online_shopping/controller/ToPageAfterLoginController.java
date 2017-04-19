@@ -41,5 +41,9 @@ public class ToPageAfterLoginController {
 		
 	}
 	
-	
+	@RequestMapping("/orderDetail.action")
+	public String toOrderDetailPage() {
+			return "order-detail";
+		
+	}
 }

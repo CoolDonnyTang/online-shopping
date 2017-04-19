@@ -7,8 +7,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 public class MD5 {
 	public static String toMD5(String msg) throws Exception {
 		//利用MD5对msg加密
-		MessageDigest md = 
-				MessageDigest.getInstance("MD5");
+		MessageDigest md = MessageDigest.getInstance("MD5");
 		//处理对象是字节数组，返回结果也是字节数组
 		byte[] output = md.digest(msg.getBytes());
 		/*

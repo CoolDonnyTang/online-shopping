@@ -26,32 +26,30 @@
 				<div class="col-md-7"></div>
 				<div class="col-md-1 heaer-menu">
 					<div class="dropdown">
-						<a id="dLabel" data-target="#" href="http://example.com"
+						<a id="dLabel1" data-target="#" href="#"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" class="header-link"> 我的爱购 <span
 							class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="dLabel">
-							<li>我的订单</li>
-							<li>我的关注</li>
+						<ul class="dropdown-menu" aria-labelledby="dLabel1">
+							<li><a class="link-hover">我的订单</a></li>
+							<li><a class="link-hover">我的关注</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-1 heaer-menu">
 					<div>
-						<a id="dLabel" data-target="#" href="http://example.com"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false" class="header-link">我的购物车 </a>
+						<a href="login/shopping-cart.action" class="header-link">我的购物车 </a>
 					</div>
 				</div>
 				<div class="col-md-1 heaer-menu">
 					<div class="dropdown">
-						<a id="dLabel" data-target="#" href="http://example.com"
+						<a id="dLabel3" data-target="#" href="http://example.com"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" class="header-link">联系客服 <span
 							class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="dLabel">
+						<ul class="dropdown-menu" aria-labelledby="dLabel3">
 							<li>028-12345678</li>
 						</ul>
 					</div>
@@ -66,7 +64,7 @@
 			<div class="row cart-header">
 				<div class="col-md-3 s-cart padding-lr0">
 					<div class="col-md-6 padding-lr0">
-						<a href="#" class="thumbnail activity-link"> <img
+						<a href="../index.html" class="thumbnail activity-link"> <img
 							src="../resources/images/logo.png" class="logo">
 						</a>
 					</div>
@@ -133,7 +131,7 @@
 					<ul>
 						<li><input type="radio" name="pay-list" class="addr-list-c"
 							checked="checked" value="0">货到付款</li>
-						<li><input type="radio" name="pay-list" class="addr-list-c" value="1">网银支付</li>
+						<li><input type="radio" name="pay-list" class="addr-list-c" value="1">支付宝支付</li>
 					</ul>
 				</div>
 			</div>
@@ -345,9 +343,14 @@
 					success : function(result) {
 						if (result.status === 1) {
 							console.log(result);
+							var data = result.data;
+							var orderIdParam = window.btoa("orderId="+data.id);
+							if(data.payment === "货到付款") {
+								window.location.href = "../login/orderDetail.action?"+orderIdParam;
+							}
 						} else if(result.status === 0) {
 							$("#disMessage").show();
-							$("#disMessage").text(result.info)
+							$("#disMessage").text(result.info);
 						}
 					},
 					type : "post",

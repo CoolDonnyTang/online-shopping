@@ -9,11 +9,11 @@
 <title>爱购商城</title>
 
 <!-- Bootstrap -->
-<link href="resources/plugins/bootstrap/css/bootstrap.min.css"
+<link href="../resources/plugins/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="resources/my-css/shopping-cart.css" rel="stylesheet">
-<link href="resources/my-css/index.css" rel="stylesheet">
-<link href="resources/my-css/user-base.css" rel="stylesheet">
+<link href="../resources/my-css/shopping-cart.css" rel="stylesheet">
+<link href="../resources/my-css/index.css" rel="stylesheet">
+<link href="../resources/my-css/user-base.css" rel="stylesheet">
 </head>
 <body>
 	<div class="page-header">
@@ -26,32 +26,30 @@
 				<div class="col-md-7"></div>
 				<div class="col-md-1 heaer-menu">
 					<div class="dropdown">
-						<a id="dLabel" data-target="#" href="http://example.com"
+						<a id="dLabel1" data-target="#" href="#"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" class="header-link"> 我的爱购 <span
 							class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="dLabel">
-							<li>我的订单</li>
-							<li>我的关注</li>
+						<ul class="dropdown-menu" aria-labelledby="dLabel1">
+							<li><a class="link-hover">我的订单</a></li>
+							<li><a class="link-hover">我的关注</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-1 heaer-menu">
 					<div>
-						<a id="dLabel" data-target="#" href="http://example.com"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false" class="header-link">订单详情 </a>
+						<a href="login/shopping-cart.action" class="header-link">我的购物车 </a>
 					</div>
 				</div>
 				<div class="col-md-1 heaer-menu">
 					<div class="dropdown">
-						<a id="dLabel" data-target="#" href="http://example.com"
+						<a id="dLabel3" data-target="#" href="http://example.com"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" class="header-link">联系客服 <span
 							class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="dLabel">
+						<ul class="dropdown-menu" aria-labelledby="dLabel3">
 							<li>028-12345678</li>
 						</ul>
 					</div>
@@ -66,11 +64,21 @@
 			<div class="row cart-header">
 				<div class="col-md-3 s-cart padding-lr0">
 					<div class="col-md-6 padding-lr0">
-						<a href="#" class="thumbnail activity-link"> <img
-							src="resources/images/logo.png" class="logo">
+						<a href="../index.html" class="thumbnail activity-link"> <img
+							src="../resources/images/logo.png" class="logo">
 						</a>
 					</div>
 					订单详情
+				</div>
+			</div>
+			<!-- 订单状态开始 -->
+			<div class="addr-container"><div class="address-header">
+					<span><b>订单状态</b></span>
+				</div>
+				<div class="payment">
+					<ul>
+						<li style="color:green;"><b id="orderStatus"></b></li>
+					</ul>
 				</div>
 			</div>
 			<!-- 收货地址开始 -->
@@ -80,7 +88,7 @@
 				</div>
 				<div>
 					<ul style="list-style: none;">
-						<li>唐晏忍 四川 成都市 高新西区 百叶路1号（电子科技大学成都学院） 181****1400</li>
+						<li id="shippingMessage">唐晏忍 四川 成都市 高新西区 百叶路1号（电子科技大学成都学院） 181****1400</li>
 					</ul>
 				</div>
 			</div>
@@ -92,7 +100,7 @@
 				</div>
 				<div class="payment">
 					<ul>
-						<li>网银支付</li>
+						<li id="payment">网银支付</li>
 					</ul>
 				</div>
 			</div>
@@ -104,12 +112,12 @@
 					<span><b>商品清单</b></span>
 				</div>
 				<div class="table-responsive">
-				  <table class="table cart-table">
+				  <table class="table cart-table" id="orderCommList">
 		   			<tr>
 		   				<td>
 		   					<div class="media cart-commodity">
 							  <div class="media-left media-middle">
-							     <img class="media-object cart-image" src="resources/images/head-portrait.png">
+							     <img class="media-object cart-image" src="../resources/images/head-portrait.png">
 							  </div>
 							  <div class="media-body comment">
 							    <p>爱购联系保修，享受法定凭质保证书及爱购商城发票，可享受全国联保服务</p>
@@ -135,7 +143,7 @@
 		   				<td>
 		   					<div class="media cart-commodity">
 							  <div class="media-left media-middle">
-							     <img class="media-object cart-image" src="resources/images/head-portrait.png">
+							     <img class="media-object cart-image" src="../resources/images/head-portrait.png">
 							  </div>
 							  <div class="media-body comment">
 							    <p>爱购联系保修，享受法定凭质保证书及爱购商城发票，可享受全国联保服务</p>
@@ -162,7 +170,7 @@
 			</div>
 			<!-- 商品清单结束 -->
 			<div class="cart-operate col-md-12">
-				<div class="col-md-2 col-md-offset-9">支付金额：<span style="color:red;font-size:16px"><b>￥1132.00</b></span></div>
+				<div class="col-md-2 col-md-offset-9">支付金额：<span style="color:red;font-size:16px"><b id="orderPrice">￥1132.00</b></span></div>
 			</div>
 		</div>		
 		<!--结算主体隐藏区结束-->
@@ -183,13 +191,84 @@
 	<div class="page-copyright text-center">
 		Copyright &copy; 2017 <strong>爱购商城i-go.shop</strong> 版权所有
 	</div>
-	<script src="resources/plugins/jquery-2.2.4.min.js"></script>
-	<script src="resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/scripts/my-utils.js"></script>
+	<script src="../resources/plugins/jquery-2.2.4.min.js"></script>
+	<script src="../resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../resources/scripts/my-ajax.js"></script>
+	<script src="../resources/scripts/my-utils.js"></script>
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
-		
+		$(function(){
+			//获取url中的订单号信息
+			var orderId = window.atob(window.location.search.replace("?", ""));
+			orderId = orderId.substring(orderId.indexOf("=")+1);
+			console.log(orderId);
+			//发送请求加载订单信息
+			$.ajax({
+				data : {orderId:orderId},
+				dataType : "json",
+				error : function() {
+				
+				},
+				success : function(result) {
+					if (result.status === 1) {
+						//订单基本信息
+						var orderBaseInfo = result.data.orderBaseInfo;
+						//订单详细
+						var orderDetail = result.data.orderDetail;
+						/**
+						* 处理基本信息
+						*/
+						//订单状态
+						$("#orderStatus").text(orderBaseInfo.orderStatus);
+						//收货信息
+						$("#shippingMessage").text(orderBaseInfo.address);
+						//支付方式
+						$("#payment").text(orderBaseInfo.payment);
+						//订单金额
+						$("#orderPrice").text("￥" + orderBaseInfo.orderPrice);
+						/**
+						* 处理订单商品列表
+						*/
+						//清空列表
+						$("#orderCommList").html("");
+						console.log(orderDetail);
+						for(var i=0; i<orderDetail.length; i++) {
+							var $trNode = $("<tr>" +
+							   				"<td>" +
+							   					"<div class='media cart-commodity'>" +
+												  "<div class='media-left media-middle'>" +
+												     "<img class='media-object cart-image' src='" + orderDetail[i].mainUrl + "'>" +
+												  "</div>" +
+												  "<div class='media-body comment'>" +
+												    "<p>" + orderDetail[i].commTitle + "</p>" +
+												    "<div class='attribute_'>" +
+												    	"<span>" +orderDetail[i].commBrand + ": " + orderDetail[i].prop1 + " " + orderDetail[i].prop2 + "</span>" +
+												    "</div>" +
+												 " </div>" +
+												"</div>" +
+							   				"</td>" +
+							   				"<td><b>￥" + orderDetail[i].salePrice + "</b></td>" +
+							   				"<td>x" +
+							   					orderDetail[i].amount +
+							   				"</td>" +
+							   				"<td>" +
+							   					"<a class='my-link-1'>评价</a>" +
+							   				"</td>" +
+							   				"<td>" +
+							   					"<a class='my-link-1'>售后服务</a>" +
+							   				"</td>" +
+							   			"</tr>");
+							$("#orderCommList").append($trNode);
+						}
+					} else {
+						console.log("failed");
+					}
+				},
+				type : "post",
+				url : "../checkLogin//queryOrderMessage.action"
+			});
+		});
 	</script>
 </body>
 </html>

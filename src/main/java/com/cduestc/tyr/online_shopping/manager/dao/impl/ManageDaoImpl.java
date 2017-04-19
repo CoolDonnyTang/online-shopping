@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
+import com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean;
 import com.cduestc.tyr.online_shopping.manager.dao.ManageDao;
 
 @Repository
@@ -75,6 +76,12 @@ public class ManageDaoImpl implements ManageDao {
 	public void addCommEntity(CommEntityBean comm) {
 		Session session = sf.getCurrentSession();
 		session.save(comm);
+	}
+
+	@Override
+	public void saveRecommendEntity(RecommendCommEntityBean recommend) {
+		Session session = sf.getCurrentSession();
+		session.save(recommend);
 	}
 	
 }

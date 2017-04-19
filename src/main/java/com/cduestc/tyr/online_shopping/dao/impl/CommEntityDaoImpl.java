@@ -63,11 +63,34 @@ public class CommEntityDaoImpl implements ICommEntityDao {
 	}
 
 	@Override
-	public void updateInventoryByEnId(int commEntityId, int newInventory) {
+	public void updateInventoryByEnId(int commEntityId, int sales) {
 		Session session = sf.getCurrentSession();
 		CommEntityBean entity = (CommEntityBean) session.get(CommEntityBean.class, commEntityId);
-		entity.setInventory(newInventory);
-		session.save(entity);
+		entity.setInventory(entity.getInventory() - sales);
+		entity.setSales(entity.getSales() + sales);
+		session.saveOrUpdate(entity);
+	}
+
+	@Override
+	public Map<String, String> findCommEntityById(int id) {
+		String hql = "select new map("
+				+ "c.brand as commBrand, "
+				+ "c.titleName as commTitle, "
+				+ "ce.id as commEntityId, "
+				+ "ce.myPrice as price, "
+				+ "ce.inventory as inventory, "
+				+ "ce.propty1 as prop1, "
+				+ "ce.propty2 as prop2, "
+				+ "img.url as mainUrl"
+		+ ") from CommodityBean as c "
+		+ "join c.commEntity as ce "
+		+ "join ce.images as img "
+		+ "where ce.id = ? "
+		+ "and img.mainImage = true and img.serialNumber = 1 ";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setInteger(0, id);
+		return (Map<String, String>) query.uniqueResult();
 	}
 
 }

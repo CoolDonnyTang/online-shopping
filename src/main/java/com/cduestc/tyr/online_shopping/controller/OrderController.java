@@ -51,7 +51,6 @@ public class OrderController {
 	@ResponseBody
 	public ResultData commitOrder(HttpSession session, Integer addrId, @RequestParam(value = "entityIdAndAmount[]") String[] entityIdAndAmount, Integer payment) {
 		ResultData result = new ResultData();
-		System.out.println(addrId);
 		try {
 			result = orderservice.addOrder(session, addrId, entityIdAndAmount, payment);
 		} catch(Exception e) {
@@ -61,4 +60,19 @@ public class OrderController {
 		}
 		return result;
 	}
+	
+	@RequestMapping("/queryOrderMessage.action")
+	@ResponseBody
+	public ResultData queryOrderMessage(HttpSession session, Integer orderId) {
+		ResultData result = new ResultData();
+		try {
+			result = orderservice.queryOrderMessage(orderId, session);
+		} catch(Exception e) {
+			result.setStatus(-1);
+			result.setInfo("查询订单失败");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

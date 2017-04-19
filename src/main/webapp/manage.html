@@ -27,7 +27,7 @@
 				<ul class="list-group" id="managerList">
 				  <li class="list-group-item list-1">分类管理</li>
 				  <li class="list-group-item list-1">添加商品</li>
-				  <li class="list-group-item list-1">Morbi leo risus</li>
+				  <li class="list-group-item list-1">今日推荐</li>
 				  <li class="list-group-item list-1">Porta ac consectetur ac</li>
 				  <li class="list-group-item list-1">Vestibulum at eros</li>
 				</ul>
@@ -266,6 +266,41 @@
 						<button type="button" class="btn btn-danger col-md-3" id="submitCommEntityMessage">提交</button>
 					</div><!-- 添加商品实体结束 -->
 				</div><!-- 添加商品结束 -->
+				<!-- 添加今日推荐 -->
+				<div class="kinds-content" id="recommendContent">
+					<form action="manage/addCommodity.action"  id="recommandList" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+						    <label for="commentity1">商品一id</label>
+						    <input type="text" class="form-control" id="commentity1" name="commEntityId">
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="commentity1">商品二id</label>
+						    <input type="text" class="form-control" id="commentity2" name="commEntityId">
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="commentity1">商品三id</label>
+						    <input type="text" class="form-control" id="commentity3" name="commEntityId">
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="commentity1">商品四id</label>
+						    <input type="text" class="form-control" id="commentity4" name="commEntityId">
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="commentity1">商品五id</label>
+						    <input type="text" class="form-control" id="commentity5" name="commEntityId">
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="commentity1">商品六id</label>
+						    <input type="text" class="form-control" id="commentity6" name="commEntityId">
+						</div>
+					</form>
+					<button type="button" class="btn btn-danger col-md-3" id="submitRecommendCommEntityId">提交</button>
+				</div>
 			</div>
 		</div>
 		<hr/>
@@ -289,6 +324,9 @@
 				  	break;
 				case "添加商品":
 					disManageList(2);
+					break;
+				case "今日推荐":
+					disManageList(3);
 					break;
 				}
 			});
@@ -1001,8 +1039,7 @@ console.log(id);
 		            },
 		            success:function(result){
 		                if(result.status === 1) {
-		                	/* $("#commodityMessage input").val("");
-		                	$("#commodityMessage textarea").val(""); */
+		                	//成功则清除键入的信息
 		                	$("#mainImageList input[class='mainImage']").val("");
 		                	$("#commEntityInventory").val("");
 		                	$("#myPrice").val("");
@@ -1013,6 +1050,37 @@ console.log(id);
 		            }
 				});
 			});
+			
+			//提交今日推荐商品的id
+			$("#submitRecommendCommEntityId").click(function() {
+				var data = [];
+				var $input = $("#recommandList input");
+				var valueId;
+				for(var i=0; i<$input.length; i++) {
+					valueId = $input.eq(i).val().trim();
+					if(!checkNum(valueId)){
+						alert("存在非法的输入id");
+						return;
+					}
+					data.push(valueId);
+				}
+				console.log(data);
+				$.ajax({
+					url: "manage/addRcommendCommEntity.action",
+		            type: "post",
+		            data: {ids:data, recommendType:1},
+		            error: function() {
+		            	alert("连接服务器失败");
+		            },
+		            success:function(result){
+		                if(result.status === 1) {
+		                	return;
+		                }
+		                alert(result.info);
+		            }
+				});
+			});
+			
 		});
 	</script>
 </body>

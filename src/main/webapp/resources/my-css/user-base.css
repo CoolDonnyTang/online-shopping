@@ -52,7 +52,9 @@ div {
 .color666 {
 	color:#666;
 }
-
+.link-hover:HOVER {
+	cursor: pointer;
+}
 
 
 

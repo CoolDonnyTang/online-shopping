@@ -26,30 +26,32 @@
 				<div class="col-md-7"></div>
 				<div class="col-md-1 heaer-menu">
 					<div class="dropdown">
-						<a id="dLabel1" data-target="#" href="#"
+						<a id="dLabel" data-target="#" href="http://example.com"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" class="header-link"> 我的爱购 <span
 							class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="dLabel1">
-							<li><a class="link-hover">我的订单</a></li>
-							<li><a class="link-hover">我的关注</a></li>
+						<ul class="dropdown-menu" aria-labelledby="dLabel">
+							<li>我的订单</li>
+							<li>我的关注</li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-1 heaer-menu">
 					<div>
-						<a href="login/shopping-cart.action" class="header-link">我的购物车 </a>
+						<a id="dLabel" data-target="#" href="http://example.com"
+							data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false" class="header-link">我的购物车 </a>
 					</div>
 				</div>
 				<div class="col-md-1 heaer-menu">
 					<div class="dropdown">
-						<a id="dLabel3" data-target="#" href="http://example.com"
+						<a id="dLabel" data-target="#" href="http://example.com"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
 							aria-expanded="false" class="header-link">联系客服 <span
 							class="caret"></span>
 						</a>
-						<ul class="dropdown-menu" aria-labelledby="dLabel3">
+						<ul class="dropdown-menu" aria-labelledby="dLabel">
 							<li>028-12345678</li>
 						</ul>
 					</div>
@@ -157,6 +159,7 @@
 									</div>
 				   				</td>
 				   				<td><b>￥320.00</b></td>
+				   				<td>库存1234</td>
 				   				<td>
 				   					<button type="button" class="btn btn-default btn-xs my-btn-1">删除</button>
 				   					<button type="button" class="btn btn-default btn-xs my-btn-1">移入关注</button>
@@ -254,7 +257,6 @@
 													"</div>"+
 								   				"</td>"+
 								   				"<td><b class='entityTotalPrice'>￥zx</b></td>"+
-								   				"<td>"+ data[i].inventory +"件</td>"+
 								   				"<td>"+
 								   					"<button type='button' class='btn btn-default btn-xs my-btn-1 entity-delete'>删除</button>"+
 								   					"<button type='button' class='btn btn-default btn-xs my-btn-1'>移入关注</button>"+

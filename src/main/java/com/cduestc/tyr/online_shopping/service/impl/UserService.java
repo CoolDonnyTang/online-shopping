@@ -196,6 +196,7 @@ System.out.println(code);
 		}
 		addr.setBelongUserId(((UserBean)(session.getAttribute("user"))).getId());
 		addr.setEntryTime(System.currentTimeMillis());
+		addr.setFullAddress(addr.getRecipient() + " " + addr.getAddress() + " " + addr.getMobileNumber());
 		dao.addShippingAddress(addr);
 		return 1;
 	}

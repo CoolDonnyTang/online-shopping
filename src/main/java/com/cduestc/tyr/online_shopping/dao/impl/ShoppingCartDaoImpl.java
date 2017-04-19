@@ -2,6 +2,7 @@ package com.cduestc.tyr.online_shopping.dao.impl;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -44,6 +45,7 @@ public class ShoppingCartDaoImpl implements IShoppingCartDao {
 					+ "and ss.commEntityId = ce.id"
 				+ ") as entityId, "
 				+ "ce.id as commentityId, "
+				+ "ce.inventory as inventory, "
 				+ "ce.myPrice as price, "
 				+ "ce.propty1 as prop1, "
 				+ "ce.propty2 as prop2, "
@@ -91,6 +93,16 @@ public class ShoppingCartDaoImpl implements IShoppingCartDao {
 	@Override
 	public void deleteEntities(Integer[] ids) {
 		String hql = "from ShoppingCartBean where id in (" + StringUtils.join(ids,",") + ")";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		List<ShoppingCartBean> list = query.list();
+		for(ShoppingCartBean sc : list) {
+			session.delete(sc);
+		}
+	}
+	@Override
+	public void deleteEntitiesByCommEnIds(Set<Integer> commEnIds) {
+		String hql = "from ShoppingCartBean where commEntityId in (" + StringUtils.join(commEnIds,",") + ")";
 		Session session = sf.getCurrentSession();
 		Query query = session.createQuery(hql);
 		List<ShoppingCartBean> list = query.list();
