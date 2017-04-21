@@ -6,6 +6,7 @@ import java.util.Map;
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
+import com.cduestc.tyr.online_shopping.beans.RecommendBrandBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean;
 
 public interface ManageDao {
@@ -24,4 +25,18 @@ public interface ManageDao {
 	 * @param recommend
 	 */
 	public void saveRecommendEntity(RecommendCommEntityBean recommend);
+	/**
+	 * 添加推荐品牌
+	 * @author tangyanrentyr
+	 * @2017年4月21日 2017年4月21日
+	 * @param recommendBrad
+	 */
+	public void addRecommendBrand(RecommendBrandBean recommendBrad);
+	/**
+	 * 从商品模板中查询所有的品牌
+	 * @author tangyanrentyr
+	 * @2017年4月21日 2017年4月21日
+	 * @return
+	 */
+	public List<String> queryAllBrandNameFromCommModel();
 }

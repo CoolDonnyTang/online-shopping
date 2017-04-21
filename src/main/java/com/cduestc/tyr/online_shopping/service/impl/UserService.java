@@ -23,6 +23,7 @@ import com.cduestc.tyr.online_shopping.dao.IUserDao;
 import com.cduestc.tyr.online_shopping.service.IUserService;
 import com.cduestc.tyr.online_shopping.utils.CheckCode;
 import com.cduestc.tyr.online_shopping.utils.MD5;
+import com.cduestc.tyr.online_shopping.utils.RegUtil;
 import com.cduestc.tyr.online_shopping.utils.SendEmail;
 
 @Service
@@ -33,10 +34,12 @@ public class UserService implements IUserService {
 	
 	@Override
 	public int findUserToLogin(String userName, String password, String checkCode, HttpSession session) throws Exception {
-		String s_checkCode = (String) session.getAttribute("checkCode");
+		String checkCodeFlag = RegUtil.getString(checkCode, "&(.+)");
+		String realCheckCode = RegUtil.getString(checkCode, "(.+)&");
+		String s_checkCode = (String) session.getAttribute("checkCode"+checkCodeFlag);
 		//清除session中的验证码
-		session.removeAttribute("checkCode");
-		if(!checkCode.equalsIgnoreCase(s_checkCode)) {
+		session.removeAttribute("checkCode"+checkCodeFlag);
+		if(!realCheckCode.equalsIgnoreCase(s_checkCode)) {
 			return -2;
 		}
 		UserBean user = dao.getUserByUserName(userName);
@@ -138,7 +141,7 @@ System.out.println(code);
 	}
 
 	@Override
-	public void checkImage(HttpServletResponse response, HttpSession session) throws Exception {
+	public void checkImage(HttpServletResponse response, HttpSession session, Double random) throws Exception {
 		/*
 		 * 绘制图片
 		 */
@@ -153,7 +156,7 @@ System.out.println(code);
 		//获取5位0-9、a-z的组成字符串
 		String number = CheckCode.getChckCode();
 		//将验证码绑订到session,用来验证。
-		session.setAttribute("checkCode", number);
+		session.setAttribute("checkCode"+random, number);
 		//设置画笔颜色位随机
 		Random r = new Random();
 		g.setColor(new Color(175,8,2));

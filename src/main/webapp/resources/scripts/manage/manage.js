@@ -41,13 +41,21 @@ function disManageList(num) {
 		$("#kinds_content").show();
 		$("#commodityContent").hide();
 		$("#recommendContent").hide();
+		$("#recommendBrandContent").hide();
 	} else if(num === 2) {
 		$("#kinds_content").hide();
 		$("#commodityContent").show();
 		$("#recommendContent").hide();
+		$("#recommendBrandContent").hide();
 	} else if(num === 3) {
 		$("#kinds_content").hide();
 		$("#commodityContent").hide();
 		$("#recommendContent").show();
+		$("#recommendBrandContent").hide();
+	} else if(num === 4) {
+		$("#kinds_content").hide();
+		$("#commodityContent").hide();
+		$("#recommendContent").hide();
+		$("#recommendBrandContent").show();
 	}
 }

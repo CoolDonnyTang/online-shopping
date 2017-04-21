@@ -140,6 +140,8 @@ div {
 .serch-icon_:HOVER {
 	cursor: pointer;
 }
-
+.brandImage {
+	margin:0 !important;
+}
 
 

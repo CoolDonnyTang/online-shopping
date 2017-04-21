@@ -60,4 +60,21 @@ public class CommodityController {
 		}
 		return result;
 	}
+	
+	@RequestMapping("/findRecommendCommEntity.action")
+	@ResponseBody
+	public ResultData findRecommendCommModleAndCommEntity(Integer commId, Integer recommendType) {
+		ResultData result = new ResultData();
+		try {
+			result.setData(service.findCommModelAndEntity(commId));
+			result.setInfo("success");
+			result.setStatus(1);
+		} catch(Exception e) {
+			result.setStatus(-1);
+			result.setInfo("服务器出现了一个异常");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

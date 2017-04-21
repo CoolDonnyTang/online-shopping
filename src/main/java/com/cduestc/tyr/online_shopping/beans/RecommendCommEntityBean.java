@@ -11,14 +11,14 @@ import javax.persistence.Table;
 import com.cduestc.tyr.online_shopping.utils.RecommendKind;
 
 @Entity
-@Table(name="revommend_comm_entity")
+@Table(name="recommend_comm_entity")
 public class RecommendCommEntityBean {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private Integer commEntityId;
 	@Enumerated(EnumType.STRING)
-	private RecommendKind recomendType;
+	private RecommendKind recommendType;
 	private Long entryTime;
 	
 	public Integer getId() {
@@ -33,11 +33,11 @@ public class RecommendCommEntityBean {
 	public void setCommEntityId(Integer commEntityId) {
 		this.commEntityId = commEntityId;
 	}
-	public RecommendKind getRecomendType() {
-		return recomendType;
+	public RecommendKind getRecommendType() {
+		return recommendType;
 	}
-	public void setRecomendType(RecommendKind recomendType) {
-		this.recomendType = recomendType;
+	public void setRecommendType(RecommendKind recommendType) {
+		this.recommendType = recommendType;
 	}
 	public Long getEntryTime() {
 		return entryTime;

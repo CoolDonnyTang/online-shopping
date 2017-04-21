@@ -27,7 +27,8 @@
 				<ul class="list-group" id="managerList">
 				  <li class="list-group-item list-1">分类管理</li>
 				  <li class="list-group-item list-1">添加商品</li>
-				  <li class="list-group-item list-1">今日推荐</li>
+				  <li class="list-group-item list-1">更新今日推荐</li>
+				  <li class="list-group-item list-1">更新经典品牌</li>
 				  <li class="list-group-item list-1">Porta ac consectetur ac</li>
 				  <li class="list-group-item list-1">Vestibulum at eros</li>
 				</ul>
@@ -266,7 +267,7 @@
 						<button type="button" class="btn btn-danger col-md-3" id="submitCommEntityMessage">提交</button>
 					</div><!-- 添加商品实体结束 -->
 				</div><!-- 添加商品结束 -->
-				<!-- 添加今日推荐 -->
+				<!-- 更新今日推荐 -->
 				<div class="kinds-content" id="recommendContent">
 					<form action="manage/addCommodity.action"  id="recommandList" method="post" enctype="multipart/form-data">
 						<div class="form-group">
@@ -301,6 +302,26 @@
 					</form>
 					<button type="button" class="btn btn-danger col-md-3" id="submitRecommendCommEntityId">提交</button>
 				</div>
+				<!-- 更新经典品牌 -->
+				<div class="kinds-content" id="recommendBrandContent">
+					<form action="manage/addCommodity.action"  id="recommandBrand" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+						    <label for="randName" id="popLable2">品牌名称</label>
+						    <select class="form-control" id="randName" name="brandName">
+							  <option>1</option>
+							  <option>2</option>
+							  <option>3</option>
+							</select>
+						</div>
+						<hr>
+						<div class="form-group" id="brandImage">
+							<label for="mainImage1">匹配图片</label>
+						    <input type="file" name="file" class="mainImage">
+						    <p class="help-block">请上传1:1比例图片</p>
+						</div>
+					</form>
+					<button type="button" class="btn btn-danger col-md-3" id="submitRecommendBrand">提交</button>
+				</div>
 			</div>
 		</div>
 		<hr/>
@@ -325,8 +346,11 @@
 				case "添加商品":
 					disManageList(2);
 					break;
-				case "今日推荐":
+				case "更新今日推荐":
 					disManageList(3);
+					break;
+				case "更新经典品牌":
+					disManageList(4);
 					break;
 				}
 			});
@@ -1070,13 +1094,63 @@ console.log(id);
 		            type: "post",
 		            data: {ids:data, recommendType:1},
 		            error: function() {
+		            	alert("连接服务器失败11");
+		            },
+		            success:function(result){
+		                if(result.status === 1) {
+		                	alert("添加成功");
+		                }
+		                alert(result.info);
+		            }
+				});
+			});
+			
+			/**
+			* 更新品牌推荐区
+			*/
+			//发送请求加载商品品牌，生成商品品牌下拉选
+			$.ajax({
+				url: "manage/queryBrand.action",
+	            type: "post",
+	            data: "",
+	            error: function() {
+	            	alert("连接服务器失败11");
+	            },
+	            success:function(result){
+	                if(result.status === 1) {
+	                	var data = result.data;
+	                	var $option;
+	                	//清空下拉列表
+	                	$("#randName").html("");
+	                	for(var i=0; i<data.length; i++) {
+	                		if(i===0) {
+	                			$option = $("<option selected='selected' value='" + data[i] + "'>"+ data[i] +"</option>");
+	                		} else {
+	                			$option = $("<option value='" + data[i] + "'>"+ data[i] +"</option>");
+	                		}
+	                		$("#randName").append($option);
+	                	}
+	                }
+	            }
+			});
+			//提交品牌推荐数据
+			$("#submitRecommendBrand").click(function(){
+				var data =  new FormData($("#recommandBrand").get(0));
+				$.ajax({
+					url: "manage/addRecommendBrand.action",
+		            type: "post",
+		            data: data,
+		            cache: false,
+		            contentType: false,    //不可缺
+		            processData: false,    //不可缺
+		            error: function() {
 		            	alert("连接服务器失败");
 		            },
 		            success:function(result){
 		                if(result.status === 1) {
-		                	return;
+		                	//成功则清除键入的信息
+		                	alert("添加成功");
 		                }
-		                alert(result.info);
 		            }
 				});
 			});

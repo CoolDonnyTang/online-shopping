@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
+import com.cduestc.tyr.online_shopping.beans.RecommendBrandBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean;
 import com.cduestc.tyr.online_shopping.manager.beans.Message4AddCommEntityPOJO;
 import com.cduestc.tyr.online_shopping.manager.beans.Prop4AddCommEntityPOJO;
@@ -184,9 +185,19 @@ public class ManageServiceImpl implements ManageService {
 			RecommendCommEntityBean recommend = new RecommendCommEntityBean();
 			recommend.setCommEntityId(i);
 			recommend.setEntryTime(System.currentTimeMillis());
-			recommend.setRecomendType(RecommendKind.values()[recommendType]);
+			recommend.setRecommendType(RecommendKind.values()[recommendType]);
 			dao.saveRecommendEntity(recommend);
 		}
 		return 1;
+	}
+
+	@Override
+	public void addRecommendBrand(RecommendBrandBean recommendBrand) {
+		dao.addRecommendBrand(recommendBrand);
+	}
+
+	@Override
+	public List<String> queryAllBrandNameFromCommModel() {
+		return dao.queryAllBrandNameFromCommModel();
 	}
 }

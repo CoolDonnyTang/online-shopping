@@ -63,7 +63,7 @@ public interface IUserService {
 	 * 用于获取五位验证码图片
 	 * @throws Exception
 	 */
-	public void checkImage(HttpServletResponse response, HttpSession session) throws Exception;
+	public void checkImage(HttpServletResponse response, HttpSession session, Double r) throws Exception;
 	/**
 	 * 更新用户信息
 	 * @param user 传入对象

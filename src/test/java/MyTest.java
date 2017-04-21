@@ -5,6 +5,7 @@ import com.cduestc.tyr.online_shopping.dao.IUserDao;
 import com.cduestc.tyr.online_shopping.dao.IShoppingCartDao;
 import com.cduestc.tyr.online_shopping.dao.impl.UserDao;
 import com.cduestc.tyr.online_shopping.dao.impl.ShoppingCartDaoImpl;
+import com.cduestc.tyr.online_shopping.utils.RecommendKind;
 import com.cduestc.tyr.online_shopping.utils.SendEmail;
 
 
@@ -26,8 +27,7 @@ public class MyTest {
 	
 	@Test
 	public void Test3() {
-		IShoppingCartDao dao = new ShoppingCartDaoImpl();
-		dao.findShoppingCartEnByUserId(7);
+		System.out.println(RecommendKind.values()[1]);
 	}
 	
 }

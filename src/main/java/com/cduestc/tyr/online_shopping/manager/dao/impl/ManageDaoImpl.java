@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
+import com.cduestc.tyr.online_shopping.beans.RecommendBrandBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean;
 import com.cduestc.tyr.online_shopping.manager.dao.ManageDao;
 
@@ -82,6 +83,20 @@ public class ManageDaoImpl implements ManageDao {
 	public void saveRecommendEntity(RecommendCommEntityBean recommend) {
 		Session session = sf.getCurrentSession();
 		session.save(recommend);
+	}
+
+	@Override
+	public void addRecommendBrand(RecommendBrandBean recommendBrad) {
+		Session session = sf.getCurrentSession();
+		session.save(recommendBrad);
+	}
+
+	@Override
+	public List<String> queryAllBrandNameFromCommModel() {
+		String hql = "SELECT distinct brand from CommodityBean";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		return query.list();
 	}
 	
 }

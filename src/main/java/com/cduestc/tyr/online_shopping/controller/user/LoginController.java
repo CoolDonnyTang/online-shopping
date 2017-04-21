@@ -42,9 +42,9 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/codeImage.action")
-	public void checkImage(HttpServletResponse response, HttpSession session) {
+	public void checkImage(HttpServletResponse response, HttpSession session, Double random) {
 		try {
-			service.checkImage(response, session);
+			service.checkImage(response, session, random);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

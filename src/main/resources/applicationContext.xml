@@ -68,6 +68,7 @@
 				<value>com.cduestc.tyr.online_shopping.beans.OrderBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.OrderDetailBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean</value>
+				<value>com.cduestc.tyr.online_shopping.beans.RecommendBrandBean</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -14,6 +14,7 @@
 <link href="resources/my-css/index.css" rel="stylesheet">
 <link href="resources/my-css/user-base.css" rel="stylesheet">
 <link href="resources/my-css/detail.css" rel="stylesheet">
+<link href="resources/my-css/commodity-list.css" rel="stylesheet">
 </head>
 <body>
 	<div class="page-header">
@@ -148,63 +149,15 @@
 				<h3>今日推荐</h3>
 			</div>
 			<!-- 商品开始 -->
-			<div class="col-sm-2 col-md-2 commodities-list">
-				<div class="thumbnail">
-					<img src="resources/images/commodity-1.jpg">
-					<div class="caption commodity-dec">
-						<a class="header-link commodity-title">卖狗啦 大减价，抢到就是赚到 卖狗啦 大减价</a>
-						<span class="price-now">￥3000.00</span> <span
-							class="price-original">￥<s>5000.00</s></span>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-2 col-md-2 commodities-list">
-				<div class="thumbnail">
-					<img src="resources/images/commodity-1.jpg">
-					<div class="caption commodity-dec">
-						<a class="header-link commodity-title">卖狗啦 大减价，抢到就是赚到 卖狗啦 大减价</a>
-						<span class="price-now">￥3000.00</span> <span
-							class="price-original">￥<s>5000.00</s></span>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-2 col-md-2 commodities-list">
-				<div class="thumbnail">
-					<img src="resources/images/commodity-1.jpg">
-					<div class="caption commodity-dec">
-						<a class="header-link commodity-title">卖狗啦 大减价，抢到就是赚到 卖狗啦 大减价</a>
-						<span class="price-now">￥3000.00</span> <span
-							class="price-original">￥<s>5000.00</s></span>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-2 col-md-2 commodities-list">
-				<div class="thumbnail">
-					<img src="resources/images/commodity-1.jpg">
-					<div class="caption commodity-dec">
-						<a class="header-link commodity-title">卖狗啦 大减价，抢到就是赚到 卖狗啦 大减价</a>
-						<span class="price-now">￥3000.00</span> <span
-							class="price-original">￥<s>5000.00</s></span>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-2 col-md-2 commodities-list">
-				<div class="thumbnail">
-					<img src="resources/images/commodity-1.jpg">
-					<div class="caption commodity-dec">
-						<a class="header-link commodity-title">卖狗啦 大减价，抢到就是赚到 卖狗啦 大减价</a>
-						<span class="price-now">￥3000.00</span> <span
-							class="price-original">￥<s>5000.00</s></span>
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-2 col-md-2 commodities-list">
-				<div class="thumbnail">
-					<img src="resources/images/commodity-1.jpg">
-					<div class="caption commodity-dec">
-						<a class="header-link commodity-title">卖狗啦 大减价，抢到就是赚到 卖狗啦
-							大减价卖狗啦 大减价，抢到就是赚到 卖狗啦 大减价卖狗啦 大减价，抢到就是赚到 卖狗啦 大减价</a> <span
-							class="price-now">￥3000.00</span> <span class="price-original">￥<s>5000.00</s></span>
+			<div id="recommendList">
+				<div class="col-sm-2 col-md-2 commodities-list">
+					<div class="thumbnail">
+						<img src="resources/images/commodity-1.jpg">
+						<div class="caption commodity-dec">
+							<a class="header-link commodity-title">卖狗啦 大减价，抢到就是赚到 卖狗啦 大减价</a>
+							<span class="price-now">￥3000.00</span> <span
+								class="price-original">￥<s>5000.00</s></span>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -225,36 +178,37 @@
 				</div>
 				<div class="brand-full"></div>
 				<!-- 品牌推荐开始 -->
-				<div class="col-sm-4 col-md-4 commodities-list">
-					<div class="thumbnail">
-						<img src="resources/images/apple.png">
-						
+				<div id="recommendBrand">
+					<div class="col-sm-4 col-md-4 commodities-list">
+						<div class="thumbnail">
+							<img src="resources/images/apple.png">
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-4 col-md-4 commodities-list">
-					<div class="thumbnail">
-						<img src="resources/images/huawei.png">
-						
+					<div class="col-sm-4 col-md-4 commodities-list">
+						<div class="thumbnail">
+							<img src="resources/images/huawei.png">
+							
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-4 col-md-4 commodities-list">
-					<div class="thumbnail">
-						<img src="resources/images/xiaomi.png">
+					<div class="col-sm-4 col-md-4 commodities-list">
+						<div class="thumbnail">
+							<img src="resources/images/xiaomi.png">
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-4 col-md-4 commodities-list">
-					<div class="thumbnail">
-						<img src="resources/images/camel.png">
+					<div class="col-sm-4 col-md-4 commodities-list">
+						<div class="thumbnail">
+							<img src="resources/images/camel.png">
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-4 col-md-4 commodities-list">
-					<div class="thumbnail">
-						<img src="resources/images/benz.png">
+					<div class="col-sm-4 col-md-4 commodities-list">
+						<div class="thumbnail">
+							<img src="resources/images/benz.png">
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-4 col-md-4 commodities-list">
-					<div class="thumbnail">
-						<img src="resources/images/dell.png">
+					<div class="col-sm-4 col-md-4 commodities-list">
+						<div class="thumbnail">
+							<img src="resources/images/dell.png">
+						</div>
 					</div>
 				</div>
 				<!-- 品牌推荐结束 -->
@@ -348,79 +302,25 @@
 	<script src="resources/plugins/jquery-2.2.4.min.js"></script>
 	<script src="resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="resources/scripts/my-utils.js"></script>
+	<script src="resources/scripts/index.js"></script>
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			var data;
-			//发送请求加载分类
-			$.ajax({
-				data:"",
-				dataType:"json",
-				error:function() {
-					$("#mainKinds").text("列表加载失败");
-				},
-				success:function(result) {
-					if(result.status === 1) {
-						data = result.data;
-						//清空列表
-						$("#mainKindsList li").remove();
-						for(var i=0; i<data.length; i++) {
-							var $li = $("<li>" +data[i].kindName + "</li>");
-							$li.data("id", data[i].id);
-							$("#mainKindsList").append($li);
-						}
-						$("#mainKindsList li").hover(function(event) {
-							var $target = $(event.target);
-							var $li = null;
-							var subKinds = null;
-							$("#activty").hide();
-							$("#disSubKinds").show();
-							//清空原有列表
-							$("#subKindsList li").remove();
-							for(var k=0; k<data.length; k++) {
-								if(data[k].id === $target.data("id")) {
-									subKinds = data[k].subKinds;
-									for(var j=0; j<subKinds.length; j++) {
-										console.log(subKinds[j].name);
-										$li = $("<li class='text-center'>" + subKinds[j].kindName +"</li>");
-										$li.data("id",subKinds[j].id);
-										$("#subKindsList").append($li);
-									}
-								}
-							}
-						});
-						$("#mainKindsList li").mouseout(function() {
-							$("#disSubKinds").hide();
-							$("#activty").show();
-						});
-						$("#disSubKinds").mouseout(function(event) {
-							if(event.target.tagName !== "DIV") {
-								return;
-							}
-							$("#disSubKinds").hide();
-							$("#activty").show();
-						});
-						$("#disSubKinds").mousemove(function() {
-							$("#disSubKinds").show();
-							$("#activty").hide();
-						});
-					} else {
-						$("#mainKinds").text("列表加载失败");
-					}
-				},
-				type:"post",
-				url:"manage/findMain.action",
-			});
-			//注册主类单击事件
-			$("#mainKindsList").on("click","li",function(event) {
+			//加载分类和分类的单击事件
+			kindLoadAndOperation();
+			//加载今日推荐
+			loadTodayRecommend();
+			//加载推荐品牌
+			loadRecommendBrand();
+			
+			//点击商品进入商品详情的点击事件
+			$("body #recommendList").on("click",".thumbnail",function(event){
 				var $target = $(event.target);
-				window.location.href="commodity-list.html?" + window.btoa("mainKindId=" + $target.data("id"));
-			});
-			//注册子类单击事件
-			$("#subKindsList").on("click","li",function(event) {
-				var $target = $(event.target);
-				window.location.href="commodity-list.html?" + window.btoa("subKindId=" + $target.data("id"));
+				var $container = $target.parents(".commodities-list");
+				window.location.href="detail.html?" 
+					+ window.btoa("commId=" + $container.data("commId") + "&commEntityId=" +$container.data("commEntityId"));
 			});
 		});
 	</script>

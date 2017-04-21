@@ -14,4 +14,15 @@ public class RegUtil {
 			return null;
 		}
 	}
+	
+	public static String getString(String data, String reg) {
+		try{
+			Matcher mac = Pattern.compile(reg).matcher(data);
+			mac.find();
+			String result = mac.group(1);
+			return result;
+		} catch (Exception e) {
+			return "";
+		}
+	}
 }
