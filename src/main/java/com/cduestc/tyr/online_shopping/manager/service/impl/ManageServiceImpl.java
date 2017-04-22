@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
+import com.cduestc.tyr.online_shopping.beans.IndexAdImageBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendBrandBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean;
@@ -178,9 +179,11 @@ public class ManageServiceImpl implements ManageService {
 
 	@Override
 	public int addRecommendEntity(Integer[] ids, Integer recommendType) {
-		if(ids==null || ids.length<1 || recommendType==null) {
+		if(ids==null || ids.length<1 || RecommendKind.values()[recommendType]==null) {
 			return 0;
 		}
+		//添加该类别推荐之前先删除该类别的推荐的旧数据
+		dao.deleteRecommendEntitiesByRecommendType(RecommendKind.values()[recommendType]);
 		for(Integer i : ids) {
 			RecommendCommEntityBean recommend = new RecommendCommEntityBean();
 			recommend.setCommEntityId(i);
@@ -200,4 +203,18 @@ public class ManageServiceImpl implements ManageService {
 	public List<String> queryAllBrandNameFromCommModel() {
 		return dao.queryAllBrandNameFromCommModel();
 	}
+
+	@Override
+	public void addAdImage(IndexAdImageBean adImage) {
+		//保存广告图片数据
+		dao.addAdImage(adImage);
+	}
+
+	@Override
+	public void deleteAllAdImage() {
+		//先删广告图片数据
+		dao.deleteAllAdImage();
+	}
+	
+	
 }

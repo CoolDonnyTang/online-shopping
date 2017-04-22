@@ -109,4 +109,56 @@ public class CommodityDaoImpl implements ICommodityDao {
 		return query.list();
 	}
 
+	@Override
+	public List<Map> findSimpleCommByRecommendBrandId(int RecommendBrandId, int firstResult, int pageSize) {
+		String hql = "select new map("
+				+ "c.id as commId, "
+				+ "c.brand as commBrand, "
+				+ "c.titleName as commTitle, "
+				+ "ce.id as commEntityId, "
+				+ "ce.myPrice as price, "
+				+ "ce.marketPrice as marketPrice, "
+				+ "ce.propty1 as prop1, "
+				+ "ce.propty2 as prop2, "
+				+ "img.url as mainUrl"
+		+ ") from CommodityBean as c "
+		+ "join c.commEntity as ce "
+		+ "join ce.images as img "
+		+ "where c.brand = (select brandName from RecommendBrandBean where id = ?) "
+			+ "and img.mainImage = true and img.serialNumber = 1 "
+		+ "order by ce.entryTime desc";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setInteger(0, RecommendBrandId);
+		query.setFirstResult(firstResult);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
+
+	@Override
+	public List<Map> findSimpleComm4SalesTop2() {
+		String hql = "select new map("
+				+ "c.id as commId, "
+				+ "c.brand as commBrand, "
+				+ "c.titleName as commTitle, "
+				+ "ce.id as commEntityId, "
+				+ "ce.myPrice as price, "
+				+ "ce.marketPrice as marketPrice, "
+				+ "ce.propty1 as prop1, "
+				+ "ce.propty2 as prop2, "
+				+ "img.url as mainUrl"
+		+ ") from CommodityBean as c "
+		+ "join c.commEntity as ce "
+		+ "join ce.images as img "
+		+ "where img.mainImage = true and img.serialNumber = 1 "
+		+ "order by ce.sales desc";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setFirstResult(0);
+		query.setMaxResults(2);
+		return query.list();
+	}
+	
+	
+
 }

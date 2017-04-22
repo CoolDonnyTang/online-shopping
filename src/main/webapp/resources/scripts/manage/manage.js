@@ -42,20 +42,42 @@ function disManageList(num) {
 		$("#commodityContent").hide();
 		$("#recommendContent").hide();
 		$("#recommendBrandContent").hide();
+		$("#recommendFoodContent").hide();
+		$("#adContent").hide();
 	} else if(num === 2) {
 		$("#kinds_content").hide();
 		$("#commodityContent").show();
 		$("#recommendContent").hide();
 		$("#recommendBrandContent").hide();
+		$("#recommendFoodContent").hide();
+		$("#adContent").hide();
 	} else if(num === 3) {
 		$("#kinds_content").hide();
 		$("#commodityContent").hide();
 		$("#recommendContent").show();
 		$("#recommendBrandContent").hide();
+		$("#recommendFoodContent").hide();
+		$("#adContent").hide();
 	} else if(num === 4) {
 		$("#kinds_content").hide();
 		$("#commodityContent").hide();
 		$("#recommendContent").hide();
 		$("#recommendBrandContent").show();
+		$("#recommendFoodContent").hide();
+		$("#adContent").hide();
+	} else if(num === 5) {
+		$("#kinds_content").hide();
+		$("#commodityContent").hide();
+		$("#recommendContent").hide();
+		$("#recommendBrandContent").hide();
+		$("#recommendFoodContent").show();
+		$("#adContent").hide();
+	} else if(num === 6) {
+		$("#kinds_content").hide();
+		$("#commodityContent").hide();
+		$("#recommendContent").hide();
+		$("#recommendBrandContent").hide();
+		$("#recommendFoodContent").hide();
+		$("#adContent").show();
 	}
 }

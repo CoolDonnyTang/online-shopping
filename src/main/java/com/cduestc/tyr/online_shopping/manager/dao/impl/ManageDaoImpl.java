@@ -12,10 +12,12 @@ import org.springframework.stereotype.Repository;
 
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
+import com.cduestc.tyr.online_shopping.beans.IndexAdImageBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendBrandBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean;
 import com.cduestc.tyr.online_shopping.manager.dao.ManageDao;
+import com.cduestc.tyr.online_shopping.utils.RecommendKind;
 
 @Repository
 public class ManageDaoImpl implements ManageDao {
@@ -97,6 +99,35 @@ public class ManageDaoImpl implements ManageDao {
 		Session session = sf.getCurrentSession();
 		Query query = session.createQuery(hql);
 		return query.list();
+	}
+
+	@Override
+	public void deleteRecommendEntitiesByRecommendType(RecommendKind recommendType) {
+		String hql = "from RecommendCommEntityBean where recommendType = ?";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setString(0, recommendType.toString());
+		List<RecommendCommEntityBean> list =  query.list();
+		for(RecommendCommEntityBean r : list) {
+			session.delete(r);
+		}
+	}
+
+	@Override
+	public void addAdImage(IndexAdImageBean adImage) {
+		Session session = sf.getCurrentSession();
+		session.save(adImage);
+	}
+
+	@Override
+	public void deleteAllAdImage() {
+		String hql = "from IndexAdImageBean";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		List<IndexAdImageBean> list = query.list();
+		for(IndexAdImageBean i : list) {
+			session.delete(i);
+		}
 	}
 	
 }

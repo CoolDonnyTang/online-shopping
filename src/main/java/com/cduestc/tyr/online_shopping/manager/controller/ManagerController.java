@@ -20,6 +20,7 @@ import com.cduestc.tyr.online_shopping.beans.CommodityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityImageBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityParamDetailBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityPropertyBean;
+import com.cduestc.tyr.online_shopping.beans.IndexAdImageBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendBrandBean;
 import com.cduestc.tyr.online_shopping.beans.ResultData;
@@ -186,8 +187,7 @@ public class ManagerController {
 	@RequestMapping("/addCommEntity.action")
 	@ResponseBody
 	public ResultData addCommodity(
-			@RequestParam(value = "file", required = false) MultipartFile file[],
-			CommEntityBean commEntity, String paramss, HttpServletRequest req) {
+			@RequestParam(value = "file", required = false) MultipartFile file[], CommEntityBean commEntity, String paramss, HttpServletRequest req) {
 		ResultData rd = new ResultData();
 		try {
 			// 获得物理路径webapp所在路径
@@ -356,6 +356,52 @@ public class ManagerController {
 				rb.setUrl(url);
 				rb.setRealPath(path);
 				service.addRecommendBrand(rb);
+			}
+			rd.setStatus(1);
+		} catch (Exception e) {
+			rd.setStatus(-1);
+			rd.setInfo("出现未知错误，添加失败");
+			e.printStackTrace();
+		}
+		return rd;
+	}
+	
+	@RequestMapping("/addAdImages.action")
+	@ResponseBody
+	public ResultData addAdImages(
+			@RequestParam(value = "file", required = false) MultipartFile file[], HttpServletRequest req) {
+		ResultData rd = new ResultData();
+		try {
+			//获得物理路径webapp所在路径
+			String pathRoot = req.getSession().getServletContext().getRealPath("");
+			String path = "";
+			String url = "";
+			long time = System.currentTimeMillis();
+			//删除原来的数据
+			service.deleteAllAdImage();
+			// 详情图片
+			for (MultipartFile mf : file) {
+				if (!mf.isEmpty() && mf.getContentType().matches("(?i)image/((jpg)|(gif)|(jpeg)|(png))")) {
+					// 获取文件后缀名
+					String imageType = mf.getContentType().substring(mf.getContentType().indexOf("/") + 1);
+					// 生成uuid作为文件名称
+					String uuid = UUID.randomUUID().toString()
+							.replaceAll("-", "");
+					path = File.separator + "commodityImages" + File.separator
+							+ "mainImags" + File.separator + uuid + "."
+							+ imageType;
+					url = req.getContextPath().replace("/", "\\") + path;
+					File file11 = new File(pathRoot, path);
+					if (!file11.exists()) {
+						file11.mkdirs();
+					}
+					mf.transferTo(file11);
+					IndexAdImageBean adImage = new IndexAdImageBean();
+					adImage.setRealPath(path);
+					adImage.setUrl(url);
+					adImage.setEntryTime(time);
+					service.addAdImage(adImage);
+				}
 			}
 			rd.setStatus(1);
 		} catch (Exception e) {

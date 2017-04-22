@@ -145,9 +145,9 @@ function loadRecommendBrand() {
 				//获取列表容器并清空商品列表
 				var $container = $("#recommendBrand").html("");
 				for(var i=0; i<data.length; i++) {
-					$commodity = $("<div class='col-sm-4 col-md-4 commodities-list'>" +
+					$commodity = $("<div class='col-sm-4 col-md-4 commodities-list brandClick'>" +
 										"<div class='thumbnail brandImage'>" +
-											"<img src='" + data[i].url + "' style='width:90%'/>" +
+											"<img src='" + data[i].url + "' style='width:100%'/>" +
 										"</div>" +
 									"</div>");
 					$commodity.data("id",data[i].id);
@@ -163,6 +163,159 @@ function loadRecommendBrand() {
 		},
 		type:"post",
 		url:"recommend/findRecommendBrand.action",
+	});
+	//绑定匹配图片的点击事件
+	$("#recommendBrand").on("click", ".brandImage", function(event) {
+		var $div = $(event.target).parents(".brandClick");
+//		console.log($div);
+//		alert($div.data("id"));
+		if(checkNum($div.data("id"))) {
+			window.location.href="commodity-list.html?" + window.btoa("brandId=" + $div.data("id"));
+		}
+	});
+}
+
+/**
+ * 加载销量前两名
+ * tangyanrentyr
+ * 2017年4月22日
+ */
+function loadSalesTop2() {
+	$.ajax({
+		data:"",
+		dataType:"json",
+		error:function() {
+			//$("#mainKinds").text("列表加载失败");
+			console.log("failed loadWeekSales");
+		},
+		success:function(result) {
+			console.log(result);
+			if(result.status === 1) {
+				var data = result.data;
+				//获取列表容器并清空商品列表
+				var $container = $("#weeklySales").html("");
+				for(var i=0; i<data.length; i++) {
+					$commodity = $("<div class='col-sm-6 col-md-6 commodities-list' >" + 
+									"<div class='thumbnail'>" + 
+										"<img src=" + data[i].mainUrl + " class='col-sm-12 col-md-12 list-image'>" + 
+										"<div class='caption commodity-dec'>" + 
+											"<a class='col-sm-12 col-md-12 header-link commodity-title'>" + data[i].commTitle + "</a>" + 
+											"<p class='col-sm-12 col-md-12 commBrand'>(" + data[i].commBrand + ": " + data[i].prop1 + " " + data[i].prop2 + ")</p>" + 
+											"<span class='price-now'>￥" + data[i].price + "</span> " + 
+											"<span class='price-original'>￥<s>" + data[i].marketPrice + "</s></span>" + 
+										"</div>" + 
+									"</div>" + 
+								"</div>");
+					$commodity.data("commId",data[i].commId);
+					$commodity.data("commEntityId",data[i].commEntityId);
+					$container.append($commodity);
+				}
+				//获取商品列表下的所有图片
+				var $images = $("#weeklySales img");
+				for(var j=0; j<$images.length; j++) {
+					var iwidth = $images.eq(j).width();
+					$images.eq(j).height(iwidth);
+				}
+			}
+		},
+		type:"post",
+		url:"comm/weeklySales.action",
+	});
+}
+
+/**
+ * 加载爱购吃货商品列表
+ * tangyanrentyr
+ * 2017年4月21日
+ */
+function loadRecommendFood() {
+	$.ajax({
+		data:{recommendType:2},
+		dataType:"json",
+		error:function() {
+			//$("#mainKinds").text("列表加载失败");
+			console.log("123");
+		},
+		success:function(result) {
+			console.log(result);
+			if(result.status === 1) {
+				var data = result.data;
+				//获取列表容器并清空商品列表
+				var $container = $("#recommendFood").html("");
+				for(var i=0; i<data.length; i++) {
+					$commodity = $("<div class='col-sm-6 col-md-6 commodities-list' >" + 
+									"<div class='thumbnail'>" + 
+										"<img src=" + data[i].mainUrl + " class='col-sm-12 col-md-12 list-image'>" + 
+										"<div class='caption commodity-dec'>" + 
+											"<a class='col-sm-12 col-md-12 header-link commodity-title'>" + data[i].commTitle + "</a>" + 
+											"<p class='col-sm-12 col-md-12 commBrand'>(" + data[i].commBrand + ": " + data[i].prop1 + " " + data[i].prop2 + ")</p>" + 
+											"<span class='price-now'>￥" + data[i].price + "</span> " + 
+											"<span class='price-original'>￥<s>" + data[i].marketPrice + "</s></span>" + 
+										"</div>" + 
+									"</div>" + 
+								"</div>");
+					$commodity.data("commId",data[i].commId);
+					$commodity.data("commEntityId",data[i].commEntityId);
+					$container.append($commodity);
+				}
+				//获取商品列表下的所有图片
+				var $images = $("#recommendFood img");
+				for(var j=0; j<$images.length; j++) {
+					var iwidth = $images.eq(j).width();
+					$images.eq(j).height(iwidth);
+				}
+			}
+		},
+		type:"post",
+		url:"recommend/findRecommend.action",
+	});
+}
+
+/**
+ * 
+ * tangyanrentyr
+ * 2017年4月22日
+ */
+function loadIndexAdImage() {
+	$.ajax({
+		data:"",
+		dataType:"json",
+		error:function() {
+			//$("#mainKinds").text("列表加载失败");
+			console.log("``123");
+		},
+		success:function(result) {
+			console.log(result);
+			if(result.status === 1) {
+				var data = result.data;
+				//获取广告图片选择容器并清空商品列表
+				var $ul = $("#checkAdImage").html("");
+				//获取广告图片列表容器并清空商品列表
+				var $container = $("#adImageContainer").html("");
+				
+				var $image;
+				var $li;
+				for(var i=0; i<data.length; i++) {
+					if(i===0) {
+						$image = $("<div class='item active' style='height:100%'>" + 
+										"<a href='#' class='thumbnail activity-link' style='height:100%'> <img src='" + data[i].url + "' style='height:100%'>" +
+									"</a>" +
+								"</div>");
+						$li = $("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class='active'></li>");
+					} else {
+						$image = $("<div class='item' style='height:100%'>" + 
+										"<a href='#' class='thumbnail activity-link' style='height:100%'> <img src='" + data[i].url + "' style='height:100%'>" +
+									"</a>" +
+								"</div>");
+						$li = $("<li data-target='#carousel-example-generic' data-slide-to='" + i + "'></li>");
+					}
+					$ul.append($li);
+					$container.append($image);
+				}
+			}
+		},
+		type:"post",
+		url:"indexAdImage.action",
 	});
 }
 

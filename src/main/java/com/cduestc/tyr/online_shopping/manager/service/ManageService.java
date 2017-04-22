@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
+import com.cduestc.tyr.online_shopping.beans.IndexAdImageBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendBrandBean;
 import com.cduestc.tyr.online_shopping.manager.beans.Message4AddCommEntityPOJO;
@@ -20,4 +21,6 @@ public interface ManageService {
 	public int addRecommendEntity(Integer ids[], Integer recommendType);
 	public void addRecommendBrand(RecommendBrandBean recommendBrand);
 	public List<String> queryAllBrandNameFromCommModel();
+	public void addAdImage(IndexAdImageBean adImage);
+	public void deleteAllAdImage();
 }

@@ -29,6 +29,8 @@
 				  <li class="list-group-item list-1">添加商品</li>
 				  <li class="list-group-item list-1">更新今日推荐</li>
 				  <li class="list-group-item list-1">更新经典品牌</li>
+				  <li class="list-group-item list-1">更新爱购吃货</li>
+				  <li class="list-group-item list-1">更新首页广告区</li>
 				  <li class="list-group-item list-1">Porta ac consectetur ac</li>
 				  <li class="list-group-item list-1">Vestibulum at eros</li>
 				</ul>
@@ -322,6 +324,40 @@
 					</form>
 					<button type="button" class="btn btn-danger col-md-3" id="submitRecommendBrand">提交</button>
 				</div>
+				<!-- 更新爱购吃货栏 -->
+				<div class="kinds-content" id="recommendFoodContent">
+					<form action="manage/addCommodity.action"  id="recommandFoodList" method="post" enctype="multipart/form-data">
+						<div class="form-group">
+						    <label for="food1">商品一id</label>
+						    <input type="text" class="form-control" id="food1" name="commEntityId">
+						</div>
+						<hr>
+						<div class="form-group">
+						    <label for="food2">商品二id</label>
+						    <input type="text" class="form-control" id="food2" name="commEntityId">
+						</div>
+					</form>
+					<button type="button" class="btn btn-danger col-md-3" id="submitRecommendFoodCommEntityId">提交</button>
+				</div>
+				<!-- 更新首页广告区 -->
+				<div class="kinds-content" id="adContent">
+					<form action="manage/addCommodity.action"  id="adImageForm" method="post" enctype="multipart/form-data">
+						<div class="form-group" id="adImageList">
+							<label for="mainImage1">广告图片</label>
+						    <input type="file" name="file" class="mainImage">
+						    <label class="sr-only" for="mainImage2">File input</label>
+						    <input type="file" name="file" class="mainImage">
+						    <label class="sr-only" for="mainImage3">File input</label>
+						    <input type="file" name="file" class="mainImage">
+						    <label class="sr-only" for="mainImage4">File input</label>
+						    <input type="file" name="file" class="mainImage">
+						    <label class="sr-only" for="mainImage5">File input</label>
+						    <input type="file" name="file" class="mainImage">
+						    <p class="help-block">请上传1:2比例图片</p>
+						</div>
+					</form>
+					<button type="button" class="btn btn-danger col-md-3" id="submitAdImage">提交</button>
+				</div>
 			</div>
 		</div>
 		<hr/>
@@ -351,6 +387,12 @@
 					break;
 				case "更新经典品牌":
 					disManageList(4);
+					break;
+				case "更新爱购吃货":
+					disManageList(5);
+					break;
+				case "更新首页广告区":
+					disManageList(6);
 					break;
 				}
 			});
@@ -1100,7 +1142,6 @@ console.log(id);
 		                if(result.status === 1) {
 		                	alert("添加成功");
 		                }
-		                alert(result.info);
 		            }
 				});
 			});
@@ -1138,6 +1179,68 @@ console.log(id);
 				var data =  new FormData($("#recommandBrand").get(0));
 				$.ajax({
 					url: "manage/addRecommendBrand.action",
+		            type: "post",
+		            data: data,
+		            cache: false,
+		            contentType: false,    //不可缺
+		            processData: false,    //不可缺
+		            error: function() {
+		            	alert("连接服务器失败");
+		            },
+		            success:function(result){
+		                if(result.status === 1) {
+		                	//成功则清除键入的信息
+		                	alert("添加成功");
+		                }
+		            }
+				});
+			});
+			
+			//提交爱购吃货商品的id
+			$("#submitRecommendFoodCommEntityId").click(function() {
+				var data = [];
+				var $input = $("#recommandFoodList input");
+				var valueId;
+				for(var i=0; i<$input.length; i++) {
+					valueId = $input.eq(i).val().trim();
+					if(!checkNum(valueId)){
+						alert("存在非法的输入id");
+						return;
+					}
+					data.push(valueId);
+				}
+				console.log(data);
+				$.ajax({
+					url: "manage/addRcommendCommEntity.action",
+		            type: "post",
+		            data: {ids:data, recommendType:2},
+		            error: function() {
+		            	alert("连接服务器失败11");
+		            },
+		            success:function(result){
+		                if(result.status === 1) {
+		                	alert("添加成功");
+		                }
+		            }
+				});
+			});
+			
+			//提交首页广告图片
+			$("#submitAdImage").click(function(){
+				var flag = false;
+				var $input = $("#adImageList input");
+				for(var i=0; i<$input.length; i++) {
+					if($input.eq(i).val().trim() !== "") {
+						flag = true;
+					}
+				}
+				if(!flag) {
+					alert("请至少选择一张图片");
+					return;
+				}
+				var data = new FormData($("#adImageForm").get(0));
+				$.ajax({
+					url: "manage/addAdImages.action",
 		            type: "post",
 		            data: data,
 		            cache: false,

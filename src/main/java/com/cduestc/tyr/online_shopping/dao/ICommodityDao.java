@@ -37,5 +37,32 @@ public interface ICommodityDao {
 	 * @return
 	 */
 	public List<Map> findSimpleCommByRecommendType(RecommendKind recommendType);
+	/**
+	 * 根据推荐品牌的id找出实体，实际上是根据推荐品牌的名字查找的
+	 * @author tangyanrentyr
+	 * @2017年4月22日 2017年4月22日
+	 * @param RecommendBrandId
+	 * @return
+	 */
+	public List<Map> findSimpleCommByRecommendBrandId(int RecommendBrandId, int firstResult, int pageSize);
+	/**
+	 * 找到近销量最好的两个商品的模板和实体
+	 * @author tangyanrentyr
+	 * @2017年4月22日 2017年4月22日
+	 * @return
+	 */
+	public List<Map> findSimpleComm4SalesTop2();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

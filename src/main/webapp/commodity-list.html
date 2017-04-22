@@ -231,8 +231,22 @@
 			//获取url后面的参数
 			var urlParam = window.atob(window.location.search.replace("?", ""))
 			var data = {};
-			data[urlParam.substring(0, urlParam.indexOf("=")).trim()] = urlParam.substring(urlParam.indexOf("=") + 1).trim();
-console.log(data);
+			//data[urlParam.substring(0, urlParam.indexOf("=")).trim()] = urlParam.substring(urlParam.indexOf("=") + 1).trim();
+console.log(urlParam);
+
+			if(getStringByReg(urlParam, /mainKindId=(\d+)/) !== null) {
+				//console.log(getStringByReg(urlParam, /mainKindId=(\d+)/));
+				data["mainKindId"] = getStringByReg(urlParam, /mainKindId=(\d+)/);
+			} else if(getStringByReg(urlParam, /subKindId=(\d+)/) !== null) {
+				//console.log(getStringByReg(urlParam, /subKindId=(\d+)/));
+				data["subKindId"] = getStringByReg(urlParam, /subKindId=(\d+)/);
+			} else if(getStringByReg(urlParam, /brandId=(\d+)/) !== null) {
+				//console.log(getStringByReg(urlParam, /brandId=(\d+)/));
+				data["brandId"] = getStringByReg(urlParam, /brandId=(\d+)/);
+			} else if(getStringByReg(urlParam, /nameKey=(\d+)/) !== null) {
+				//console.log(getStringByReg(urlParam, /nameKey=(\d+)/));
+				data["nameKey"] = getStringByReg(urlParam, /nameKey=(\d+)/);
+			}
 			//发送请求加载数据
 			$.ajax({
 				data:data,
@@ -241,13 +255,14 @@ console.log(data);
 					alert("连接服务器失败");
 				},
 				success:function(result) {
-					if(result.status === 1) {
-console.log(result.data);
+					if(result.status === 1) {				
 						var data = result.data;
 						var $commodity;
 						//获取列表容器并清空商品列表
 						var $container = $("#commoditiesList").html("");
-						
+						if(result.data === null) {
+							return;
+						}
 						for(var i=0; i<data.length; i++) {
 							$commodity = $("<div class='col-sm-3 col-md-3 commodities-list' >" + 
 											"<div class='thumbnail'>" + 
@@ -271,7 +286,7 @@ console.log(result.data);
 							$images.eq(j).height(iwidth);
 						}
 					} else {
-						alert(result.info);
+						//alert(result.info);
 					}
 				},
 				type:"post",

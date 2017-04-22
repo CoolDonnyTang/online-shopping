@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
+import com.cduestc.tyr.online_shopping.beans.ResultData;
 import com.cduestc.tyr.online_shopping.dao.ICommodityDao;
 import com.cduestc.tyr.online_shopping.service.ICommodityService;
 
@@ -25,6 +26,8 @@ public class CommodityServiceImpl implements ICommodityService {
 			return dao.findSimpleCommBySubKindId((int) map.get("subKindId"), firstResult, pageSize);
 		} else if(map.get("nameKey") != null) {
 			
+		} else if(map.get("brandId") != null) {
+			return dao.findSimpleCommByRecommendBrandId((int)map.get("brandId"), firstResult, pageSize);
 		}
 		return null;
 	}
@@ -33,5 +36,12 @@ public class CommodityServiceImpl implements ICommodityService {
 	public CommodityBean findCommModelAndEntity(int commId) {
 		return dao.findCommModelAndEntityById(commId);
 	}
+
+	@Override
+	public List<Map> findSalesTopCommModleAndCommEntity() {
+		return dao.findSimpleComm4SalesTop2();
+	}
+
+	
 
 }

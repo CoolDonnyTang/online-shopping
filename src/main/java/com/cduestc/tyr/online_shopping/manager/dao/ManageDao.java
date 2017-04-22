@@ -5,9 +5,11 @@ import java.util.Map;
 
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
+import com.cduestc.tyr.online_shopping.beans.IndexAdImageBean;
 import com.cduestc.tyr.online_shopping.beans.KindBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendBrandBean;
 import com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean;
+import com.cduestc.tyr.online_shopping.utils.RecommendKind;
 
 public interface ManageDao {
 	public void addMainKind(KindBean kind);
@@ -39,4 +41,29 @@ public interface ManageDao {
 	 * @return
 	 */
 	public List<String> queryAllBrandNameFromCommModel();
+	/**
+	 * 根据推荐类别删除该推荐类别下的推荐数据
+	 * @author tangyanrentyr
+	 * @2017年4月22日 2017年4月22日
+	 * @param recommendType
+	 */
+	public void deleteRecommendEntitiesByRecommendType(RecommendKind recommendType);
+	/**
+	 * 添加首页广告图片
+	 * @author tangyanrentyr
+	 * @2017年4月22日 2017年4月22日
+	 * @param adImage
+	 */
+	public void addAdImage(IndexAdImageBean adImage);
+	/**
+	 * 删除所有首页广告数据
+	 * @author tangyanrentyr
+	 * @2017年4月22日 2017年4月22日
+	 */
+	public void deleteAllAdImage();
+	
+	
+	
+	
+	
 }

@@ -21,13 +21,14 @@ public class CommodityController {
 	
 	@RequestMapping("/findComm.action")
 	@ResponseBody
-	public ResultData findCommdity(Integer mainKindId, Integer subKindId, String nameKey, Integer page) {
+	public ResultData findCommdity(Integer mainKindId, Integer subKindId, String nameKey, Integer brandId, Integer page) {
 		ResultData result = new ResultData();
 		try {
 			Map map = new HashMap();
 			map.put("mainKindId", mainKindId);
 			map.put("subKindId", subKindId);
 			map.put("nameKey", nameKey);
+			map.put("brandId", brandId);
 			if(null == page) {
 				page = 1;
 			}
@@ -67,6 +68,22 @@ public class CommodityController {
 		ResultData result = new ResultData();
 		try {
 			result.setData(service.findCommModelAndEntity(commId));
+			result.setInfo("success");
+			result.setStatus(1);
+		} catch(Exception e) {
+			result.setStatus(-1);
+			result.setInfo("服务器出现了一个异常");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@RequestMapping("/weeklySales.action")
+	@ResponseBody
+	public ResultData findSalesTopCommModleAndCommEntity() {
+		ResultData result = new ResultData();
+		try {
+			result.setData(service.findSalesTopCommModleAndCommEntity());
 			result.setInfo("success");
 			result.setStatus(1);
 		} catch(Exception e) {

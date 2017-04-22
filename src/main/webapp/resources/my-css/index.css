@@ -143,5 +143,7 @@ div {
 .brandImage {
 	margin:0 !important;
 }
-
+.brandImage:HOVER {
+	cursor: pointer;
+}
 

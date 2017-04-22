@@ -54,7 +54,6 @@ function checkNum4(data) {
 	var reg = /^[1-9]\d{0,3}$/;
 	return reg.test(data);
 }
-///未完成
 function checkBigDicemal(checkCode) {
 	if(checkCode===null || checkCode===undefined) {
 		return false
@@ -62,3 +61,31 @@ function checkBigDicemal(checkCode) {
 	var reg = /^((0\.(\d|\d{2}))|([1-9]\d{0,9})|([1-9]\d{0,9}\.(\d|\d{2}))|(0))$/;
 	return reg.test(checkCode);
 }
+/**
+ * 根据正则表达式获取字符串
+ * tangyanrentyr
+ * 2017年4月22日
+ * @param data
+ * @param reg
+ * @returns
+ */
+function getStringByReg(data, reg) {
+	if(data.match(reg)===null) {
+		return null;
+	}
+	return data.match(reg)[1];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
