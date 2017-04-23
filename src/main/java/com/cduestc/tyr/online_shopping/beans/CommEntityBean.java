@@ -31,6 +31,7 @@ public class CommEntityBean {
 	private Integer entryId;
 	private Long entryTime;
 	private Long lastChangeTime;
+	private String searchKey;
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "belongCommEntityId")
@@ -92,6 +93,12 @@ public class CommEntityBean {
 	}
 	public void setLastChangeTime(Long lastChangeTime) {
 		this.lastChangeTime = lastChangeTime;
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
 	}
 	public Set<CommodityParamDetailBean> getParams() {
 		return params;

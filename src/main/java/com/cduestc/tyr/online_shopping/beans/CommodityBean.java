@@ -43,7 +43,8 @@ public class CommodityBean implements Serializable{
 	@Fetch(FetchMode.JOIN)
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "belongCommId")
-	private Set<CommEntityBean> commEntity; //商品实体
+	private Set<CommEntityBean> commEntity; //商品实体 
+	
 	public Integer getId() {
 		return id;
 	}
