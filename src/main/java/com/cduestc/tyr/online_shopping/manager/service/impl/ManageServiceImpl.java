@@ -215,6 +215,11 @@ public class ManageServiceImpl implements ManageService {
 		//先删广告图片数据
 		dao.deleteAllAdImage();
 	}
+
+	@Override
+	public int generateSearchKey(String type) {
+		return dao.generateSearchKey(type);
+	}
 	
 	
 }

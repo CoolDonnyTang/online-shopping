@@ -224,12 +224,13 @@
 	<script src="resources/plugins/jquery-2.2.4.min.js"></script>
 	<script src="resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="resources/scripts/my-utils.js"></script>
+	<script src="resources/scripts/base.js"></script>
 	<script type="text/javascript"
 		src="//at.alicdn.com/t/font_zcsipz08mj0b2o6r.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			//获取url后面的参数
-			var urlParam = window.atob(window.location.search.replace("?", ""))
+			var urlParam = window.decodeURIComponent(window.atob(window.location.search.replace("?", "")));
 			var data = {};
 			//data[urlParam.substring(0, urlParam.indexOf("=")).trim()] = urlParam.substring(urlParam.indexOf("=") + 1).trim();
 console.log(urlParam);
@@ -243,9 +244,9 @@ console.log(urlParam);
 			} else if(getStringByReg(urlParam, /brandId=(\d+)/) !== null) {
 				//console.log(getStringByReg(urlParam, /brandId=(\d+)/));
 				data["brandId"] = getStringByReg(urlParam, /brandId=(\d+)/);
-			} else if(getStringByReg(urlParam, /nameKey=(\d+)/) !== null) {
-				//console.log(getStringByReg(urlParam, /nameKey=(\d+)/));
-				data["nameKey"] = getStringByReg(urlParam, /nameKey=(\d+)/);
+			} else if(getStringByReg(urlParam, /nameKey=(.+)/) !== null) {
+				console.log(getStringByReg(urlParam, /nameKey=(.+)/));
+				data["nameKey"] = getStringByReg(urlParam, /nameKey=(.+)/);
 			}
 			//发送请求加载数据
 			$.ajax({

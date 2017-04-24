@@ -158,6 +158,38 @@ public class CommodityDaoImpl implements ICommodityDao {
 		query.setMaxResults(2);
 		return query.list();
 	}
+
+	@Override
+	public List<Map> findSimpleCommBySearchKey(String[] key, int firstResult, int pageSize) {
+		//搜索条件
+		String condition = "";
+		for(int i=0; i<key.length; i++) {
+			condition += " and ce.searchKey like ? ";
+		}
+		String hql = "select new map("
+				+ "c.id as commId, "
+				+ "c.brand as commBrand, "
+				+ "c.titleName as commTitle, "
+				+ "ce.id as commEntityId, "
+				+ "ce.myPrice as price, "
+				+ "ce.marketPrice as marketPrice, "
+				+ "ce.propty1 as prop1, "
+				+ "ce.propty2 as prop2, "
+				+ "img.url as mainUrl"
+		+ ") from CommodityBean as c "
+		+ "join c.commEntity as ce "
+		+ "join ce.images as img "
+		+ "where img.mainImage = true and img.serialNumber = 1 " + condition;
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		//遍历加入收索条件
+		for(int i=0; i<key.length; i++) {
+			query.setString(i, "%"+key[i]+"%");
+		}
+		query.setFirstResult(firstResult);
+		query.setMaxResults(pageSize);
+		return query.list();
+	}
 	
 	
 

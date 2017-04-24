@@ -61,8 +61,14 @@ public interface ManageDao {
 	 * @2017年4月22日 2017年4月22日
 	 */
 	public void deleteAllAdImage();
-	
-	
+	/**
+	 * 生成搜索关键字
+	 * @author tangyanrentyr
+	 * @2017年4月24日 2017年4月24日
+	 * @param type null:只生成没有关键字的实体 other:重新生成所有实体的关键字
+	 * @return
+	 */
+	public int generateSearchKey(String type);
 	
 	
 	

@@ -31,7 +31,7 @@
 				  <li class="list-group-item list-1">更新经典品牌</li>
 				  <li class="list-group-item list-1">更新爱购吃货</li>
 				  <li class="list-group-item list-1">更新首页广告区</li>
-				  <li class="list-group-item list-1">Porta ac consectetur ac</li>
+				  <li class="list-group-item list-1">生成搜索关键字</li>
 				  <li class="list-group-item list-1">Vestibulum at eros</li>
 				</ul>
 			</div>
@@ -271,7 +271,7 @@
 				</div><!-- 添加商品结束 -->
 				<!-- 更新今日推荐 -->
 				<div class="kinds-content" id="recommendContent">
-					<form action="manage/addCommodity.action"  id="recommandList" method="post" enctype="multipart/form-data">
+					<form id="recommandList" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 						    <label for="commentity1">商品一id</label>
 						    <input type="text" class="form-control" id="commentity1" name="commEntityId">
@@ -306,7 +306,7 @@
 				</div>
 				<!-- 更新经典品牌 -->
 				<div class="kinds-content" id="recommendBrandContent">
-					<form action="manage/addCommodity.action"  id="recommandBrand" method="post" enctype="multipart/form-data">
+					<form id="recommandBrand" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 						    <label for="randName" id="popLable2">品牌名称</label>
 						    <select class="form-control" id="randName" name="brandName">
@@ -326,7 +326,7 @@
 				</div>
 				<!-- 更新爱购吃货栏 -->
 				<div class="kinds-content" id="recommendFoodContent">
-					<form action="manage/addCommodity.action"  id="recommandFoodList" method="post" enctype="multipart/form-data">
+					<form id="recommandFoodList" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 						    <label for="food1">商品一id</label>
 						    <input type="text" class="form-control" id="food1" name="commEntityId">
@@ -341,7 +341,7 @@
 				</div>
 				<!-- 更新首页广告区 -->
 				<div class="kinds-content" id="adContent">
-					<form action="manage/addCommodity.action"  id="adImageForm" method="post" enctype="multipart/form-data">
+					<form id="adImageForm" method="post" enctype="multipart/form-data">
 						<div class="form-group" id="adImageList">
 							<label for="mainImage1">广告图片</label>
 						    <input type="file" name="file" class="mainImage">
@@ -357,6 +357,11 @@
 						</div>
 					</form>
 					<button type="button" class="btn btn-danger col-md-3" id="submitAdImage">提交</button>
+				</div>
+				<!-- 生成搜索关键字 -->
+				<div class="kinds-content" id="searchKeyContent">
+					<button type="button" class="btn btn-danger col-md-3  searchKey" id="allSearchKey" value=1>生成所有关键字</button>
+					<button type="button" class="btn btn-danger col-md-3 col-md-offset-1 searchKey" id="someSearchKey" value=null>生成为空关键字</button>
 				</div>
 			</div>
 		</div>
@@ -393,6 +398,9 @@
 					break;
 				case "更新首页广告区":
 					disManageList(6);
+					break;
+				case "生成搜索关键字":
+					disManageList(7);
 					break;
 				}
 			});
@@ -1257,6 +1265,30 @@ console.log(id);
 		            }
 				});
 			});
+			
+			//生成搜索关键字的按钮点击事件
+			$(".searchKey").click(function(event){
+				var $target = $(event.target);
+				console.log($target.val());
+				$.ajax({
+					url: "manage/generateSearchKey.action",
+		            type: "post",
+		            data: {type:$target.val()},
+		            error: function() {
+		            	alert("连接服务器失败");
+		            },
+		            success:function(result){
+		                if(result.status === 1) {
+		                	//成功则清除键入的信息
+		                	alert("添加成功");
+		                } else {
+		                	alert(result.info);
+		                }
+		            }
+				});
+			});
+			
+			
 			
 		});
 	</script>

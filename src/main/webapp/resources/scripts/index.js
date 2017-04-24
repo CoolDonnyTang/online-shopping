@@ -68,12 +68,12 @@ function kindLoadAndOperation() {
 	//注册主类单击事件
 	$("#mainKindsList").on("click","li",function(event) {
 		var $target = $(event.target);
-		window.location.href="commodity-list.html?" + window.btoa("mainKindId=" + $target.data("id"));
+		window.location.href="commodity-list.html?" + window.btoa(window.encodeURIComponent("mainKindId=" + $target.data("id")));
 	});
 	//注册子类单击事件
 	$("#subKindsList").on("click","li",function(event) {
 		var $target = $(event.target);
-		window.location.href="commodity-list.html?" + window.btoa("subKindId=" + $target.data("id"));
+		window.location.href="commodity-list.html?" + window.btoa(window.encodeURIComponent("subKindId=" + $target.data("id")));
 	});
 }
 
@@ -170,7 +170,7 @@ function loadRecommendBrand() {
 //		console.log($div);
 //		alert($div.data("id"));
 		if(checkNum($div.data("id"))) {
-			window.location.href="commodity-list.html?" + window.btoa("brandId=" + $div.data("id"));
+			window.location.href="commodity-list.html?" + window.btoa(window.encodeURIComponent("brandId=" + $div.data("id")));
 		}
 	});
 }

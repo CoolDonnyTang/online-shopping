@@ -23,4 +23,5 @@ public interface ManageService {
 	public List<String> queryAllBrandNameFromCommModel();
 	public void addAdImage(IndexAdImageBean adImage);
 	public void deleteAllAdImage();
+	public int generateSearchKey(String type);
 }

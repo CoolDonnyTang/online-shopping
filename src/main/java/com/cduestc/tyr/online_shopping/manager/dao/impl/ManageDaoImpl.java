@@ -1,5 +1,9 @@
 package com.cduestc.tyr.online_shopping.manager.dao.impl;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +12,7 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.jdbc.Work;
 import org.springframework.stereotype.Repository;
 
 import com.cduestc.tyr.online_shopping.beans.CommEntityBean;
@@ -128,6 +133,28 @@ public class ManageDaoImpl implements ManageDao {
 		for(IndexAdImageBean i : list) {
 			session.delete(i);
 		}
+	}
+
+	@Override
+	public int generateSearchKey(final String type) {
+		Session session = sf.getCurrentSession();
+		final Map<String,Integer> result = new HashMap<String, Integer>();
+		session.doWork(new Work() {
+			@Override
+			public void execute(Connection conn) throws SQLException {
+				CallableStatement proc = null;
+				proc = conn.prepareCall("{call excute_search_key(?, ?)}");
+				//传递输入参数
+				proc.setString(1, type);
+				//注册输出参数
+				proc.registerOutParameter(2, java.sql.Types.INTEGER);
+				//执行存储过程
+				proc.execute();				
+				//获取返回值
+				result.put("success_flag", proc.getInt("success_flag"));
+			}
+		});
+		return result.get("success_flag");
 	}
 	
 }

@@ -101,7 +101,7 @@
 			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="remove*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
-			
+			<tx:method name="generate*" propagation="REQUIRED" />
 		</tx:attributes>
 	</tx:advice>
 	<!-- 事务切入点 -->

@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE PROCEDURE excute_search_key(IN excute_all INT, success_flag INT)
+CREATE PROCEDURE excute_search_key(IN excute_all VARCHAR(10), OUT success_flag INT)
 BEGIN
 	DECLARE counter INT;
 	DECLARE comm_entity_id INT;

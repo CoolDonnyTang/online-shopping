@@ -52,8 +52,14 @@ public interface ICommodityDao {
 	 * @return
 	 */
 	public List<Map> findSimpleComm4SalesTop2();
-	
-	
+	/**
+	 * 根据关键字搜索到商品
+	 * @author tangyanrentyr
+	 * @2017年4月24日 2017年4月24日
+	 * @param key
+	 * @return
+	 */
+	public List<Map> findSimpleCommBySearchKey(String[] key, int firstResult, int pageSize);
 	
 	
 	

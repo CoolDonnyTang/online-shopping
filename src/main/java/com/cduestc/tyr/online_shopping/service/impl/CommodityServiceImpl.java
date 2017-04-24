@@ -25,7 +25,11 @@ public class CommodityServiceImpl implements ICommodityService {
 		} else if(map.get("subKindId") != null) {
 			return dao.findSimpleCommBySubKindId((int) map.get("subKindId"), firstResult, pageSize);
 		} else if(map.get("nameKey") != null) {
-			
+			String[] key = ((String)map.get("nameKey")).split("\\s+");
+			if(key.length>0) {
+				return dao.findSimpleCommBySearchKey(key, firstResult, pageSize);
+			}
+			return null;
 		} else if(map.get("brandId") != null) {
 			return dao.findSimpleCommByRecommendBrandId((int)map.get("brandId"), firstResult, pageSize);
 		}

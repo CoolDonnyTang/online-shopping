@@ -44,6 +44,7 @@ function disManageList(num) {
 		$("#recommendBrandContent").hide();
 		$("#recommendFoodContent").hide();
 		$("#adContent").hide();
+		$("#searchKeyContent").hide();
 	} else if(num === 2) {
 		$("#kinds_content").hide();
 		$("#commodityContent").show();
@@ -51,6 +52,7 @@ function disManageList(num) {
 		$("#recommendBrandContent").hide();
 		$("#recommendFoodContent").hide();
 		$("#adContent").hide();
+		$("#searchKeyContent").hide();
 	} else if(num === 3) {
 		$("#kinds_content").hide();
 		$("#commodityContent").hide();
@@ -58,6 +60,7 @@ function disManageList(num) {
 		$("#recommendBrandContent").hide();
 		$("#recommendFoodContent").hide();
 		$("#adContent").hide();
+		$("#searchKeyContent").hide();
 	} else if(num === 4) {
 		$("#kinds_content").hide();
 		$("#commodityContent").hide();
@@ -65,6 +68,7 @@ function disManageList(num) {
 		$("#recommendBrandContent").show();
 		$("#recommendFoodContent").hide();
 		$("#adContent").hide();
+		$("#searchKeyContent").hide();
 	} else if(num === 5) {
 		$("#kinds_content").hide();
 		$("#commodityContent").hide();
@@ -72,6 +76,7 @@ function disManageList(num) {
 		$("#recommendBrandContent").hide();
 		$("#recommendFoodContent").show();
 		$("#adContent").hide();
+		$("#searchKeyContent").hide();
 	} else if(num === 6) {
 		$("#kinds_content").hide();
 		$("#commodityContent").hide();
@@ -79,5 +84,14 @@ function disManageList(num) {
 		$("#recommendBrandContent").hide();
 		$("#recommendFoodContent").hide();
 		$("#adContent").show();
+		$("#searchKeyContent").hide();
+	} else if(num === 7) {
+		$("#kinds_content").hide();
+		$("#commodityContent").hide();
+		$("#recommendContent").hide();
+		$("#recommendBrandContent").hide();
+		$("#recommendFoodContent").hide();
+		$("#adContent").hide();
+		$("#searchKeyContent").show();
 	}
 }

@@ -411,5 +411,19 @@ public class ManagerController {
 		}
 		return rd;
 	}
-
+	
+	@RequestMapping("/generateSearchKey.action")
+	@ResponseBody
+	public ResultData generateSearchKey(String type) {
+		System.out.println(type);
+		ResultData rd = new ResultData();
+		try {
+			rd.setStatus(service.generateSearchKey(type));
+		} catch (Exception e) {
+			rd.setStatus(-1);
+			rd.setInfo("出现未知错误，添加失败");
+			e.printStackTrace();
+		}
+		return rd;
+	}
 }
