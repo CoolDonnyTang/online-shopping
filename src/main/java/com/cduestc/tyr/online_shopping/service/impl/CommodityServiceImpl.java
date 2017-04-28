@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.cduestc.tyr.online_shopping.beans.CommodityBean;
-import com.cduestc.tyr.online_shopping.beans.ResultData;
 import com.cduestc.tyr.online_shopping.dao.ICommodityDao;
 import com.cduestc.tyr.online_shopping.service.ICommodityService;
 

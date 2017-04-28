@@ -59,9 +59,9 @@ public class UserDao implements IUserDao {
 		if((null!=user.getPassword()) && (user.getPassword().equals(oldUser.getPassword()))) {
 			return -1;
 		}
-		user.setId(oldUser.getId());
+		oldUser.setPassword(user.getPassword());
 		Session session = sf.getCurrentSession();
-		session.merge(user);
+		session.update(oldUser);
 		return 1;
 	}
 

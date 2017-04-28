@@ -582,7 +582,7 @@
 						return;
 					}
 					var num = parseInt($("#amountInput").val());
-					if(num>=$("#commInventory").text()) {
+					if(num>$("#commInventory").text()) {
 						disMessage("数量不能大于库存");
 						return;
 					}
@@ -601,7 +601,7 @@
 						return;
 					}
 					var num = parseInt($("#amountInput").val());
-					if(num<=1) {
+					if(num<1) {
 						disMessage("数量不能小于 1");
 						return;
 					}
@@ -625,6 +625,18 @@
 				}
 				if(!checkNum(amount)) {
 					disMessage("请输入正确的数量");
+					return;
+				}
+				if(amount<1) {
+					disMessage("数量不能小于 1");
+					return;
+				}
+				if(amount>$("#commInventory").text()) {
+					disMessage("数量不能大于库存");
+					return;
+				}
+				if(amount>=9999) {
+					disMessage("数量不能大于 9999");
 					return;
 				}
 				var param = window.btoa("commEntityId=" + commEntityId + "&amount=" + amount);
