@@ -298,13 +298,13 @@ function loadIndexAdImage() {
 				for(var i=0; i<data.length; i++) {
 					if(i===0) {
 						$image = $("<div class='item active' style='height:100%'>" + 
-										"<a href='#' class='thumbnail activity-link' style='height:100%'> <img src='" + data[i].url + "' style='height:100%'>" +
+										"<a href='#' class='thumbnail activity-link' style='height:100%'> <img src='" + data[i].url + "' style='height:100%;width:100%'>" +
 									"</a>" +
 								"</div>");
 						$li = $("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class='active'></li>");
 					} else {
 						$image = $("<div class='item' style='height:100%'>" + 
-										"<a href='#' class='thumbnail activity-link' style='height:100%'> <img src='" + data[i].url + "' style='height:100%'>" +
+										"<a href='#' class='thumbnail activity-link' style='height:100%'> <img src='" + data[i].url + "' style='height:100%;width:100%'>" +
 									"</a>" +
 								"</div>");
 						$li = $("<li data-target='#carousel-example-generic' data-slide-to='" + i + "'></li>");
