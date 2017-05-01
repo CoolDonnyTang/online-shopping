@@ -110,7 +110,15 @@ public class SendEmail {
 		}
 		return 1;
 	}
-	
+	/**
+	 * 本应用邮箱验证码使用点
+	 * @author tangyanrentyr
+	 * @2017年5月1日 2017年5月1日
+	 * @param recipient
+	 * @param emailSubject
+	 * @param emailContent
+	 * @return
+	 */
 	public static int send(String recipient,String emailSubject, String emailContent) {
 		try {
 			/*
@@ -174,7 +182,7 @@ public class SendEmail {
 			// msg.setContent("Hello, 我是debug!!!", );//纯文本
 			msg.setContent(emailContent, "text/html;charset=utf-8");// 发html格式的文本
 			// 发送动作
-//Transport.send(msg);
+Transport.send(msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return -1; 

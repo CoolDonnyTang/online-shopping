@@ -71,7 +71,7 @@ public class UserService implements IUserService {
 		}
 		String code = CheckCode.getChckCode();
 System.out.println(code);
-		status = SendEmail.send(email, "安全验证", "您此次操作的验证码为<b>"+code+"</b> 有效期10分钟");
+		status = SendEmail.send(email, "安全验证", "您此次操作的验证码为<b>"+code+"</b> 有效期为10分钟,爱购工作人员不会以任何方式向你索要该验证码,请勿泄露。<br>祝你购物愉快");
 		if(status == 1) {
 			@SuppressWarnings("rawtypes")
 			Map map = new HashMap();

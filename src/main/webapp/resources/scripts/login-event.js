@@ -1,5 +1,5 @@
 $(function(){
-				// 随机数，确定当前页面的验证码
+	// 随机数，确定当前页面的验证码
 	var checkCodeFlag = Math.random();
 	//页面加载后加载验证码
 	$("#loginCodeImage").attr("src", "user/codeImage.action?random="+ checkCodeFlag +"&test=" + Math.random());
@@ -42,6 +42,8 @@ $(function(){
 			success:function(result) {
 				if(result.status === 1) {
 					var nextURL = window.atob(window.location.search.substr(1));
+					//将登录名放入cookie
+					$.cookie('userName', userName, {expires:1, path:'/'});
 					if("" === nextURL.trim()) {
 						window.location.href="index.html";
 					} else {

@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 
-<title>爱购商城</title>
+<title>订单提交</title>
 
 <!-- Bootstrap -->
 <link href="../resources/plugins/bootstrap/css/bootstrap.min.css"
@@ -19,11 +19,15 @@
 	<div class="page-header">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2 heaer-menu">
-					<a class="header-link" href="../login.html">请登录</a>&nbsp;&nbsp;&nbsp;
-					<a class="header-link" href="../register.html">免费注册</a>
+				<div class="col-md-2 heaer-menu" id="loginAndRegister">
+					<a class="header-link" href="login.html">请登录</a>&nbsp;&nbsp;&nbsp;
+					<a class="header-link" href="register.html">免费注册</a>
 				</div>
-				<div class="col-md-7"></div>
+				<div class="col-md-3 heaer-menu" id="userAndLogExit" style="display: none;">
+					<a class="header-link" href="#"id="userName"></a>&nbsp;&nbsp;&nbsp;
+					<a class="header-link" href="#">退出</a>
+				</div>
+				<div class="col-md-6"></div>
 				<div class="col-md-1 heaer-menu">
 					<div class="dropdown">
 						<a id="dLabel1" data-target="#" href="#"
@@ -170,6 +174,8 @@
 		Copyright &copy; 2017 <strong>爱购商城i-go.shop</strong> 版权所有
 	</div>
 	<script src="../resources/plugins/jquery-2.2.4.min.js"></script>
+	<script src="resources/plugins/jquery.cookie.js"></script>
+	<script src="../resources/scripts/all-base.js"></script>
 	<script src="../resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../resources/scripts/my-utils.js"></script>
 	<script src="../resources/scripts/order-commit.js"></script>

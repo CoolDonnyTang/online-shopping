@@ -226,23 +226,23 @@ $(function(){
 		var value = $("#amountInput").val();
 		if(!checkNum(value)) {
 			disMessage("请输入正确的数量");
-			$("#amountInput").val(1);
+			//$("#amountInput").val(1);
 			return;
 		}
 		var num = parseInt(value);
 		if(num>$("#commInventory").text()) {
 			disMessage("数量不能大于库存");
-			$("#amountInput").val($("#commInventory").text());
+			//$("#amountInput").val($("#commInventory").text());
 			return;
 		}
 		if(num>9999) {
 			disMessage("数量不能大于 9999");
-			$("#amountInput").val(9999);
+			//$("#amountInput").val(9999);
 			return;
 		}
 		if(num<1) {
 			disMessage("数量不能小于 1");
-			$("#amountInput").val(1);
+			//$("#amountInput").val(1);
 			return;
 		}
 	});

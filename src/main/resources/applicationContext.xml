@@ -70,6 +70,7 @@
 				<value>com.cduestc.tyr.online_shopping.beans.RecommendCommEntityBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.RecommendBrandBean</value>
 				<value>com.cduestc.tyr.online_shopping.beans.IndexAdImageBean</value>
+				<value>com.cduestc.tyr.online_shopping.beans.VisitorLogs</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
