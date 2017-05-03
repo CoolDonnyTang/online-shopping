@@ -97,12 +97,12 @@ function loadTodayRecommend() {
 				//获取列表容器并清空商品列表
 				var $container = $("#recommendList").html("");
 				for(var i=0; i<data.length; i++) {
-					$commodity = $("<div class='col-sm-2 col-md-2 commodities-list' >" + 
+					$commodity = $("<div class='col-xs-2 commodities-list' >" + 
 									"<div class='thumbnail'>" + 
-										"<img src=" + data[i].mainUrl + " class='col-sm-12 col-md-12 list-image'>" + 
+										"<img src=" + data[i].mainUrl + " class='col-xs-12 list-image'>" + 
 										"<div class='caption commodity-dec'>" + 
-											"<a class='col-sm-12 col-md-12 header-link commodity-title'>" + data[i].commTitle + "</a>" + 
-											"<p class='col-sm-12 col-md-12 commBrand'>(" + data[i].commBrand + ": " + data[i].prop1 + " " + data[i].prop2 + ")</p>" + 
+											"<a class='col-xs-12 header-link commodity-title'>" + data[i].commTitle + "</a>" + 
+											"<p class='col-xs-12 commBrand'>(" + data[i].commBrand + ": " + data[i].prop1 + " " + data[i].prop2 + ")</p>" + 
 											"<span class='price-now'>￥" + data[i].price + "</span> " + 
 											"<span class='price-original'>￥<s>" + data[i].marketPrice + "</s></span>" + 
 										"</div>" + 
@@ -145,7 +145,7 @@ function loadRecommendBrand() {
 				//获取列表容器并清空商品列表
 				var $container = $("#recommendBrand").html("");
 				for(var i=0; i<data.length; i++) {
-					$commodity = $("<div class='col-sm-4 col-md-4 commodities-list brandClick'>" +
+					$commodity = $("<div class='col-xs-4 commodities-list brandClick'>" +
 										"<div class='thumbnail brandImage'>" +
 											"<img src='" + data[i].url + "' style='width:100%'/>" +
 										"</div>" +
@@ -195,12 +195,12 @@ function loadSalesTop2() {
 				//获取列表容器并清空商品列表
 				var $container = $("#weeklySales").html("");
 				for(var i=0; i<data.length; i++) {
-					$commodity = $("<div class='col-sm-6 col-md-6 commodities-list' >" + 
+					$commodity = $("<div class='col-xs-6 commodities-list' >" + 
 									"<div class='thumbnail'>" + 
-										"<img src=" + data[i].mainUrl + " class='col-sm-12 col-md-12 list-image'>" + 
+										"<img src=" + data[i].mainUrl + " class='col-xs-12 list-image'>" + 
 										"<div class='caption commodity-dec'>" + 
-											"<a class='col-sm-12 col-md-12 header-link commodity-title'>" + data[i].commTitle + "</a>" + 
-											"<p class='col-sm-12 col-md-12 commBrand'>(" + data[i].commBrand + ": " + data[i].prop1 + " " + data[i].prop2 + ")</p>" + 
+											"<a class='col-xs-12 header-link commodity-title'>" + data[i].commTitle + "</a>" + 
+											"<p class='col-xs-12 commBrand'>(" + data[i].commBrand + ": " + data[i].prop1 + " " + data[i].prop2 + ")</p>" + 
 											"<span class='price-now'>￥" + data[i].price + "</span> " + 
 											"<span class='price-original'>￥<s>" + data[i].marketPrice + "</s></span>" + 
 										"</div>" + 
@@ -243,12 +243,12 @@ function loadRecommendFood() {
 				//获取列表容器并清空商品列表
 				var $container = $("#recommendFood").html("");
 				for(var i=0; i<data.length; i++) {
-					$commodity = $("<div class='col-sm-6 col-md-6 commodities-list' >" + 
+					$commodity = $("<div class='col-xs-6 commodities-list' >" + 
 									"<div class='thumbnail'>" + 
-										"<img src=" + data[i].mainUrl + " class='col-sm-12 col-md-12 list-image'>" + 
+										"<img src=" + data[i].mainUrl + " class='col-xs-12 list-image'>" + 
 										"<div class='caption commodity-dec'>" + 
-											"<a class='col-sm-12 col-md-12 header-link commodity-title'>" + data[i].commTitle + "</a>" + 
-											"<p class='col-sm-12 col-md-12 commBrand'>(" + data[i].commBrand + ": " + data[i].prop1 + " " + data[i].prop2 + ")</p>" + 
+											"<a class='col-xs-12 header-link commodity-title'>" + data[i].commTitle + "</a>" + 
+											"<p class='col-xs-12 commBrand'>(" + data[i].commBrand + ": " + data[i].prop1 + " " + data[i].prop2 + ")</p>" + 
 											"<span class='price-now'>￥" + data[i].price + "</span> " + 
 											"<span class='price-original'>￥<s>" + data[i].marketPrice + "</s></span>" + 
 										"</div>" + 

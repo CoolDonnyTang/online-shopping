@@ -44,6 +44,8 @@ $(function(){
 					var nextURL = window.atob(window.location.search.substr(1));
 					//将登录名放入cookie
 					$.cookie('userName', userName, {expires:1, path:'/'});
+//					//将登录名放入cookie
+//					$.cookie('userName', userName, {expires:1, path:'/login/'});
 					if("" === nextURL.trim()) {
 						window.location.href="index.html";
 					} else {

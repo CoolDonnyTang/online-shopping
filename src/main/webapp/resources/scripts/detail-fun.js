@@ -24,7 +24,7 @@ function chooesEntity(data, commEntityId) {
 				//设置图片
 				for(var j=0; j<images.length; j++) {
 					mainImages[images[j].serialNumber-1] = $(
-							"<div class='thumbnail col-sm-3 col-md-3 main-img-lis'>" +
+							"<div class='thumbnail col-xs-3 main-img-lis'>" +
 						      "<img src="+ images[j].url +" id='mainImage'>" +
 						    "</div>"
 						);
@@ -38,7 +38,7 @@ function chooesEntity(data, commEntityId) {
 				//设置参数
 				for(var k=0; k<param.length; k++) {
 					$("#params").append($(
-								"<li role='presentation' class='text-left col-md-3'>" + param[k].paramContent + "</li>"
+								"<li role='presentation' class='text-left col-xs-3'>" + param[k].paramContent + "</li>"
 							));
 				}
 				/***选中属性一和二***/

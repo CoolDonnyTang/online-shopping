@@ -16,7 +16,7 @@ $(function() {
 		case "更新经典品牌":
 			disManageList(4);
 			break;
-		case "更新爱购吃货":
+		case "更新科成专区":
 			disManageList(5);
 			break;
 		case "更新首页广告区":

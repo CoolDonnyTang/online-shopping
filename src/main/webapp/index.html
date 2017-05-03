@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 
 <title>爱购商城</title>
@@ -20,16 +19,16 @@
 	<div class="page-header">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2 heaer-menu" id="loginAndRegister">
+				<div class="col-xs-2 heaer-menu" id="loginAndRegister">
 					<a class="header-link" href="login.html">请登录</a>&nbsp;&nbsp;&nbsp;
 					<a class="header-link" href="register.html">免费注册</a>
 				</div>
-				<div class="col-md-3 heaer-menu" id="userAndLogExit" style="display: none;">
+				<div class="col-xs-3 heaer-menu" id="userAndLogExit" style="display: none;">
 					<a class="header-link" href="#"id="userName"></a>&nbsp;&nbsp;&nbsp;
 					<a class="header-link" href="#">退出</a>
 				</div>
-				<div class="col-md-6"></div>
-				<div class="col-md-1 heaer-menu">
+				<div class="col-xs-6"></div>
+				<div class="col-xs-1 heaer-menu">
 					<div class="dropdown">
 						<a id="dLabel1" data-target="#" href="#"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -42,12 +41,12 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-1 heaer-menu">
+				<div class="col-xs-1 heaer-menu">
 					<div>
 						<a href="login/shopping-cart.action" class="header-link">我的购物车 </a>
 					</div>
 				</div>
-				<div class="col-md-1 heaer-menu">
+				<div class="col-xs-1 heaer-menu">
 					<div class="dropdown">
 						<a id="dLabel3" data-target="#" href="http://example.com"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -65,15 +64,15 @@
 
 	<div class="container">
 		<div class="row page-search">
-			<div class="col-md-2">
-				<div class="col-md-10">
+			<div class="col-xs-2">
+				<div class="col-xs-10">
 					<a href="#" class="thumbnail activity-link"> <img
 						src="resources/images/logo.png" class="logo">
 					</a>
 				</div>
 			</div>
-			<div class="col-md-8">
-				<div class="col-md-8 col-md-offset-2">
+			<div class="col-xs-8">
+				<div class="col-xs-8 col-xs-offset-2">
 					<div class="input-group">
 						<input type="text" class="form-control" placeholder="商品搜索"
 							aria-describedby="basic-addon2" style="border-color:red">
@@ -85,12 +84,12 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-2 goods-category" id="mainKinds">
+			<div class="col-xs-2 goods-category" id="mainKinds">
 				<ul id="mainKindsList">
 					
 				</ul>
 			</div>
-			<div class="col-md-8 store-activity" id="activty">
+			<div class="col-xs-8 store-activity" id="activty">
 				<div id="carousel-example-generic" class="carousel slide"
 					data-ride="carousel" style="height: 100%">
 					<ol class="carousel-indicators" id="checkAdImage">
@@ -111,17 +110,20 @@
 				</div>
 			</div>
 			<!-- 显示子分类 -->
-			<div class="col-md-8 dis-sub-kinds" id="disSubKinds" style="display: none;">
+			<div class="col-xs-8 dis-sub-kinds" id="disSubKinds" style="display: none;">
 				<ul class="nav nav-pills subKinds-list" id="subKindsList">
 				 	<!-- 动态加入内容 -->
 				</ul>
 			</div><!-- 显示子分类结束 -->
+			<div class="col-xs-2 goods-category ad-display">
+				广<br/>告<br/>区<br/>策<br/>划<br/>跑<br/>路<br/>了<br>...
+			</div>
 		</div>
 
 		<div class="row goods-recommend">
 			<div class="recommend-header">
-				<div class="col-md-1">
-					<div class="col-md-12">
+				<div class="col-xs-1">
+					<div class="col-xs-12">
 						<a href="#" class="thumbnail activity-link"> <img
 							src="resources/images/recommend.png" class="recommend-image">
 						</a>
@@ -137,10 +139,10 @@
 		</div>
 		<!-- 品牌推荐、本周排行、爱购吃货 -->
 		<div class="row top-goods">
-			<div class="col-md-4 brand-recommend">
+			<div class="col-xs-4 brand-recommend">
 				<div class="brand-header">
-					<div class="col-md-3">
-						<div class="col-md-12">
+					<div class="col-xs-3">
+						<div class="col-xs-12">
 							<a href="#" class="thumbnail activity-link"> <img
 								src="resources/images/brand.png" class="recommend-image">
 							</a>
@@ -155,10 +157,10 @@
 				</div>
 				<!-- 品牌推荐结束 -->
 			</div>
-			<div class="col-md-4 brand-recommend">
+			<div class="col-xs-4 brand-recommend">
 				<div class="food-header">
-					<div class="col-md-3">
-						<div class="col-md-12">
+					<div class="col-xs-3">
+						<div class="col-xs-12">
 							<a href="#" class="thumbnail activity-link"> <img
 								src="resources/images/food.png" class="recommend-image">
 							</a>
@@ -172,10 +174,10 @@
 				</div>
 				<!-- 食品区结束 -->
 			</div>
-			<div class="col-md-4 brand-recommend">
+			<div class="col-xs-4 brand-recommend">
 				<div class="rankings-header">
-					<div class="col-md-3">
-						<div class="col-md-12">
+					<div class="col-xs-3">
+						<div class="col-xs-12">
 							<a href="#" class="thumbnail activity-link"> <img
 								src="resources/images/rankings.png" class="recommend-image">
 							</a>
@@ -205,7 +207,7 @@
 		</ul>
 	</div>
 	<div class="page-copyright text-center">
-		Copyright &copy; 2017 <strong>爱购商城i-go.shop</strong> 版权所有
+		Copyright &copy; 2017 <strong>爱购商城i-go.store</strong> 版权所有
 	</div>
 	<script src="resources/plugins/jquery-2.2.4.min.js"></script>
 	<script src="resources/plugins/jquery.cookie.js"></script>

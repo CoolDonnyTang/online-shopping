@@ -131,8 +131,8 @@ public class ManagerController {
 							+ imageType;
 					url = req.getContextPath().replace("/", "\\") + path;
 					File file11 = new File(pathRoot, path);
-					System.out.println("url:  " + url);
-					System.out.println("path:  " + file11.getPath());
+					 //System.out.println("url:  " + url);
+					//System.out.println("path:  " + file11.getPath());
 					if (!file11.exists()) {
 						file11.mkdirs();
 					}

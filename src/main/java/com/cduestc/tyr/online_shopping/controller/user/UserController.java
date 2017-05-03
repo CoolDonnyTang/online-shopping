@@ -13,7 +13,7 @@ import com.cduestc.tyr.online_shopping.service.IUserService;
 
 @Controller
 @RequestMapping("/user")
-public class LoginController {
+public class UserController {
 	@Resource
 	IUserService service;
 	
@@ -49,4 +49,20 @@ public class LoginController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("/logout.action")
+	@ResponseBody
+	public ResultData logout(HttpSession session) {
+		ResultData result = new ResultData();
+		try {
+			session.invalidate();
+			result.setStatus(1);
+		} catch (Exception e) {
+			result.setStatus(-3);
+			result.setInfo("服务器出错，请稍后再试");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

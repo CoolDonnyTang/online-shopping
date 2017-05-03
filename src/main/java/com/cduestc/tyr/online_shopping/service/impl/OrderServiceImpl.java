@@ -83,6 +83,12 @@ public class OrderServiceImpl implements IOrderService {
 		if(!flag) {
 			return null;
 		}
+//		try {
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		OrderBean order = new OrderBean();
 		order.setAddressId(addrId);
 		order.setBelongUserId(((UserBean)(session.getAttribute("user"))).getId());

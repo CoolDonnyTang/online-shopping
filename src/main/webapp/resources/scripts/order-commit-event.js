@@ -76,8 +76,23 @@ $(function() {
 	});
 	//新建地址按钮点击事件
 	$("#addNewAddr").click(function(){
-		$("#addrList").hide();
-		$("#addrMessage").show();
+		
+		//判断当前是否已有添加区,是隐藏的则显示
+		if($("#addrMessage").is(':hidden')) {
+			$("#addrList").hide();
+			$("#addrMessage").show();
+			//设置按钮为"取消"
+			$("#addNewAddr").text('取消添加');
+			//显示保存按钮
+			$("#commitAddr").show();
+		} else {
+			$("#addrList").show();
+			$("#addrMessage").hide();
+			//设置按钮为"添加新地址"
+			$("#addNewAddr").text('添加新地址');
+			//隐藏保存按钮
+			$("#commitAddr").hide();
+		}
 	});
 	//保存新建地址'保存'按钮事件
 	$("#commitAddr").click(function(){
@@ -125,6 +140,10 @@ $(function() {
 		}
 		console.log(entityIdAndAmount);
 		//发送请求提交订单数据
+		if(payment == 1) {
+			alert("该付款方式仍在开发中...");
+			return;
+		}
 		$.ajax({
 			data : {addrId:addrId, entityIdAndAmount:entityIdAndAmount,payment:payment},
 			dataType : "json",

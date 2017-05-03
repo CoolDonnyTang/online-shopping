@@ -33,6 +33,11 @@ div {
 	padding: 20px 0;
 	background-color: #d81e06;
 }
+.ad-display {
+	background-color: #ddd;
+	padding-left: 70px;
+	font-size: 26px;
+}
 .goods-category ul {
 	color:#fff;
 	list-style: none;

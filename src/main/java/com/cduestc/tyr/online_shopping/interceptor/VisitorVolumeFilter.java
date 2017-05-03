@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.Date;
 
-import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -15,15 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.binary.Base64;
-import org.hibernate.SessionFactory;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
-import com.cduestc.tyr.online_shopping.beans.UserBean;
-import com.cduestc.tyr.online_shopping.beans.VisitorLogs;
+import com.cduestc.tyr.online_shopping.utils.IpUtils;
 /**
  * 检查登陆后才能跳转至指定页面
  * @author donnyt
@@ -59,12 +51,19 @@ public class VisitorVolumeFilter implements Filter {
         }
         String url = request.getRequestURI().trim();
         if(url.equals("/") || url.startsWith("/login/") || url.endsWith(".html")) {
-        	String s = new Date().toLocaleString() +"    " + ip + "    " + url;
-        	FileOutputStream fos = new FileOutputStream("H:/visitor-log.txt",true);
+        	//获取ip地址的地理位置
+        	String addr = IpUtils.getAddrByIp(ip);
+        	String s = new Date().toLocaleString() +"   " + ip + "   " + addr + "   " + url;
+        	String path = request.getSession().getServletContext().getRealPath("/log/visitor-log.txt");
+        	File file = new File(path);
+			if (!file.getParentFile().exists()) {
+				file.getParentFile().mkdirs();
+			}
+        	FileOutputStream fos = new FileOutputStream(file,true);
         	OutputStreamWriter w = new OutputStreamWriter(fos,"UTF-8");
         	PrintWriter p = new PrintWriter(w, true);
         	p.println(s);
-        	p.println("");        	
+        	p.close();
         }
         arg2.doFilter(arg0, arg1);
 	}

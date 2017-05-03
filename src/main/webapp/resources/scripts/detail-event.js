@@ -34,7 +34,7 @@ $(function(){
 				$("#detailImage").html("");
 				var detailImages = new Array(data.images.length);
 				for(var j=0; j<data.images.length; j++) {
-					detailImages[data.images[j].serialNumber-1] = $("<li><img src=" + data.images[j].url + " class='col-md-12 image-display'></li>");
+					detailImages[data.images[j].serialNumber-1] = $("<li><img src=" + data.images[j].url + " class='col-xs-12 image-display'></li>");
 				}
 				for(var k=0; k<detailImages.length; k++) {
 					$("#detailImage").append(detailImages[k]);

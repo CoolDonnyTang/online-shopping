@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 
 <title>订单提交</title>
@@ -19,16 +18,16 @@
 	<div class="page-header">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2 heaer-menu" id="loginAndRegister">
+				<div class="col-xs-2 heaer-menu" id="loginAndRegister">
 					<a class="header-link" href="login.html">请登录</a>&nbsp;&nbsp;&nbsp;
 					<a class="header-link" href="register.html">免费注册</a>
 				</div>
-				<div class="col-md-3 heaer-menu" id="userAndLogExit" style="display: none;">
+				<div class="col-xs-3 heaer-menu" id="userAndLogExit" style="display: none;">
 					<a class="header-link" href="#"id="userName"></a>&nbsp;&nbsp;&nbsp;
 					<a class="header-link" href="#">退出</a>
 				</div>
-				<div class="col-md-6"></div>
-				<div class="col-md-1 heaer-menu">
+				<div class="col-xs-6"></div>
+				<div class="col-xs-1 heaer-menu">
 					<div class="dropdown">
 						<a id="dLabel1" data-target="#" href="#"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -41,12 +40,12 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-1 heaer-menu">
+				<div class="col-xs-1 heaer-menu">
 					<div>
 						<a href="shopping-cart.action" class="header-link">我的购物车 </a>
 					</div>
 				</div>
-				<div class="col-md-1 heaer-menu">
+				<div class="col-xs-1 heaer-menu">
 					<div class="dropdown">
 						<a id="dLabel3" data-target="#" href="http://example.com"
 							data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -66,8 +65,8 @@
 		<!--结算主体隐藏区开始-->
 		<div>
 			<div class="row cart-header">
-				<div class="col-md-3 s-cart padding-lr0">
-					<div class="col-md-6 padding-lr0">
+				<div class="col-xs-3 s-cart padding-lr0">
+					<div class="col-xs-6 padding-lr0">
 						<a href="../index.html" class="thumbnail activity-link"> <img
 							src="../resources/images/logo.png" class="logo">
 						</a>
@@ -80,6 +79,7 @@
 				<div class="address-header">
 					<span><b>收货人信息</b></span>
 					<button type="button" class="btn btn-default btn-xs my-btn-1" id="addNewAddr">添加新地址</button>
+					<button type="button" class="btn btn-danger btn-xs" id="commitAddr" style="margin-right:10px;display: none;">保存</button>
 				</div>
 				<div class="adrres-list">
 					<ul id="addrList">
@@ -108,7 +108,6 @@
 										placeholder="地址" name="address">
 								</div>
 							</div>
-							<button type="button" class="btn btn-danger btn-xs" id="commitAddr">保存</button>
 						</form>
 					</div>
 				</div>
@@ -142,17 +141,17 @@
 			</div>
 			<!-- 商品清单结束 -->
 			<!-- 警告信息 -->
-			<div class="col-sm-12 col-md-12 disMessage-container">
+			<div class="col-sm-12 col-xs-12 disMessage-container">
 				<div class="alert alert-danger" role="alert" id="disMessage" style="display: none;">测试</div>
 			</div>
-			<div class="cart-operate col-md-12">
-				<div class="col-md-3">
+			<div class="cart-operate col-xs-12">
+				<div class="col-xs-3">
 					<button type="button" class="btn btn-default btn-xs my-btn-1" id="gotoShoppingCart">返回购物车修改</button>
 				</div>
-				<div class="col-md-2 col-md-offset-6">
+				<div class="col-xs-2 col-xs-offset-6">
 					订单金额：<span class="total-money"><b id="totalPrice">￥12333</b></span>
 				</div>
-				<button type="button" class="btn btn-danger col-md-1" id="commitOrder">提交订单</button>
+				<button type="button" class="btn btn-danger col-xs-1" id="commitOrder">提交订单</button>
 			</div>
 		</div>
 		<!--结算主体隐藏区结束-->
@@ -171,10 +170,10 @@
 		</ul>
 	</div>
 	<div class="page-copyright text-center">
-		Copyright &copy; 2017 <strong>爱购商城i-go.shop</strong> 版权所有
+		Copyright &copy; 2017 <strong>爱购商城i-go.store</strong> 版权所有
 	</div>
 	<script src="../resources/plugins/jquery-2.2.4.min.js"></script>
-	<script src="resources/plugins/jquery.cookie.js"></script>
+	<script src="../resources/plugins/jquery.cookie.js"></script>
 	<script src="../resources/scripts/all-base.js"></script>
 	<script src="../resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../resources/scripts/my-utils.js"></script>

@@ -1,3 +1,8 @@
+
+.container {
+	width:1140px !important;
+	min-width:1080px !important;
+}
 div {
 	/* border:1px solid red; */
 }
