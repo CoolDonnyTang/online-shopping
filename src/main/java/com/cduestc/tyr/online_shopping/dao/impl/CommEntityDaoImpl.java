@@ -93,4 +93,29 @@ public class CommEntityDaoImpl implements ICommEntityDao {
 		return (Map<String, String>) query.uniqueResult();
 	}
 
+	@Override
+	public List<Map<String, Object>> findCommEnFirstMainImageByOrderId(
+			Integer orderId) {		
+		String hql = "select new map("
+				+ "c.brand as commBrand, "
+				+ "c.titleName as commTitle, "
+				+ "ce.id as commEntityId, "
+				+ "ce.myPrice as price, "
+				+ "ce.inventory as inventory, "
+				+ "ce.propty1 as prop1, "
+				+ "ce.propty2 as prop2, "
+				+ "img.url as mainUrl"
+		+ ") from CommodityBean as c "
+		+ "join c.commEntity as ce "
+		+ "join ce.images as img "
+		+ "where ce.id in(select od.commEntityId "
+					+ "from OrderDetailBean as od "
+					+ "where od.belongOrderId = ?) "
+		+ "and img.mainImage = true and img.serialNumber = 1 ";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setInteger(0, orderId);
+		return query.list();
+	}
+
 }

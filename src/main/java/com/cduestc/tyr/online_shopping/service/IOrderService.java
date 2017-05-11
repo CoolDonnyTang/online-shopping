@@ -14,4 +14,14 @@ public abstract interface IOrderService {
 	 * @return
 	 */
 	public ResultData queryOrderMessage(Integer orderId, HttpSession session);
+	/**
+	 * 根据订单状态查询订单信息
+	 * @author tangyanrentyr
+	 * @2017年5月11日 2017年5月11日
+	 * @param session
+	 * @param max ：是否查询最大可查询订单
+	 * @param status : 订单状态
+	 * @return
+	 */
+	public ResultData queryOrderByOrderStatus(HttpSession session, Boolean max, Integer status);
 }

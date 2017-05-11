@@ -75,4 +75,19 @@ public class OrderController {
 		return result;
 	}
 	
+	@RequestMapping("/queryOrderByOrderStatus.action")
+	@ResponseBody
+	public ResultData queryOrderByOrderStatus(HttpSession session, Boolean max, Integer status) {
+		ResultData result = null;
+		try {
+			result = orderservice.queryOrderByOrderStatus(session, max, status);
+		} catch(Exception e) {
+			result = new ResultData();
+			result.setStatus(-1);
+			result.setInfo("查询订单失败");
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }

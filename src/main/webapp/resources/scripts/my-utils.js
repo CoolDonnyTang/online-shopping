@@ -75,7 +75,34 @@ function getStringByReg(data, reg) {
 	}
 	return data.match(reg)[1];
 }
-
+/**
+ * 将一个毫秒值转换成 年-月-日 小时：分钟：秒 格式的字符串
+ * tangyanrentyr
+ * 2017年5月11日
+ * @param time
+ * @returns {String}
+ */
+function timeToDate(time) {
+	if(undefined==time || null==time) {
+		return "";
+	}else {
+		var date = new Date(time);
+		return date.getFullYear() + "-" + toTwoNumber(date.getMonth() + 1) + "-" + toTwoNumber(date.getDate()) + " " + toTwoNumber(date.getHours()) + ":" + toTwoNumber(date.getMinutes()) + ":" + toTwoNumber(date.getSeconds());
+	}
+}
+/**
+ * 将一位数转换为 0X 形式的两位数字符串
+ * tangyanrentyr
+ * 2017年5月11日
+ * @param data
+ */
+function toTwoNumber(data) {
+	data = data + "";
+	if(data.length === 1) {
+		data = "0" + data;
+	}
+	return data;
+}
 
 
 

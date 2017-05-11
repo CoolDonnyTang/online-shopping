@@ -130,12 +130,14 @@ public class OrderServiceImpl implements IOrderService {
 		if(data.get("orderBaseInfo") == null) {
 			result.setStatus(0);
 			result.setInfo("查询订单失败");
+			return result;
 		}
 		//获取orderDetail信息
 		List<Map<String, Object>> orderDetail = orderDetailDao.findOrderDetailMessageByOrderId(orderId);
 		if(orderDetail==null || orderDetail.size()<1) {
 			result.setStatus(0);
 			result.setInfo("查询订单失败");
+			return result;
 		}
 		//查询orderDetail对应的实体的基本信息
 		for(Map<String, Object> map : orderDetail) {
@@ -149,7 +151,23 @@ public class OrderServiceImpl implements IOrderService {
 		result.setData(data);
 		return result;
 	}
-	
+
+	@Override
+	public ResultData queryOrderByOrderStatus(HttpSession session, Boolean max, Integer status) {
+		ResultData rd = new ResultData();
+		List<Map<String, Object>> data = null;
+		if(status != null) {
+			data = dao.queryBaseOrderMessageByStatus(((UserBean)(session.getAttribute("user"))).getId(), max, OrderStatus.values()[status]);
+			if(data != null) {
+				for(Map<String, Object> map : data) {
+					map.put("entity", commEnDao.findCommEnFirstMainImageByOrderId((int)map.get("id")));
+				}
+			}
+		}
+		rd.setStatus(1);
+		rd.setData(data);
+		return rd;
+	}
 	
 
 }

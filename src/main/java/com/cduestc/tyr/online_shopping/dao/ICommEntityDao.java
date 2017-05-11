@@ -42,4 +42,11 @@ public interface ICommEntityDao {
 	 * @return
 	 */
 	public void updateInventoryByEnId(int commEntityId, int sales);
+	/**
+	 * 根据订单id找到该订单下的所有商品的id和第一张主图片和
+	 * @author tangyanrentyr
+	 * @2017年5月11日 2017年5月11日
+	 * @return
+	 */
+	public List<Map<String,Object>> findCommEnFirstMainImageByOrderId(Integer orderId);
 }
