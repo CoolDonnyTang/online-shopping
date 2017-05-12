@@ -3,7 +3,7 @@
  * tangyanrentyr
  * 2017年5月11日
  */
-function loadCompletedOrder(max, orderStatus) {
+function loadOrder(max, orderStatus) {
 	console.log("ok");
 	//发送请求加载数据
 	$.ajax({
