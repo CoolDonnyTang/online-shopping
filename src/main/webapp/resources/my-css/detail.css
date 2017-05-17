@@ -26,6 +26,17 @@
 	font-size:18px;
 	color:#fff;
 }
+.comm-operater {
+	margin-top: 5px;
+	padding:0;
+}
+.collect {
+	font-size: 24px;
+	color:#d81e06;
+}
+.collect:HOVER {
+	cursor: pointer;
+}
 .detail-header-link {
 	padding-top: 6px;
 	padding-bottom: 6px;

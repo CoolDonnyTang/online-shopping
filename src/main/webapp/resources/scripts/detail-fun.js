@@ -150,6 +150,67 @@ function disMessage(data) {
 	}, 2000);
 }
 
+function executeCollect(commEntityId) {
+	console.log("1111");
+	//发送请求查询当前选中的商品实体是否被收藏
+	$.ajax({
+		data:{commEntityId:commEntityId},
+		dataType:"json",
+		error:function(){
+			console.log("cuowu");
+		},
+		success:function(result){
+			console.log(result);
+			if(result.status === 1) {
+				var data = result.data;
+				if(data == false) {
+					$("#collect").data("collect", data);
+					$("#collect").attr("title", "收藏");
+					$("#collect").removeClass("glyphicon-star");
+					$("#collect").addClass("glyphicon-star-empty");
+				} else if(data == true) {
+					$("#collect").data("collect", data);
+					$("#collect").attr("title", "取消收藏");
+					$("#collect").removeClass("glyphicon-star-empty");
+					$("#collect").addClass("glyphicon-star");
+				}
+			}
+		},
+		type:"post",
+		url:"isCollect.action"
+	});
+}
+
+function operateCollection(commEntityId, nowStatus, pageUrl) {
+	//发送请求查询当前选中的商品实体是否被收藏
+	$.ajax({
+		data:{commEntityId:commEntityId, pageUrl:pageUrl, nowStatus:nowStatus},
+		dataType:"json",
+		error:function(result){
+			console.log("cuowu11111111111");
+			console.log(result);
+		},
+		success:function(result){
+			console.log(result);
+			if(result.status === 1) {
+				var data = result.data;
+				if(data == false) {
+					$("#collect").data("collect", data);
+					$("#collect").attr("title", "收藏");
+					$("#collect").removeClass("glyphicon-star");
+					$("#collect").addClass("glyphicon-star-empty");
+				} else if(data == true) {
+					$("#collect").data("collect", data);
+					$("#collect").attr("title", "取消收藏");
+					$("#collect").removeClass("glyphicon-star-empty");
+					$("#collect").addClass("glyphicon-star");
+				}
+			}
+		},
+		type:"post",
+		url:"checkLogin/collectionOperate.action"
+	});
+}
 
 
 

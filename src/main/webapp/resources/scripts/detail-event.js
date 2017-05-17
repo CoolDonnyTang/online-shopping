@@ -1,11 +1,11 @@
 $(function(){
-			var commData;
-			var param =  window.atob(window.location.search.replace("?", ""));
+	var commData;
+	var param =  window.atob(window.location.search.replace("?", ""));
 	var data = {};
 	data[param.substr(0, param.indexOf("=")).trim()] = param.substr(param.indexOf("=") + 1, param.indexOf("&")-param.indexOf("=")-1).trim();
 	var commEntityId = parseInt(param.substr(param.lastIndexOf("=") + 1).trim());
 	console.log(data);
-	//发送请求加载数据
+	//发送请求加载商品模板和商品实体数据
 	$.ajax({
 		data:data,
 		dataType:"json",
@@ -117,6 +117,8 @@ $(function(){
 				}
 				/***显示指定的entity***/
 				chooesEntity(data, commEntityId);
+				//查询该实体是否被加入了用户得收藏
+				executeCollect(commEntityId)
 			} else {
 				
 			}
@@ -186,6 +188,8 @@ $(function(){
 		$target.addClass("active-btn");
 		var nowEntityId = findEntityId(commData);
 		chooesEntity(commData, nowEntityId);
+		//查询该实体是否被加入了用户得收藏
+		executeCollect(nowEntityId);
 	});
 	//鼠标移入主图片列表则将显示的主图片换为该图片
 	$("#main-img-list").on("mouseover","img", function(event){
@@ -320,5 +324,22 @@ $(function(){
 		window.location.href = "login/shopping-cart.action?" + param;
 	});
 	
-	
+	//点击收藏或者取消收藏
+	$("#collect").click(function(){
+		var nowStatus = $("#collect").data("collect");
+		//选择的实体的id
+		var commEntityId = findEntityId(commData);
+		if(commEntityId<0) {
+			//获取属性1名字
+			var prop1 = $("#prop1Name").text().trim().replace(":", "");
+			//获取属性2名字
+			var prop2 = $("#prop2Name").text().trim().replace(":", "");
+			disMessage("请先选择 " + prop1 + " " + prop2);
+			return;
+		}
+		if(nowStatus === undefined) {
+			nowStatus = null;
+		}
+		operateCollection(commEntityId, nowStatus, window.location.href);
+	});
 });
