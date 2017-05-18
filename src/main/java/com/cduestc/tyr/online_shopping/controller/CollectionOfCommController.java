@@ -89,4 +89,20 @@ public class CollectionOfCommController {
 		}
 	}
 	
+	@RequestMapping("/checkLogin/queryCollectionEntites.action")
+	@ResponseBody
+	public ResultData queryCollectionEntites(HttpSession session) {
+		try{
+			ResultData rd  = service.queryCollectionCommEntitiesByUser(session);
+			return rd;
+		} catch(Exception e) {
+			e.printStackTrace();
+			ResultData rd  = new ResultData();
+			rd.setStatus(-1);
+			rd.setInfo("服务器异常");
+			return rd;
+		}
+	}
+	
+	
 }

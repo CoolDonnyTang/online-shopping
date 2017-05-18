@@ -1,5 +1,8 @@
 package com.cduestc.tyr.online_shopping.dao;
 
+import java.util.List;
+import java.util.Map;
+
 public interface ICollectionCommEntityDao {
 	/**
 	 * 查询当前商品实体id是否被用户收藏
@@ -45,4 +48,16 @@ public interface ICollectionCommEntityDao {
 	 * @return
 	 */
 	public boolean removeCollectionCommEn(int[] commEntitiesId, int userId);
+	
+	/**
+	 * 根据用户的收藏列表实体id查找商品信息
+	 * @author tangyanrentyr
+	 * @2017年5月18日 2017年5月18日
+	 * @param key
+	 * @param firstResult
+	 * @param pageSize
+	 * @return
+	 */
+	public List<Map> findSimpleCommByCollection(int userId);
+	
 }

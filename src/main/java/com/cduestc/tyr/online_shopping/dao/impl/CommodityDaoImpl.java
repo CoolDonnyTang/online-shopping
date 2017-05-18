@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -191,6 +190,4 @@ public class CommodityDaoImpl implements ICommodityDao {
 		return query.list();
 	}
 	
-	
-
 }

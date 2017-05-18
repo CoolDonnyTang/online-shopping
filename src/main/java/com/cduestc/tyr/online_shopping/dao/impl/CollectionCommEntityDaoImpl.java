@@ -1,5 +1,8 @@
 package com.cduestc.tyr.online_shopping.dao.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.hibernate.Query;
@@ -87,5 +90,31 @@ public class CollectionCommEntityDaoImpl implements ICollectionCommEntityDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	@Override
+	public List<Map> findSimpleCommByCollection(int userId) {
+		String hql = "select new map("
+				+ "c.id as commId, "
+				+ "c.brand as commBrand, "
+				+ "c.titleName as commTitle, "
+				+ "ce.id as commEntityId, "
+				+ "ce.myPrice as price, "
+				+ "ce.marketPrice as marketPrice, "
+				+ "ce.propty1 as prop1, "
+				+ "ce.propty2 as prop2, "
+				+ "img.url as mainUrl"
+		+ ") from CommodityBean as c "
+		+ "join c.commEntity as ce "
+		+ "join ce.images as img "
+		+ "where ce.id in (select conllectionCommEntityId from CollectionCommEntityBean where belongUserId = ?) "
+				+ "and img.mainImage = true and img.serialNumber = 1 "
+		+ "order by c.id";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setInteger(0, userId);
+		//query.setFirstResult(0);
+		//query.setMaxResults(6);
+		return query.list();
+	}
+	
 }

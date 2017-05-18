@@ -52,4 +52,11 @@ public class ToPageAfterLoginController {
 			return "order-detail";
 		
 	}
+	
+	@RequestMapping("/collectionList.action")
+	public String toCollectionPage() {
+			return "collection-list";
+		
+	}
+	
 }

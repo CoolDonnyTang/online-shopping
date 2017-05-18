@@ -66,4 +66,13 @@ public class CollectionCommEnServiceImpl implements ICollectionCommEnService {
 		return rd;
 	}
 
+	@Override
+	public ResultData queryCollectionCommEntitiesByUser(HttpSession session) {
+		ResultData rd = new ResultData();
+		rd.setStatus(1);
+		rd.setInfo("success");
+		rd.setData(dao.findSimpleCommByCollection(((UserBean)(session.getAttribute("user"))).getId()));
+		return rd;
+	}
+
 }

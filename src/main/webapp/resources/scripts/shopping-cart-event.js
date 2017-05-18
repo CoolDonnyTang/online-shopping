@@ -229,7 +229,7 @@ $(function(){
 		}
 		var array = new Array($allChecked.length);
 		for(var i=0; i<$allChecked.length; i++) {
-			array[i] = $allChecked.eq(i).parents("tr").data("entityId");
+			array[i] = $allChecked.eq(i).parents("tr").data("commentityId");
 		}
 		//将商品加入收藏夹
 		addMoreToCollection(array, window.location.href);

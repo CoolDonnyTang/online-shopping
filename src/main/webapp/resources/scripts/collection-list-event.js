@@ -1,26 +1,7 @@
 $(function() {
-	//获取url后面的参数
-	var urlParam = window.decodeURIComponent(window.atob(window.location.search.replace("?", "")));
-	var data = {};
-	//data[urlParam.substring(0, urlParam.indexOf("=")).trim()] = urlParam.substring(urlParam.indexOf("=") + 1).trim();
-console.log(urlParam);
-
-	if(getStringByReg(urlParam, /mainKindId=(\d+)/) !== null) {
-		//console.log(getStringByReg(urlParam, /mainKindId=(\d+)/));
-		data["mainKindId"] = getStringByReg(urlParam, /mainKindId=(\d+)/);
-	} else if(getStringByReg(urlParam, /subKindId=(\d+)/) !== null) {
-		//console.log(getStringByReg(urlParam, /subKindId=(\d+)/));
-		data["subKindId"] = getStringByReg(urlParam, /subKindId=(\d+)/);
-	} else if(getStringByReg(urlParam, /brandId=(\d+)/) !== null) {
-		//console.log(getStringByReg(urlParam, /brandId=(\d+)/));
-		data["brandId"] = getStringByReg(urlParam, /brandId=(\d+)/);
-	} else if(getStringByReg(urlParam, /nameKey=(.+)/) !== null) {
-		console.log(getStringByReg(urlParam, /nameKey=(.+)/));
-		data["nameKey"] = getStringByReg(urlParam, /nameKey=(.+)/);
-	}
 	//发送请求加载数据
 	$.ajax({
-		data:data,
+		data:"",
 		dataType:"json",
 		error:function() {
 			alert("连接服务器失败");
@@ -30,7 +11,8 @@ console.log(urlParam);
 				var data = result.data;
 				var $commodity;
 				//获取列表容器并清空商品列表
-				var $container = $("#commoditiesList").html("");
+				var $container = $("#collectionList").html("");
+				console.log(result);
 				if(result.data === null) {
 					return;
 				}
@@ -51,7 +33,7 @@ console.log(urlParam);
 					$container.append($commodity);
 				}
 				//获取商品列表下的所有图片
-				var $images = $("#commoditiesList img");
+				var $images = $("#collectionList img");
 				for(var j=0; j<$images.length; j++) {
 					var iwidth = $images.eq(j).width();
 					$images.eq(j).height(iwidth);
@@ -61,14 +43,14 @@ console.log(urlParam);
 			}
 		},
 		type:"post",
-		url:"comm/findComm.action"
+		url:"../checkLogin/queryCollectionEntites.action"
 	});
 	
 	//商品列表点击进入商品详情的点击事件
-	$("#commoditiesList").on("click",".thumbnail",function(event){
+	$("#collectionList").on("click",".thumbnail",function(event){
 		var $target = $(event.target);
 		var $container = $target.parents(".commodities-list");
-		window.location.href="detail.html?" 
+		window.location.href="../detail.html?" 
 			+ window.btoa("commId=" + $container.data("commId") + "&commEntityId=" +$container.data("commEntityId"));
 	});
 });

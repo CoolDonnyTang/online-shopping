@@ -32,4 +32,7 @@ public interface ICollectionCommEnService {
 	 * @return
 	 */
 	public ResultData addMoreToCollection(Integer[] commEntitiesId, HttpSession session);
+	
+	public ResultData queryCollectionCommEntitiesByUser(HttpSession session);
+	
 }

@@ -60,15 +60,5 @@ public interface ICommodityDao {
 	 * @return
 	 */
 	public List<Map> findSimpleCommBySearchKey(String[] key, int firstResult, int pageSize);
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		
 }
