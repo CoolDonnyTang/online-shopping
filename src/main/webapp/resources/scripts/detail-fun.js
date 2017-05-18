@@ -182,7 +182,7 @@ function executeCollect(commEntityId) {
 }
 
 function operateCollection(commEntityId, nowStatus, pageUrl) {
-	//发送请求查询当前选中的商品实体是否被收藏
+	//发送请求将商品加入收藏
 	$.ajax({
 		data:{commEntityId:commEntityId, pageUrl:pageUrl, nowStatus:nowStatus},
 		dataType:"json",

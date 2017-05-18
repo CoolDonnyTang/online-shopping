@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Repository;
 
 import com.cduestc.tyr.online_shopping.beans.CollectionCommEntityBean;
@@ -34,14 +35,35 @@ public class CollectionCommEntityDaoImpl implements ICollectionCommEntityDao {
 		cce.setBelongUserId(userId);
 		cce.setEntryTime(System.currentTimeMillis());
 		Session session = sf.getCurrentSession();
-		session.save(cce);
+		try {
+			session.save(cce);
+		} catch(ConstraintViolationException e) {
+			return false;
+		}
 		return true;
 	}
 
 	@Override
-	public boolean addCollectionCommEn(int[] commEntityId, int userId) {
-		// TODO Auto-generated method stub
-		return true;
+	public void addCollectionCommEn(Integer[] commEntitiesId, int userId) {
+		CollectionCommEntityBean cce = null;
+		String hql = "from CollectionCommEntityBean "
+				+ "where conllectionCommEntityId = ? and belongUserId = ?";
+		Session session = sf.getCurrentSession();
+		Query query = session.createQuery(hql);
+		for(Integer i : commEntitiesId) {
+			if(i!=null) {
+				query.setInteger(0, i);
+				query.setInteger(1, userId);
+				if(query.uniqueResult()!=null) {
+					continue;
+				}
+				cce = new CollectionCommEntityBean();
+				cce.setConllectionCommEntityId(i);
+				cce.setBelongUserId(userId);
+				cce.setEntryTime(System.currentTimeMillis());
+				session.save(cce);
+			}
+		}
 	}
 
 	@Override

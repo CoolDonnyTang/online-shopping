@@ -26,7 +26,7 @@ public interface ICollectionCommEntityDao {
 	 * @param userId
 	 * @return true:该商加入收藏成功
 	 */
-	public boolean addCollectionCommEn(int[] commEntityId, int userId);
+	public void addCollectionCommEn(Integer[] commEntitiesId, int userId);
 	/**
 	 * 将指定的ID的商品实体移除收藏
 	 * @author tangyanrentyr

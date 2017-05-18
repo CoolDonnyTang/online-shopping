@@ -4,7 +4,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
-
 import com.cduestc.tyr.online_shopping.beans.ResultData;
 import com.cduestc.tyr.online_shopping.beans.UserBean;
 import com.cduestc.tyr.online_shopping.dao.ICollectionCommEntityDao;
@@ -51,6 +50,19 @@ public class CollectionCommEnServiceImpl implements ICollectionCommEnService {
 				rd.setData(true);
 			}
 		}
+		return rd;
+	}
+
+	@Override
+	public ResultData addMoreToCollection(Integer[] commEntitiesId, HttpSession session) {
+		ResultData rd = new ResultData();
+		if(commEntitiesId==null) {
+			rd.setStatus(-1);
+			rd.setInfo("参数错误");
+			return rd;
+		}
+		dao.addCollectionCommEn(commEntitiesId, ((UserBean)(session.getAttribute("user"))).getId());
+		rd.setStatus(1);
 		return rd;
 	}
 

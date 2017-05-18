@@ -23,4 +23,13 @@ public interface ICollectionCommEnService {
 	 * @return
 	 */
 	public ResultData addOrRemoveCollectionCommEn(Integer commEntityId, Boolean nowStatus, HttpSession session);
+	/**
+	 * 添加多个商品到收藏夹中
+	 * @author tangyanrentyr
+	 * @2017年5月18日 2017年5月18日
+	 * @param commEntitiesId
+	 * @param session
+	 * @return
+	 */
+	public ResultData addMoreToCollection(Integer[] commEntitiesId, HttpSession session);
 }

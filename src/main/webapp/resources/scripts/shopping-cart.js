@@ -52,8 +52,44 @@ function calculateTotalPrice($tbodyNode) {
 	$("#totalPrice").text("￥"+totalPrice);
 }
 
+function addToCollection(commEntityId, pageUrl) {
+	//发送请求将商品加入收藏
+	$.ajax({
+		data:{commEntityId:commEntityId, pageUrl:pageUrl, nowStatus:false},
+		dataType:"json",
+		error:function(result){
+			console.log(result);
+		},
+		success:function(result){
+			console.log(result);
+			if(result.status === 1) {
+				
+			}
+		},
+		type:"post",
+		url:"../checkLogin/collectionOperate.action"
+	});
+}
 
-
+function addMoreToCollection(commEntitiesId, pageUrl) {
+	console.log(commEntitiesId);
+	//发送请求将商品加入收藏
+	$.ajax({
+		data:{commEntitiesId:commEntitiesId, pageUrl:pageUrl},
+		dataType:"json",
+		error:function(result){
+			console.log(result);
+		},
+		success:function(result){
+			console.log(result);
+			if(result.status === 1) {
+				
+			}
+		},
+		type:"post",
+		url:"../checkLogin/addMoreToCollection.action"
+	});
+}
 
 
 

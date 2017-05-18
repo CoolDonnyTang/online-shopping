@@ -49,7 +49,7 @@ $(function(){
 						   				"<td>"+ data[i].inventory +"件</td>"+
 						   				"<td>"+
 						   					"<button type='button' class='btn btn-default btn-xs my-btn-1 entity-delete'>删除</button>"+
-						   					"<button type='button' class='btn btn-default btn-xs my-btn-1'>移入关注</button>"+
+						   					"<button type='button' class='btn btn-default btn-xs my-btn-1 entity-collection'>移入关注</button>"+
 						   				"</td>"+
 						   			"</tr>");
 						$node.data("entityId",data[i].entityId);
@@ -176,6 +176,17 @@ $(function(){
 		}
 	});
 	
+	//单击移入收藏按钮
+	$("#cartContainer").on("click",".entity-collection",function(event){
+		alert("ok");
+		var $tr = $(event.target).parents("tr");
+		var entityId = $tr.data("entityId");
+		//调用函数将商品加入收藏
+		addToCollection(entityId, window.location.href);
+		//触发该商品对应的删除按钮的点击事件
+		$tr.find(".entity-delete").click();
+	});
+	
 	//删除选中商品事件
 	$("#cartContainer").on("click","#deleteMore",function(){
 		var $allChecked = $("#cartList input:checked[name='checkProject']");
@@ -207,6 +218,23 @@ $(function(){
 			type:"post",
 			url:"../checkLogin/deleteShoppingCarts.action"
 		});
+	});
+	
+	//将选中商品加入收藏事件
+	$("#cartContainer").on("click","#collecteMore",function(){
+		var $allChecked = $("#cartList input:checked[name='checkProject']");
+		//console.log($allChecked);
+		if($allChecked===undefined || $allChecked===null || $allChecked.length<1) {
+			return;
+		}
+		var array = new Array($allChecked.length);
+		for(var i=0; i<$allChecked.length; i++) {
+			array[i] = $allChecked.eq(i).parents("tr").data("entityId");
+		}
+		//将商品加入收藏夹
+		addMoreToCollection(array, window.location.href);
+		//触发删除选中的购物车商品的按键的单击事件
+		$("#deleteMore").click();
 	});
 	
 	//点击结算

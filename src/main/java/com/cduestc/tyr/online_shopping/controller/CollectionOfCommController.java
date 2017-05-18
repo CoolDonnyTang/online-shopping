@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cduestc.tyr.online_shopping.beans.ResultData;
@@ -55,6 +56,29 @@ public class CollectionOfCommController {
 	public ResultData collectionOperate(Integer commEntityId, Boolean nowStatus, HttpSession session) {
 		try{
 			ResultData rd  = service.addOrRemoveCollectionCommEn(commEntityId, nowStatus, session);
+			return rd;
+		} catch(Exception e) {
+			e.printStackTrace();
+			ResultData rd  = new ResultData();
+			rd.setStatus(-1);
+			rd.setInfo("服务器异常");
+			return rd;
+		}
+	}
+	
+	/**
+	 * 添加多个商品到收藏夹中
+	 * @author tangyanrentyr
+	 * @2017年5月18日 2017年5月18日
+	 * @param commEntitiesId
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/checkLogin/addMoreToCollection.action")
+	@ResponseBody
+	public ResultData addMoreToCollection(@RequestParam(value = "commEntitiesId[]")Integer[] commEntitiesId, HttpSession session) {
+		try{
+			ResultData rd  = service.addMoreToCollection(commEntitiesId, session);
 			return rd;
 		} catch(Exception e) {
 			e.printStackTrace();
