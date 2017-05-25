@@ -38,6 +38,7 @@ public class ShoppingCartDaoImpl implements IShoppingCartDao {
 	@Override
 	public List<Map<String, String>> findShoppingCartEnByUserId(int userId) {
 		String hql = "select new map("
+				+ "c.id as commId, "
 				+ "c.brand as commBrand, "
 				+ "c.titleName as commTitle, "
 				+ "(select ss.id from ShoppingCartBean ss "

@@ -38,7 +38,9 @@ $(function(){
 					   				"<td>" +
 					   					"<div class='media cart-commodity'>" +
 										  "<div class='media-left media-middle'>" +
-										     "<img class='media-object cart-image' src='" + orderDetail[i].mainUrl + "'>" +
+										  "<a href=../detail.html?" + 
+										     window.btoa("commId=" +orderDetail[i].commId + "&commEntityId=" + orderDetail[i].commEntityId)
+										     + "><img class='media-object cart-image' src='" + orderDetail[i].mainUrl + "'></a>" +
 										  "</div>" +
 										  "<div class='media-body comment'>" +
 										    "<p>" + orderDetail[i].commTitle + "</p>" +
@@ -66,6 +68,6 @@ $(function(){
 			}
 		},
 		type : "post",
-		url : "../checkLogin//queryOrderMessage.action"
+		url : "../checkLogin/queryOrderMessage.action"
 	});
 });

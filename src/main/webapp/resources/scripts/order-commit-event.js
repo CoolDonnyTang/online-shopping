@@ -37,7 +37,9 @@ $(function() {
 							+ "<td>"
 							+ "<div class='media cart-commodity'>"
 							+ "<div class='media-left media-middle'>"
-							+ "<img class='media-object cart-image' src='"+ data[i].mainUrl +"'>"
+							+ "<a href=../detail.html?" 
+							+ window.btoa("commId=" +data[i].commId + "&commEntityId=" + data[i].commEntityId)
+						    + "><img class='media-object cart-image' src='"+ data[i].mainUrl +"'></a>"
 							+ "</div>"
 							+ "<div class='media-body comment'>"
 							+ "<p><b>"
@@ -76,7 +78,6 @@ $(function() {
 	});
 	//新建地址按钮点击事件
 	$("#addNewAddr").click(function(){
-		
 		//判断当前是否已有添加区,是隐藏的则显示
 		if($("#addrMessage").is(':hidden')) {
 			$("#addrList").hide();
@@ -111,6 +112,10 @@ $(function() {
 				if (result.status === 1) {
 					$("#addrList").show();
 					$("#addrMessage").hide();
+					//隐藏保存按钮
+					$("#commitAddr").hide();
+					//设置按钮为"添加新地址"
+					$("#addNewAddr").text('添加新地址');
 					//加载收货地址
 					loadAddr();
 				} else {

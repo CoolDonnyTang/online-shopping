@@ -50,7 +50,9 @@ function loadOrder(max, orderStatus) {
 						for(var j=0; j<data[i].entity.length; j++) {
 							$entity = $("<div class='media cart-commodity'>" +
 										  "<div class='media-left media-middle'>" +
-										     "<img class='media-object cart-image' src='" + data[i].entity[j].mainUrl +"'>" +
+										  "<a href=../detail.html?" + 
+										     window.btoa("commId=" +data[i].entity[j].commId + "&commEntityId=" + data[i].entity[j].commEntityId)
+										     + "><img class='media-object cart-image' src='" + data[i].entity[j].mainUrl +"'></a>" +
 										  "</div>" +
 										  "<div class='media-body comment'>" +
 										    "<p>" + data[i].entity[j].commTitle +"</p>" +
@@ -91,7 +93,9 @@ function loadOrder(max, orderStatus) {
 						for(var j=0; j<data[i].entity.length; j++) {
 							$entity = $("<div class='media cart-commodity'>" +
 										  "<div class='media-left media-middle'>" +
-										     "<img class='media-object cart-image' src='" + data[i].entity[j].mainUrl +"'>" +
+										  "<a href=../detail.html?" + 
+										     window.btoa("commId=" +data[i].entity[j].commId + "&commEntityId=" + data[i].entity[j].commEntityId)
+										     + "><img class='media-object cart-image' src='" + data[i].entity[j].mainUrl +"'></a>" +
 										  "</div>" +
 										  "<div class='media-body comment'>" +
 										    "<p>" + data[i].entity[j].commTitle +"</p>" +

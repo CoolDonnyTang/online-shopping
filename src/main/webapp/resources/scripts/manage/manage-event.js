@@ -729,8 +729,8 @@ console.log(id);
             type: "post",
             data: data,
             cache: false,
-            contentType: false,    //不可缺
-            processData: false,    //不可缺
+            contentType: false,    //不可缺,必须false才会自动加上正确的Content-Type
+            processData: false,    //不可缺,必须false才会避开jQuery对 formdata 的默认处理, XMLHttpRequest会对 formdata 进行正确的处理
             error: function() {
             	alert("连接服务器失败");
             },

@@ -1,6 +1,6 @@
 $(function() {
-			var data;
-			//加载分类和分类的单击事件
+	var data;
+	//加载分类和分类的单击事件
 	kindLoadAndOperation();
 	//加载今日推荐
 	loadTodayRecommend();

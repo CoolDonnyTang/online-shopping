@@ -25,7 +25,9 @@ $(function(){
 						   				"<td>"+
 						   					"<div class='media cart-commodity'>"+
 											  "<div class='media-left media-middle'>"+
-											     "<img class='media-object cart-image' src="+ data[i].mainUrl +">"+
+											     "<a href=../detail.html?" + 
+											     window.btoa("commId=" + data[i].commId + "&commEntityId=" + data[i].commentityId)
+											     + "><img class='media-object cart-image' src="+ data[i].mainUrl +"></a>"+
 											  "</div>"+
 											  "<div class='media-body comment'>"+
 											    "<p><b>"+ data[i].commTitle +"</b></p>"+

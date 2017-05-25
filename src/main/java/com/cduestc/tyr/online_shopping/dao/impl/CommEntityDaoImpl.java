@@ -24,6 +24,7 @@ public class CommEntityDaoImpl implements ICommEntityDao {
 	@Override
 	public List<Map<String, String>> findCommEntitiesById(Integer[] ids) {
 		String hql = "select new map("
+				+ "c.id as commId, "
 				+ "c.brand as commBrand, "
 				+ "c.titleName as commTitle, "
 				+ "ce.id as commEntityId, "
@@ -74,6 +75,7 @@ public class CommEntityDaoImpl implements ICommEntityDao {
 	@Override
 	public Map<String, String> findCommEntityById(int id) {
 		String hql = "select new map("
+				+ "c.id as commId, "
 				+ "c.brand as commBrand, "
 				+ "c.titleName as commTitle, "
 				+ "ce.id as commEntityId, "
@@ -97,6 +99,7 @@ public class CommEntityDaoImpl implements ICommEntityDao {
 	public List<Map<String, Object>> findCommEnFirstMainImageByOrderId(
 			Integer orderId) {		
 		String hql = "select new map("
+				+ "c.id as commId, "
 				+ "c.brand as commBrand, "
 				+ "c.titleName as commTitle, "
 				+ "ce.id as commEntityId, "
